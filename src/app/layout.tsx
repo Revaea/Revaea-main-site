@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// 1. 单独导出 viewport 配置 (Next.js 14+ 推荐做法)
+// 1. Export viewport config separately (recommended in Next.js 14+)
 export const viewport: Viewport = {
-  themeColor: "#4CABF7", // 比如天蓝色，手机浏览器顶栏会变色哦！
+  themeColor: "#4CABF7", // Example: sky-blue tint for mobile browser UI.
   colorScheme: "dark light",
 };
 
@@ -24,26 +24,26 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://revaea.com"),
   
   title: {
-    default: "Revaea — 心念织梦之界",
+    default: "Revaea — Woven by Will, Lit by Peace",
     template: "%s | Revaea",
   },
   
-  description: "一个由心念共振所编织的世界：慢与温柔为节拍，爱可唤星辰。",
+  description: "A world woven by resonant will—paced by calm and kindness, where love can awaken the stars.",
   
-  // 2. 关键词 (Keywords)：虽然Google不太看重，但其他引擎还是会看的喵！
-  keywords: ["Revaea", "世界观", "原创设定", "梦境", "Web开发", "心念"],
+  // 2. Keywords: not heavily used by Google, but still helpful for some engines.
+  keywords: ["Revaea", "worldbuilding", "original setting", "dreams", "web development", "will"],
   
-  // 3. 作者与创作者信息
+  // 3. Author / creator info
   authors: [{ name: "IGCrystal", url: "https://IGCrystal.icu" }],
   creator: "IGCrystal",
   publisher: "Revaea",
   
-  // 4. 规范链接 (Canonical)：告诉搜索引擎“我是正版”，防止重复内容降权
+  // 4. Canonical URL
   alternates: {
     canonical: "./",
   },
 
-  // 5. 爬虫控制 (Robots)：热情邀请 Google 进来玩！
+  // 5. Robots
   robots: {
     index: true,
     follow: true,
@@ -57,16 +57,16 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Revaea — 心念织梦之界",
-    description: "一个由心念共振所编织的世界：慢与温柔为节拍，爱可唤星辰。",
+    title: "Revaea — Woven by Will, Lit by Peace",
+    description: "A world woven by resonant will—paced by calm and kindness, where love can awaken the stars.",
     url: "https://revaea.com",
     siteName: "Revaea",
-    locale: "zh_CN",
+    locale: "en_US",
     type: "website",
-    // 6. OG 图片：虽然 Next.js 支持文件路由，但显式声明更稳妥
+    // 6. OG image: explicit declaration is more reliable.
     images: [
       {
-        url: "/og-image.png", // 建议做一张 1200x630 的帅气封面图放在 public 里
+        url: "/og-image.png", // Tip: a 1200x630 cover image works well.
         width: 505,
         height: 339,
         alt: "Revaea World Preview",
@@ -76,8 +76,8 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Revaea — 心念织梦之界",
-    description: "一个由心念共振所编织的世界：慢与温柔为节拍，爱可唤星辰。",
+    title: "Revaea — Woven by Will, Lit by Peace",
+    description: "A world woven by resonant will—paced by calm and kindness, where love can awaken the stars.",
     creator: "@Cedar2352", 
     images: ["/og-image.png"], 
   },
@@ -85,10 +85,10 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
-    apple: "/apple.png", // 苹果设备专用图标
+    apple: "/apple.png", // Apple touch icon
   },
   
-  // 7. 应用程序名称 (如果别人把它添加到主屏幕)
+  // 7. Application name (for "Add to Home Screen")
   applicationName: "Revaea",
 };
 
@@ -98,7 +98,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN" className="scroll-smooth" data-scroll-behavior="smooth">
+    <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth">
       <body 
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-dvh bg-background text-foreground`}
         style={{ overscrollBehavior: 'none' }}

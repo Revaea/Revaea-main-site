@@ -21,8 +21,8 @@ export default function Navbar() {
           <span>Revaea</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm">
-          <Link href="https://c.Revaea.com" className="hover:text-brand flex items-center gap-1"><MessageSquare className="h-4 w-4" />聊天室</Link>
-          <Link href="https://n.Revaea.com" className="hover:text-brand flex items-center gap-1"><NotebookText className="h-4 w-4" />笔记屋</Link>
+          <Link href="https://c.Revaea.com" className="hover:text-brand flex items-center gap-1"><MessageSquare className="h-4 w-4" />Chat</Link>
+          <Link href="https://n.Revaea.com" className="hover:text-brand flex items-center gap-1"><NotebookText className="h-4 w-4" />Notes</Link>
         </nav>
         <Link href="https://github.com/Revaea" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
             className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-black/[.08] dark:border-white/[.145] hover:bg-black/[.04] dark:hover:bg-white/[.06]">

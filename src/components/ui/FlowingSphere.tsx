@@ -3,42 +3,42 @@
 import { useEffect, useRef } from 'react';
 
 export interface FlowingSphereConfig {
-  /** 辉光强度 (0.0 - 1.0+) 默认: 0.42 */
+  /** Glow intensity (0.0 - 1.0+) Default: 0.42 */
   glow?: number;
-  /** 噪点纹理强度 (0.0 - 0.1) 默认: 0.00 */
+  /** Noise texture intensity (0.0 - 0.1) Default: 0.00 */
   noise?: number;
-  /** 光晕扩散强度 (0.5 - 2.0) 默认: 1.21 */
+  /** Bloom spread (0.5 - 2.0) Default: 1.21 */
   bloom?: number;
-  /** 色相偏移 (-1.0 - 1.0) 默认: -0.03 */
+  /** Hue shift (-1.0 - 1.0) Default: -0.03 */
   hueShift?: number;
-  /** 饱和度最小值 (呼吸效果) 默认: 0.5 */
+  /** Min saturation (breathing effect) Default: 0.5 */
   satMin?: number;
-  /** 饱和度最大值 (呼吸效果) 默认: 2.5 */
+  /** Max saturation (breathing effect) Default: 2.5 */
   satMax?: number;
-  /** 饱和度呼吸速度 默认: 1.0 */
+  /** Saturation breathing speed Default: 1.0 */
   satSpeed?: number;
-  /** 星球半径 (0.2 - 1.0) 默认: 0.50 */
+  /** Sphere radius (0.2 - 1.0) Default: 0.50 */
   radius?: number;
-  /** 整体缩放 (0.5 - 2.0) 默认: 1.00 */
+  /** Overall scale (0.5 - 2.0) Default: 1.00 */
   scale?: number;
-  /** 垂直位置偏移 (-1.0 - 1.0) 默认: 0.00 */
+  /** Vertical offset (-1.0 - 1.0) Default: 0.00 */
   offsetY?: number;
-  /** 旋转角度 - Yaw (航向角) 默认: 0 */
+  /** Rotation - yaw Default: 0 */
   rotationYaw?: number;
-  /** 旋转角度 - Pitch (俯仰角) 默认: 0.3 */
+  /** Rotation - pitch Default: 0.3 */
   rotationPitch?: number;
-  /** 旋转角度 - Roll (翻滚角) 默认: 0.2 */
+  /** Rotation - roll Default: 0.2 */
   rotationRoll?: number;
 }
 
 export interface FlowingSphereBackgroundProps {
-  /** 背景配置 */
+  /** Background configuration */
   config?: FlowingSphereConfig;
-  /** 容器类名 */
+  /** Container class name */
   className?: string;
-  /** 容器样式 */
+  /** Container style */
   style?: React.CSSProperties;
-  /** 外部传入的饱和度值, 覆盖默认呼吸效果 (传入 null 或 undefined 恢复呼吸) */
+  /** Override saturation value; set null/undefined to restore breathing */
   saturationOverride?: number | null;
 }
 

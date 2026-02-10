@@ -273,7 +273,7 @@ export default function Whirlpool({
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       
-      // 🌟 窗口大小改变时，重新计算边界
+      // Recompute bounds when the viewport size changes.
       updateViewBounds();
 
       renderer.setSize(width, height);

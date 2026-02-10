@@ -34,7 +34,7 @@ const BackgroundWithMask: React.FC<BackgroundWithMaskProps> = ({
 
   return (
     <div className={`fixed inset-0 overflow-hidden z-0 ${className}`}>
-      {/* MagnetLines 背景层 */}
+      {/* MagnetLines background layer */}
       <div className={`absolute inset-0 flex items-center justify-center ${enableBlur ? 'backdrop-blur-sm' : ''}`}>
         <MagnetLines
           rows={rows}
@@ -48,7 +48,7 @@ const BackgroundWithMask: React.FC<BackgroundWithMaskProps> = ({
         />
       </div>
       
-      {/* 纯色遮罩 */}
+      {/* Solid color mask */}
       <div 
         className={`absolute inset-0 bg-background dark:bg-background`}
         style={{
@@ -56,7 +56,7 @@ const BackgroundWithMask: React.FC<BackgroundWithMaskProps> = ({
         }}
       />
       
-      {/* 内容层 */}
+      {/* Content layer */}
       {children && (
         <div className="relative z-10 h-full">
           {children}
