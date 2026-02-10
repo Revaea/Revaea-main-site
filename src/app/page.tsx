@@ -42,13 +42,13 @@ export default function Home() {
                 />
                 <div className="mt-8 flex items-center gap-6">
                   <GlassReveal delayMs={100}>
-                    <Link href="https://st.Revaea.com/status/all" className="inline-flex h-11 items-center px-6 text-sm font-medium text-brand-foreground bg-brand rounded-md shadow hover:opacity-90 transition-all">
-                      当前状态
+                    <Link href="https://github.com/Revaea" className="inline-flex h-11 items-center px-6 text-sm font-medium text-brand-foreground bg-brand rounded-md shadow hover:opacity-90 transition-all">
+                      Reavea
                     </Link>
                   </GlassReveal>
                   <GlassReveal delayMs={250}>
-                    <Link href="https://github.com/Revaea" className="inline-flex h-11 items-center px-6 text-sm font-medium border rounded-md hover:bg-black/[.04] dark:hover:bg-white/[.06] transition-all">
-                      当前存档
+                    <Link href="https://github.com/Neo-Revaea" className="inline-flex h-11 items-center px-6 text-sm font-medium border rounded-md hover:bg-black/[.04] dark:hover:bg-white/[.06] transition-all">
+                      Neo-Revaea
                     </Link>
                   </GlassReveal>
                 </div>

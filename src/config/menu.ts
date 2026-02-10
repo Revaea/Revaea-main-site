@@ -5,7 +5,6 @@ export const MENU_ITEMS: StaggeredMenuItem[] = [
   { label: "About", ariaLabel: "Learn about me", link: "https://github.com/Revaea" },
   { label: "Note", ariaLabel: "View my notes", link: "https://n.Revaea.com" },
   { label: "Chat", ariaLabel: "Join the chat room", link: "https://c.Revaea.com" },
-  { label: "Status", ariaLabel: "View my services", link: "https://st.Revaea.com" },
 ];
 
 export const SOCIAL_ITEMS: StaggeredMenuSocialItem[] = [
