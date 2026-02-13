@@ -130,7 +130,7 @@ export default function Home() {
             <div className="flex items-start gap-3">
               <Feather className="h-10 w-10 text-brand flex-none self-center" />
               <div>
-                <h2 className="text-3xl font-semibold tracking-tight">
+                <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">
                   <SparklesText
                     as="span"
                     text="A World Woven by Will"
@@ -190,9 +190,9 @@ export default function Home() {
             <div className="mt-4 space-y-2 text-[15px] leading-7 pl-4">
               <div className="text-muted">Common Dream Circles include—</div>
               <ul className="space-y-2 text-muted">
-                <li className="flex items-start gap-2"><Coffee className="h-4 w-4 mt-1 text-brand" /><span><span className="font-medium">Serene Tea Circle</span>: a retreat community centered on spiritual healing and tea meditation.</span></li>
-                <li className="flex items-start gap-2"><BookOpen className="h-4 w-4 mt-1 text-brand" /><span><span className="font-medium">Memory Library</span>: an archive that preserves each resident’s inner visions and lived experiences.</span></li>
-                <li className="flex items-start gap-2"><Palette className="h-4 w-4 mt-1 text-brand" /><span><span className="font-medium">Illusion Garden</span>: artists paint with intention, and their works become semi-real spaces.</span></li>
+                <li className="flex items-start gap-2"><Coffee className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" /><span><span className="font-medium">Serene Tea Circle</span>: a retreat community centered on spiritual healing and tea meditation.</span></li>
+                <li className="flex items-start gap-2"><BookOpen className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" /><span><span className="font-medium">Memory Library</span>: an archive that preserves each resident’s inner visions and lived experiences.</span></li>
+                <li className="flex items-start gap-2"><Palette className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" /><span><span className="font-medium">Illusion Garden</span>: artists paint with intention, and their works become semi-real spaces.</span></li>
               </ul>
             </div>
           </div>
@@ -206,10 +206,10 @@ export default function Home() {
             <h3 className="text-xl font-semibold tracking-tight flex items-center gap-2"><Wand2 className="h-5 w-5 text-brand" />Magic System: Mindcraft</h3>
             <p className="mt-3 text-[15px] leading-7 text-muted pl-4">Magic in Revaea is not the control of external forces, but the manifestation of one’s inner spirit. Power comes from understanding, not conquest.</p>
             <ul className="mt-3 space-y-2 text-[15px] leading-7 text-muted pl-4">
-              <li className="flex items-start gap-2"><Sparkles className="h-4 w-4 mt-1 text-brand" />Manifestation: give form to thoughts, shaped jointly by emotion and understanding.</li>
-              <li className="flex items-start gap-2"><Share2 className="h-4 w-4 mt-1 text-brand" />Resonance Circuits: link multiple minds into a shared thinking loop for true group coordination.</li>
-              <li className="flex items-start gap-2"><MoonStar className="h-4 w-4 mt-1 text-brand" />Dreamweaving: build spaces in dreams, then anchor them into reality through starlight.</li>
-              <li className="flex items-start gap-2"><Gem className="h-4 w-4 mt-1 text-brand" />Temperate Artifacts: heartcrystal-driven magitech that values stability, gentleness, and beauty.</li>
+              <li className="flex items-start gap-2"><Sparkles className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" />Manifestation: give form to thoughts, shaped jointly by emotion and understanding.</li>
+              <li className="flex items-start gap-2"><Share2 className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" />Resonance Circuits: link multiple minds into a shared thinking loop for true group coordination.</li>
+              <li className="flex items-start gap-2"><MoonStar className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" />Dreamweaving: build spaces in dreams, then anchor them into reality through starlight.</li>
+              <li className="flex items-start gap-2"><Gem className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" />Temperate Artifacts: heartcrystal-driven magitech that values stability, gentleness, and beauty.</li>
             </ul>
           </div>
         </section>
