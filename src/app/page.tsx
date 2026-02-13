@@ -56,7 +56,7 @@ export default function Home() {
                 <div className="mt-4 md:mt-6 flex flex-wrap items-center gap-x-4 gap-y-3 sm:gap-6 text-xs text-muted-foreground">
                   <div>
                     <Link
-                      href="https://IGCrystal.icu"
+                      href="/igcrystal"
                       className="inline-flex items-center gap-1.5 text-brand hover:text-brand/90 underline underline-offset-4 decoration-brand/60 transition-colors group"
                     >
                         <BlurText as="span" text="IGCrystal" animateBy="letters" stepDuration={0.25} />

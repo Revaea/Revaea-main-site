@@ -48,6 +48,14 @@ export default function FlowingSphereBackground({
   style = {},
   saturationOverride
 }: FlowingSphereBackgroundProps) {
+  type Uniform<T> = { value: T };
+  type FlowingSphereUniforms = {
+    iResolution: Uniform<Float32Array>;
+    iTime: Uniform<number>;
+    uSaturation: Uniform<number>;
+    uPxScale: Uniform<number>;
+  } & Record<string, Uniform<unknown>>;
+
   const containerRef = useRef<HTMLDivElement>(null);
   const cleanupRef = useRef<(() => void) | null>(null);
   
@@ -98,13 +106,14 @@ export default function FlowingSphereBackground({
         const gl = renderer.gl;
         gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
-        container.appendChild(gl.canvas);
-        gl.canvas.style.width = '100%';
-        gl.canvas.style.height = '100%';
-        gl.canvas.style.display = 'block';
-        gl.canvas.style.pointerEvents = 'none';
-        gl.canvas.style.touchAction = 'none';
-        gl.canvas.setAttribute('aria-hidden', 'true');
+        const canvas = gl.canvas as unknown as HTMLCanvasElement;
+        container.appendChild(canvas);
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        canvas.style.display = 'block';
+        canvas.style.pointerEvents = 'none';
+        canvas.style.touchAction = 'none';
+        canvas.setAttribute('aria-hidden', 'true');
 
         const vertex = /* glsl */ `
           attribute vec2 position;
@@ -174,7 +183,7 @@ export default function FlowingSphereBackground({
         `;
 
         const geometry = new Triangle(gl);
-        const iRes = new Float32Array([gl.canvas.width, gl.canvas.height]);
+        const iRes = new Float32Array([canvas.width, canvas.height]);
 
         const program = new Program(gl, {
           vertex,
@@ -194,6 +203,8 @@ export default function FlowingSphereBackground({
             uPxScale: { value: 1.0 }
           }
         });
+
+        const uniforms = program.uniforms as unknown as FlowingSphereUniforms;
 
         const mesh = new Mesh(gl, { geometry, program });
 
@@ -223,10 +234,10 @@ export default function FlowingSphereBackground({
         const resize = () => {
           if (isDestroyed) return;
           renderer.setSize(window.innerWidth, window.innerHeight);
-          program.uniforms.iResolution.value[0] = gl.canvas.width;
-          program.uniforms.iResolution.value[1] = gl.canvas.height;
-          const h = gl.canvas.height;
-          program.uniforms.uPxScale.value = 1 / (h * 0.1 * finalConfig.scale);
+          uniforms.iResolution.value[0] = canvas.width;
+          uniforms.iResolution.value[1] = canvas.height;
+          const h = canvas.height;
+          uniforms.uPxScale.value = 1 / (h * 0.1 * finalConfig.scale);
         };
 
         window.addEventListener('resize', resize, false);
@@ -242,14 +253,14 @@ export default function FlowingSphereBackground({
           if (startTime === null) startTime = t;
           const elapsed = (t - startTime) * 0.001;
 
-          program.uniforms.iTime.value = elapsed;
+           uniforms.iTime.value = elapsed;
 
           if (saturationOverrideRef.current !== null) {
-             program.uniforms.uSaturation.value = saturationOverrideRef.current;
+             uniforms.uSaturation.value = saturationOverrideRef.current;
           } else {
              const sineWave = (Math.sin(elapsed * finalConfig.satSpeed) + 1.0) / 2.0;
              const currentSat = finalConfig.satMin + (finalConfig.satMax - finalConfig.satMin) * sineWave;
-             program.uniforms.uSaturation.value = currentSat;
+             uniforms.uSaturation.value = currentSat;
           }
 
           renderer.render({ scene: mesh });
@@ -263,8 +274,8 @@ export default function FlowingSphereBackground({
             cancelAnimationFrame(animationFrameId);
           }
           window.removeEventListener('resize', resize);
-          if (gl.canvas && gl.canvas.parentNode) {
-            gl.canvas.parentNode.removeChild(gl.canvas);
+          if (canvas.parentNode) {
+            canvas.parentNode.removeChild(canvas);
           }
         };
 
