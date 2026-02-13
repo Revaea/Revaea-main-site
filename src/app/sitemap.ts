@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = getBaseUrl();
   const staticRoutes = [
     { path: "/", priority: 1.0, changeFrequency: "daily" as const },
+    { path: "/igcrystal", priority: 0.75, changeFrequency: "weekly" as const },
     { path: "/bayhyn", priority: 0.7, changeFrequency: "weekly" as const },
     { path: "/xirayu", priority: 0.8, changeFrequency: "weekly" as const },
     { path: "/privacy", priority: 0.5, changeFrequency: "monthly" as const },
