@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next"
 import Shell from "@/components/Shell";
 import "./globals.css";
-import "./igcrystal.css";
+import "./igcrystal/igcrystal.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   keywords: ["Revaea", "worldbuilding", "original setting", "dreams", "web development", "will"],
   
   // 3. Author / creator info
-  authors: [{ name: "IGCrystal", url: "https://IGCrystal.icu" }],
+  authors: [{ name: "IGCrystal", url: "https://www.revaea.com/igcrystal" }],
   creator: "IGCrystal",
   publisher: "Revaea",
   

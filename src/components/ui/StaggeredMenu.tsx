@@ -44,7 +44,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   displaySocials = true,
   displayItemNumbering = true,
   className,
-  logoUrl = '/src/assets/logos/reactbits-gh-white.svg',
+  logoUrl = '/apple.png',
   displayLogo = true,
   menuButtonColor = '#fff',
   openMenuButtonColor = '#fff',
@@ -435,15 +435,78 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   }, [open]);
 
   return (
-    <div
-      className={`sm-scope z-40 pointer-events-none ${isFixed ? 'fixed top-0 left-0 w-screen h-screen overflow-hidden' : 'w-full h-full'}`}
-    >
-      <div
-        className={(className ? className + ' ' : '') + 'staggered-menu-wrapper relative w-full h-full z-40'}
-        style={accentColor ? ({ '--sm-accent': accentColor } as React.CSSProperties) : undefined}
-        data-position={position}
-        data-open={open || undefined}
+    <>
+      <header
+        className={`staggered-menu-header pointer-events-none z-50 ${
+          isFixed ? 'fixed top-0 left-0 w-full' : 'absolute top-0 left-0 w-full'
+        } flex items-center justify-between p-[2em] bg-transparent`}
+        aria-label="Main navigation header"
       >
+        {displayLogo && (
+          <div className="sm-logo flex h-4 items-center select-none pointer-events-auto" aria-label="Logo">
+            <Image
+              src={logoUrl || '/apple.png'}
+              alt="Logo"
+              className="sm-logo-img block h-4 w-auto object-contain"
+              draggable={false}
+              width={16}
+              height={16}
+            />
+          </div>
+        )}
+
+        <button
+          ref={toggleBtnRef}
+          className={`sm-toggle inline-flex h-4 items-center gap-[0.3rem] bg-transparent border-0 cursor-pointer leading-none overflow-visible pointer-events-auto ${
+            toggleClassName ? '' : 'font-medium text-[#e9e9ef]'
+          } ${toggleClassName || 'ml-auto relative'}`}
+          style={toggleStyle}
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
+          aria-controls="staggered-menu-panel"
+          onClick={toggleMenu}
+          type="button"
+        >
+          <span
+            ref={textWrapRef}
+            className="sm-toggle-textWrap relative inline-block h-[1em] overflow-hidden whitespace-nowrap w-[var(--sm-toggle-width,auto)] min-w-[var(--sm-toggle-width,auto)]"
+            aria-hidden="true"
+          >
+            <span ref={textInnerRef} className="sm-toggle-textInner flex flex-col leading-none">
+              {textLines.map((l, i) => (
+                <span className="sm-toggle-line block h-[1em] leading-none" key={i}>
+                  {l}
+                </span>
+              ))}
+            </span>
+          </span>
+
+          <span
+            ref={iconRef}
+            className="sm-icon relative w-[14px] h-[14px] shrink-0 inline-flex items-center justify-center [will-change:transform]"
+            aria-hidden="true"
+          >
+            <span
+              ref={plusHRef}
+              className="sm-icon-line absolute left-1/2 top-1/2 w-full h-[2px] bg-current rounded-[2px] -translate-x-1/2 -translate-y-1/2 [will-change:transform]"
+            />
+            <span
+              ref={plusVRef}
+              className="sm-icon-line sm-icon-line-v absolute left-1/2 top-1/2 w-full h-[2px] bg-current rounded-[2px] -translate-x-1/2 -translate-y-1/2 [will-change:transform]"
+            />
+          </span>
+        </button>
+      </header>
+
+      <div
+        className={`sm-scope z-40 pointer-events-none ${isFixed ? 'fixed top-0 left-0 w-screen h-screen overflow-hidden' : 'w-full h-full'}`}
+      >
+        <div
+          className={(className ? className + ' ' : '') + 'staggered-menu-wrapper relative w-full h-full z-40'}
+          style={accentColor ? ({ '--sm-accent': accentColor } as React.CSSProperties) : undefined}
+          data-position={position}
+          data-open={open || undefined}
+        >
         <div
           ref={preLayersRef}
           className="sm-prelayers absolute top-0 right-0 bottom-0 pointer-events-none z-[5]"
@@ -465,66 +528,6 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             ));
           })()}
         </div>
-
-        <header
-          className="staggered-menu-header absolute top-0 left-0 w-full flex items-center justify-between p-[2em] bg-transparent pointer-events-none z-20"
-          aria-label="Main navigation header"
-        >
-          {displayLogo && (
-            <div className="sm-logo flex items-center select-none pointer-events-auto" aria-label="Logo">
-              <Image
-                src={logoUrl || '/src/assets/logos/reactbits-gh-white.svg'}
-                alt="Logo"
-                className="sm-logo-img block h-8 w-auto object-contain"
-                draggable={false}
-                width={110}
-                height={24}
-              />
-            </div>
-          )}
-
-          <button
-            ref={toggleBtnRef}
-            className={`sm-toggle ${toggleClassName || 'ml-auto relative'} inline-flex items-center gap-[0.3rem] bg-transparent border-0 cursor-pointer font-medium leading-none overflow-visible pointer-events-auto ${
-              open ? 'text-black' : 'text-[#e9e9ef]'
-            }`}
-            style={toggleStyle}
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            aria-expanded={open}
-            aria-controls="staggered-menu-panel"
-            onClick={toggleMenu}
-            type="button"
-          >
-            <span
-              ref={textWrapRef}
-              className="sm-toggle-textWrap relative inline-block h-[1em] overflow-hidden whitespace-nowrap w-[var(--sm-toggle-width,auto)] min-w-[var(--sm-toggle-width,auto)]"
-              aria-hidden="true"
-            >
-              <span ref={textInnerRef} className="sm-toggle-textInner flex flex-col leading-none">
-                {textLines.map((l, i) => (
-                  <span className="sm-toggle-line block h-[1em] leading-none" key={i}>
-                    {l}
-                  </span>
-                ))}
-              </span>
-            </span>
-
-            <span
-              ref={iconRef}
-              className="sm-icon relative w-[14px] h-[14px] shrink-0 inline-flex items-center justify-center [will-change:transform]"
-              aria-hidden="true"
-            >
-              <span
-                ref={plusHRef}
-                className="sm-icon-line absolute left-1/2 top-1/2 w-full h-[2px] bg-current rounded-[2px] -translate-x-1/2 -translate-y-1/2 [will-change:transform]"
-              />
-              <span
-                ref={plusVRef}
-                className="sm-icon-line sm-icon-line-v absolute left-1/2 top-1/2 w-full h-[2px] bg-current rounded-[2px] -translate-x-1/2 -translate-y-1/2 [will-change:transform]"
-              />
-            </span>
-          </button>
-        </header>
 
         <aside
           id="staggered-menu-panel"
@@ -589,15 +592,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             )}
           </div>
         </aside>
-      </div>
-      <style>{`
-.sm-scope .staggered-menu-wrapper { position: relative; width: 100%; height: 100%; z-index: 40; }
-.sm-scope .staggered-menu-header { position: absolute; top: 0; left: 0; width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 2em; background: transparent; pointer-events: none; z-index: 20; }
-.sm-scope .staggered-menu-header > * { pointer-events: auto; }
-.sm-scope .sm-logo { display: flex; align-items: center; user-select: none; }
-.sm-scope .sm-logo-img { display: block; height: 32px; width: auto; object-fit: contain; }
-.sm-scope .sm-toggle { display: inline-flex; align-items: center; gap: 0.3rem; background: transparent; border: none; cursor: pointer; color: #e9e9ef; font-weight: 500; line-height: 1; overflow: visible; }
-.sm-scope .sm-toggle:focus-visible { outline: 2px solid #ffffffaa; outline-offset: 4px; border-radius: 4px; }
+        </div>
+        <style>{`
+      .sm-scope .staggered-menu-wrapper { position: relative; width: 100%; height: 100%; z-index: 40; }
 .sm-scope .sm-line:last-of-type { margin-top: 6px; }
 .sm-scope .sm-toggle-textWrap { position: relative; margin-right: 0.5em; display: inline-block; height: 1em; overflow: hidden; white-space: nowrap; width: var(--sm-toggle-width, auto); min-width: var(--sm-toggle-width, auto); }
 .sm-scope .sm-toggle-textInner { display: flex; flex-direction: column; line-height: 1; }
@@ -632,9 +629,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 .sm-scope .sm-panel-list[data-numbering] .sm-panel-item::after { counter-increment: smItem; content: counter(smItem, decimal-leading-zero); position: absolute; top: 0.1em; right: 3.2em; font-size: 18px; font-weight: 400; color: var(--sm-accent, #ff0000); letter-spacing: 0; pointer-events: none; user-select: none; opacity: var(--sm-num-opacity, 0); }
 @media (max-width: 1024px) { .sm-scope .staggered-menu-panel { width: 100%; left: 0; right: 0; } .sm-scope .sm-prelayers { width: 100%; left: 0; right: 0; } .sm-scope .staggered-menu-wrapper[data-open] .sm-logo-img { filter: invert(100%); } }
 @media (max-width: 640px) { .sm-scope .staggered-menu-panel { width: 100%; left: 0; right: 0; } .sm-scope .sm-prelayers { width: 100%; left: 0; right: 0; } .sm-scope .staggered-menu-wrapper[data-open] .sm-logo-img { filter: invert(100%); } }
-@media (min-width: 1024px) { .sm-scope .staggered-menu-wrapper[data-open] .sm-toggle { transform: translateX(30px); } }
       `}</style>
-    </div>
+      </div>
+    </>
   );
 };
 

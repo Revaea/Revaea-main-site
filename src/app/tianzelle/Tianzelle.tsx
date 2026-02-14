@@ -1,0 +1,82 @@
+"use client";
+
+import React, { useMemo, useState } from "react";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import ForestHouse from "@/components/ui/ForestHouse";
+import StaggeredMenu from "@/components/ui/StaggeredMenu";
+import { MENU_ITEMS, SOCIAL_ITEMS } from "@/config/menu";
+
+export default function TianzelleShell({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const renderRegion = useMemo(() => {
+    return {
+      anchor: "bottomRight" as const,
+      widthVw: 100,
+      heightVh: 80,
+      maxWidthPx: 2200,
+      maxHeightPx: 1200,
+      marginPx: 0,
+    };
+  }, []);
+
+  return (
+    <div className="tianzelle relative w-full overflow-x-hidden text-white">
+      {/* Pink, healing base tone */}
+      <div className="fixed inset-0 z-0 bg-rose-100 dark:bg-rose-950" />
+
+      <Link
+        href="/"
+        className={`fixed top-6 left-5 md:top-8 md:left-10 lg:left-16 z-50 inline-flex items-center gap-2 text-xs md:text-sm font-light tracking-[0.45em] uppercase text-black/70 dark:text-white/70 transition-all duration-500 hover:text-black dark:hover:text-white group
+          ${isMenuOpen ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"}
+          ${isMenuOpen ? "lg:opacity-100 lg:pointer-events-auto" : ""}
+        `}
+        style={{ fontFamily: "var(--font-geist-mono)" }}
+      >
+        <ArrowLeft className="w-4 h-4 transition-transform duration-300 ease-out group-hover:-translate-x-1" />
+        <span className="tracking-[0.55em]">BACK</span>
+      </Link>
+
+      <StaggeredMenu
+        position="right"
+        items={MENU_ITEMS}
+        socialItems={SOCIAL_ITEMS}
+        displaySocials={true}
+        displayItemNumbering={true}
+        menuButtonColor="var(--tz-menu-toggle-color)"
+        openMenuButtonColor="var(--tz-menu-toggle-color-open)"
+        changeMenuColorOnOpen={true}
+        colors={["#fecdd3ff", "#fb7185ff"]}
+        accentColor="#f43f5eff"
+        isFixed={true}
+        displayLogo={false}
+        toggleClassName="fixed top-6 right-5 md:top-8 md:right-10 lg:right-16 z-50 text-xs md:text-sm !font-light tracking-[0.45em] uppercase transition-opacity duration-500 opacity-90 hover:opacity-100"
+        toggleStyle={{ fontFamily: "var(--font-geist-mono)" }}
+        onMenuOpen={() => setIsMenuOpen(true)}
+        onMenuClose={() => setIsMenuOpen(false)}
+      />
+
+      {/* Bias the fitted camera to keep the house mostly "facing left" */}
+      <ForestHouse
+        transparentBackground
+        mode="followMouse"
+        followStrength={0.5}
+        followThetaRange={0.22}
+        followPhiRange={0}
+        fitToModel
+        fitPadding={0.85}
+        fitAzimuthOffset={Math.PI / 6}
+        fitOffset={{ mode: "screen", x: 0.3, y: 0.15 }}
+        renderRegion={renderRegion}
+        className="opacity-100"
+      />
+
+      <div className="relative z-20">{children}</div>
+    </div>
+  );
+}

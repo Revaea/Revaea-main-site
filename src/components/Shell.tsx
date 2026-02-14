@@ -12,6 +12,8 @@ export default function Shell({ children }: { children: React.ReactNode }) {
     pathname.startsWith("/bayhyn/") ||
     pathname === "/xirayu" ||
     pathname.startsWith("/xirayu/") ||
+    pathname === "/tianzelle" ||
+    pathname.startsWith("/tianzelle/") ||
     pathname === "/igcrystal" ||
     pathname.startsWith("/igcrystal/");
 

@@ -1,0 +1,45 @@
+/* Route-scoped typography tweaks for /tianzelle only.
+  Uses a /tianzelle-only next/font CSS variable (see layout.tsx).
+*/
+
+.tianzelle .tz-cute-title,
+.tianzelle .tz-cute-paragraph {
+  font-family: var(--font-tianzelle-cute), var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
+  font-kerning: normal;
+}
+
+/* Menu toggle colors (StaggeredMenu sets inline `color`).
+  Closed state should follow page contrast; open state should stay visible on the light menu panel.
+*/
+.tianzelle {
+  --tz-menu-toggle-color: rgba(0, 0, 0, 0.7);
+  --tz-menu-toggle-color-open: rgba(0, 0, 0, 0.7);
+}
+
+/* Dark theme overrides.
+  Support both Tailwind darkMode strategies:
+  - class: `.dark` on an ancestor
+  - media: `prefers-color-scheme: dark`
+*/
+:is(.dark .tianzelle, .tianzelle.dark) {
+  --tz-menu-toggle-color: rgba(255, 255, 255, 0.7);
+  --tz-menu-toggle-color-open: rgba(0, 0, 0, 0.75);
+}
+
+@media (prefers-color-scheme: dark) {
+  .tianzelle {
+    --tz-menu-toggle-color: rgba(255, 255, 255, 0.7);
+    --tz-menu-toggle-color-open: rgba(0, 0, 0, 0.75);
+  }
+}
+
+/* Slightly softer, "girly" feel via spacing. */
+.tianzelle .tz-cute-title {
+  letter-spacing: 0.06em;
+}
+
+.tianzelle .tz-cute-paragraph {
+  letter-spacing: 0.02em;
+}
