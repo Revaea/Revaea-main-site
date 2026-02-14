@@ -4,6 +4,7 @@ import React, { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import ForestHouse from "@/components/ui/ForestHouse";
+import FlockingBackground from "@/components/ui/FlockingBackground";
 import StaggeredMenu from "@/components/ui/StaggeredMenu";
 import { MENU_ITEMS, SOCIAL_ITEMS } from "@/config/menu";
 
@@ -30,6 +31,17 @@ export default function TianzelleShell({
       {/* Pink, healing base tone */}
       <div className="fixed inset-0 z-0 bg-rose-100 dark:bg-rose-950" />
 
+      {/* Subtle flocking layer (bottom-most animated background) */}
+      <FlockingBackground
+        className="opacity-50"
+        color="#ff154f"
+        opacity={0.45}
+        forwardAxis="x"
+        simSize={16}
+        bounds={250}
+        mouseStrength={1}
+        mouseMode="repel"
+      />
       <Link
         href="/"
         className={`fixed top-6 left-5 md:top-8 md:left-10 lg:left-16 z-50 inline-flex items-center gap-2 text-xs md:text-sm font-light tracking-[0.45em] uppercase text-black/70 dark:text-white/70 transition-all duration-500 hover:text-black dark:hover:text-white group

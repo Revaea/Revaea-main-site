@@ -83,7 +83,7 @@ export default function Home() {
                   </div>
                   <div>
                     <Link
-                      href="https://github.com/Tianzelle"
+                      href="/tianzelle"
                       className="inline-flex items-center gap-1.5 text-brand hover:text-brand/90 underline underline-offset-4 decoration-brand/60 transition-colors group"
                     >
                         <BlurText as="span" text="Tianzelle" animateBy="letters" stepDuration={0.25} />
