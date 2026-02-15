@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 
 const title = "Tianzelle — One, Two, Three...";
 const description =
@@ -36,22 +35,10 @@ export const metadata: Metadata = {
   },
 };
 
-const cuteRounded = localFont({
-  variable: "--font-tianzelle-cute",
-  src: [
-    {
-      path: "../../assets/fonts/MPLUSRounded1c-Medium.woff2",
-      weight: "500",
-      style: "normal",
-    },
-  ],
-  display: "swap",
-});
-
 export default function TianzelleLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <div className={cuteRounded.variable}>{children}</div>;
+  return <>{children}</>;
 }

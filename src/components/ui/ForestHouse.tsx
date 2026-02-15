@@ -501,7 +501,6 @@ export default function ForestHouse({
             if (attempts++ < maxAttempts) {
               requestAnimationFrame(tryFit);
             } else {
-              // Give up quietly; we'll still render at the current camera.
               renderOnce();
             }
           };
