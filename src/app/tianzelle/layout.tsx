@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { M_PLUS_Rounded_1c } from "next/font/google";
+import localFont from "next/font/local";
 
 const title = "Tianzelle — One, Two, Three...";
 const description =
@@ -36,10 +36,16 @@ export const metadata: Metadata = {
   },
 };
 
-const cuteRounded = M_PLUS_Rounded_1c({
+const cuteRounded = localFont({
   variable: "--font-tianzelle-cute",
-  weight: ["300", "400", "700"],
-  subsets: ["latin"],
+  src: [
+    {
+      path: "../../assets/fonts/MPLUSRounded1c-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+  ],
+  display: "swap",
 });
 
 export default function TianzelleLayout({
