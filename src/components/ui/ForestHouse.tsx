@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
@@ -207,6 +207,7 @@ export default function ForestHouse({
 }: ForestHouseProps): React.JSX.Element {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   const effectiveMode: NonNullable<ForestHouseProps["mode"]> =
     mode ?? (interactive ? "drag" : "static");
@@ -240,7 +241,17 @@ export default function ForestHouse({
     const canvas = canvasRef.current;
     if (!container || !canvas) return;
 
+    // Reset fade-in when (re)initializing (e.g., modelUrl change).
+    setHasLoaded(false);
+
     let disposed = false;
+
+    let didMarkLoaded = false;
+    const markLoaded = () => {
+      if (disposed || didMarkLoaded) return;
+      didMarkLoaded = true;
+      setHasLoaded(true);
+    };
 
     let scene: THREE.Scene | undefined;
     let camera: THREE.PerspectiveCamera | undefined;
@@ -495,6 +506,7 @@ export default function ForestHouse({
             if (sized.ok && sized.viewW > 0 && sized.viewH > 0) {
               fitCameraToObject(gltf.scene);
               updateSize();
+              markLoaded();
               return;
             }
 
@@ -502,6 +514,8 @@ export default function ForestHouse({
               requestAnimationFrame(tryFit);
             } else {
               renderOnce();
+              // Even if we couldn't reliably size+fit, don't keep the canvas hidden.
+              markLoaded();
             }
           };
 
@@ -509,9 +523,12 @@ export default function ForestHouse({
         }
 
         renderOnce();
+        if (!fitToModel) markLoaded();
       })
       .catch((err) => {
         console.error("Failed to load GLB model:", err);
+        // Avoid leaving the canvas permanently transparent on errors.
+        markLoaded();
       });
 
     const handleResize = () => {
@@ -659,7 +676,10 @@ export default function ForestHouse({
       className={`${fullScreen ? "fixed inset-0" : "relative h-full w-full"} overflow-hidden z-0 ${pointerEventsClass} ${className ?? ""}`.trim()}
       style={backgroundStyle}
     >
-      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+      <canvas
+        ref={canvasRef}
+        className={`absolute inset-0 h-full w-full transition-opacity duration-700 ease-out ${hasLoaded ? "opacity-100" : "opacity-0"}`}
+      />
       {children ? <div className="relative z-10 h-full">{children}</div> : null}
     </div>
   );
