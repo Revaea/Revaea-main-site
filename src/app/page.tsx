@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Feather, Sparkles, Heart, Users, Wand2, Music, Coffee, BookOpen, Palette, Share2, MoonStar, Gem, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, BookOpen, Coffee, Feather, Gem, Heart, MoonStar, Music, Palette, Share2, Sparkles, Users, Wand2 } from "lucide-react";
 import Reveal from "@/components/ui/Reveal";
 import BlurText from "@/components/ui/BlurText";
 import BackgroundWithMask from "@/components/ui/BackgroundWithMask";
@@ -23,68 +23,77 @@ export default function Home() {
   return (
     <main className="relative">
       {/* Full-screen background */}
-      <BackgroundWithMask 
+      <BackgroundWithMask
         magnetLinesProps={{
           rows: 18,
           columns: 18,
-          lineColor: '#94a3b8',
-          lineWidth: '0.6vmin',
-          lineHeight: '3vmin',
-          baseAngle: -8
+          lineColor: "#94a3b8",
+          lineWidth: "0.6vmin",
+          lineHeight: "3vmin",
+          baseAngle: -8,
         }}
         maskOpacity={0.85}
         enableBlur={false}
       />
-      
+
       {/* Hero */}
       <section className="relative overflow-hidden min-h-[calc(100vh-4rem)] flex items-center justify-center z-20">
         <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 pt-8 pb-16 md:pt-12 md:pb-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-6 lg:gap-4 items-center">
             <div className="max-w-3xl md:max-w-2xl lg:text-right w-full lg:w-auto mt-6 lg:mt-0 lg:ml-auto lg:mr-16 lg:pr-4">
-                <h1 className="font-sans text-4xl/tight sm:text-4xl/tight md:text-4xl/tight lg:text-6xl/tight font-semibold tracking-tight text-center lg:text-right">
-                  <BlurText as="span" text="Revaea" animateBy="letters" />
-                  <BlurText as="span" className="block text-brand" text="Understanding, Inclusion, Kindness" animateBy="words" />
-                </h1>
-                <BlurText
-                  as="p"
-                  className="mt-4 md:mt-5 text-sm sm:text-base md:text-base lg:text-lg leading-6 sm:leading-7 md:leading-7 text-muted text-center lg:text-right"
-                  text="When winds rise, petals scatter; when rain falls, rainbows appear. Meetings and partings are fleeting—yet always for rebirth."
-                  animateBy="words"
-                  delay={100}
-                />
-                <div className="mt-5 md:mt-6 flex items-center gap-4 sm:gap-6 md:gap-4 lg:gap-6">
-                  <GlassReveal delayMs={100}>
-                    <Link href="https://github.com/Revaea" className="inline-flex h-10 sm:h-11 md:h-10 lg:h-11 items-center px-4 sm:px-6 md:px-4 lg:px-6 text-sm sm:text-base md:text-sm lg:text-base font-medium text-brand-foreground bg-brand rounded-full shadow hover:opacity-90 transition-all">
-                      Reavea
-                    </Link>
-                  </GlassReveal>
-                  <GlassReveal delayMs={250}>
-                    <Link href="https://github.com/Neo-Revaea" className="inline-flex h-10 sm:h-11 md:h-10 lg:h-11 items-center px-4 sm:px-6 md:px-4 lg:px-6 text-sm sm:text-base md:text-sm lg:text-base font-medium border rounded-full hover:bg-black/[.04] dark:hover:bg-white/[.06] transition-all">
-                      Neo-Revaea
-                    </Link>
-                  </GlassReveal>
-                </div>
-
+              <h1 className="font-sans text-4xl/tight sm:text-4xl/tight md:text-4xl/tight lg:text-6xl/tight font-semibold tracking-tight text-center lg:text-right">
+                <BlurText as="span" text="Revaea" animateBy="letters" />
+                <BlurText as="span" className="block text-brand" text="Understanding, Inclusion, Kindness" animateBy="words" />
+              </h1>
+              <BlurText
+                as="p"
+                className="mt-4 md:mt-5 text-sm sm:text-base md:text-base lg:text-lg leading-6 sm:leading-7 md:leading-7 text-muted text-center lg:text-right"
+                text="When winds rise, petals scatter; when rain falls, rainbows appear. Meetings and partings are fleeting—yet always for rebirth."
+                animateBy="words"
+                delay={100}
+              />
+              <div className="mt-5 md:mt-6 flex items-center gap-4 sm:gap-6 md:gap-4 lg:gap-6">
+                <GlassReveal delayMs={100}>
+                  <Link
+                    href="https://github.com/Revaea"
+                    className="inline-flex h-10 sm:h-11 md:h-10 lg:h-11 items-center px-4 sm:px-6 md:px-4 lg:px-6 text-sm sm:text-base md:text-sm lg:text-base font-medium text-brand-foreground bg-brand rounded-full shadow hover:opacity-90 transition-all"
+                  >
+                    Reavea
+                  </Link>
+                </GlassReveal>
+                <GlassReveal delayMs={250}>
+                  <Link
+                    href="https://github.com/Neo-Revaea"
+                    className="inline-flex h-10 sm:h-11 md:h-10 lg:h-11 items-center px-4 sm:px-6 md:px-4 lg:px-6 text-sm sm:text-base md:text-sm lg:text-base font-medium border rounded-full hover:bg-black/[.04] dark:hover:bg-white/[.06] transition-all"
+                  >
+                    Neo-Revaea
+                  </Link>
+                </GlassReveal>
               </div>
+            </div>
+
             <div className="flex justify-start relative lg:-ml-8">
               <div className="absolute inset-0 pointer-events-none select-none">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] sm:w-[250px] sm:h-[250px] md:w-[350px] md:h-[350px] lg:w-[500px] lg:h-[500px] bg-brand/20 dark:bg-brand/10 rounded-full blur-3xl opacity-30" />
               </div>
-              <div className="relative z-10">
-                <GlassReveal className="relative z-10 flex items-center revaea-breathe-on-hover" delayMs={200} rounded="rounded-2xl lg:rounded-3xl">
-                  <Image 
-                    src="/revaea-2.webp"
-                    alt="Revaea" 
-                    width={917}
-                    height={500}
-                    className="revaea-breathe-target w-auto h-auto max-h-[300px] sm:max-h-[350px] md:max-h-[400px] lg:max-h-[500px] object-contain select-none transform-gpu origin-center"
-                    priority
-                    placeholder="blur"
-                    blurDataURL={heroBlurDataURL}
-                  />
+
+              <div className="relative z-10 w-full">
+                <GlassReveal className="relative z-10 revaea-breathe-on-hover" delayMs={200} rounded="rounded-2xl lg:rounded-3xl">
+                  <div className="relative w-full max-w-[480px] sm:max-w-[560px] md:max-w-[640px] lg:max-w-[760px] aspect-[2816/1536]">
+                    <Image
+                      src="/revaea-2.webp"
+                      alt="Revaea"
+                      fill
+                      sizes="(min-width: 1024px) 760px, (min-width: 768px) 640px, (min-width: 640px) 560px, 480px"
+                      className="revaea-breathe-target object-contain select-none transform-gpu origin-center"
+                      priority
+                      placeholder="blur"
+                      blurDataURL={heroBlurDataURL}
+                    />
+                  </div>
                 </GlassReveal>
 
-                <div className="mt-4 md:mt-6 pl-2 sm:pl-3 flex flex-wrap items-center gap-x-4 gap-y-3 sm:gap-6 text-xs text-muted-foreground">
+                <div className="mt-4 md:mt-4 pl-2 sm:pl-3 flex flex-wrap items-center gap-x-4 gap-y-3 md:gap-y-2 sm:gap-6 text-xs text-muted-foreground">
                   <div>
                     <Link
                       href="/igcrystal"
