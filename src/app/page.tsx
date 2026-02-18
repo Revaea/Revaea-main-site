@@ -42,12 +42,12 @@ export default function Home() {
                 />
                 <div className="mt-5 md:mt-8 flex items-center gap-6">
                   <GlassReveal delayMs={100}>
-                    <Link href="https://github.com/Revaea" className="inline-flex h-11 items-center px-6 text-sm font-medium text-brand-foreground bg-brand rounded-md shadow hover:opacity-90 transition-all">
+                    <Link href="https://github.com/Revaea" className="inline-flex h-11 items-center px-6 text-base font-medium text-brand-foreground bg-brand rounded-full shadow hover:opacity-90 transition-all">
                       Reavea
                     </Link>
                   </GlassReveal>
                   <GlassReveal delayMs={250}>
-                    <Link href="https://github.com/Neo-Revaea" className="inline-flex h-11 items-center px-6 text-sm font-medium border rounded-md hover:bg-black/[.04] dark:hover:bg-white/[.06] transition-all">
+                    <Link href="https://github.com/Neo-Revaea" className="inline-flex h-11 items-center px-6 text-base font-medium border rounded-full hover:bg-black/[.04] dark:hover:bg-white/[.06] transition-all">
                       Neo-Revaea
                     </Link>
                   </GlassReveal>
@@ -106,13 +106,13 @@ export default function Home() {
               <div className="absolute inset-0 pointer-events-none select-none">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] sm:w-[250px] sm:h-[250px] md:w-[350px] md:h-[350px] lg:w-[500px] lg:h-[500px] bg-brand/20 dark:bg-brand/10 rounded-full blur-3xl opacity-30" />
               </div>
-              <GlassReveal className="relative z-10 flex items-center" delayMs={200} rounded="rounded-2xl lg:rounded-3xl">
+              <GlassReveal className="relative z-10 flex items-center revaea-breathe-on-hover" delayMs={200} rounded="rounded-2xl lg:rounded-3xl">
                 <Image 
                   src="/revaea-2.webp"
                   alt="Revaea" 
                   width={500}
                   height={500}
-                  className="w-auto h-auto max-h-[300px] sm:max-h-[350px] md:max-h-[400px] lg:max-h-[500px] object-contain select-none"
+                  className="revaea-breathe-target w-auto h-auto max-h-[300px] sm:max-h-[350px] md:max-h-[400px] lg:max-h-[500px] object-contain select-none transform-gpu origin-center"
                   priority
                   placeholder="blur"
                   blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFdQIvw4B6jQAAAABJRU5ErkJggg=="
