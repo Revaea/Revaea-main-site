@@ -53,7 +53,7 @@ export default function Footer() {
           <p className="text-muted">IGCrystal@Revaea.com</p>
         </div>
       </div>
-      <div className="text-center text-xs text-muted-foreground pb-8 px-4">© {new Date().getFullYear()} Revaea. All rights reserved.</div>
+      <div className="text-center text-xs text-muted-foreground pb-8 px-4">© {new Date().getFullYear()} Revaea. Content belongs to respective owners.</div>
     </footer>
   );
 }
