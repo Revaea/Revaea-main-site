@@ -41,7 +41,7 @@ export default function GlassReveal({ children, delayMs = 0, className = "", rou
 
   const visibilityClass = visible
     ? "opacity-100 translate-y-0 backdrop-blur-[2px] border border-white/20 dark:border-white/5 bg-white/5 dark:bg-black/5"
-    : "opacity-0 translate-y-2 backdrop-blur-none bg-transparent border-transparent";
+    : "opacity-0 translate-y-2 backdrop-blur-none bg-transparent border border-transparent";
 
   return (
     <div
