@@ -40,26 +40,45 @@ export default function Home() {
                   animateBy="words"
                   delay={100}
                 />
-                <div className="mt-5 md:mt-8 flex items-center gap-6">
+                <div className="mt-5 md:mt-8 flex items-center gap-4 sm:gap-6">
                   <GlassReveal delayMs={100}>
-                    <Link href="https://github.com/Revaea" className="inline-flex h-11 items-center px-6 text-base font-medium text-brand-foreground bg-brand rounded-full shadow hover:opacity-90 transition-all">
+                    <Link href="https://github.com/Revaea" className="inline-flex h-10 sm:h-11 items-center px-4 sm:px-6 text-sm sm:text-base font-medium text-brand-foreground bg-brand rounded-full shadow hover:opacity-90 transition-all">
                       Reavea
                     </Link>
                   </GlassReveal>
                   <GlassReveal delayMs={250}>
-                    <Link href="https://github.com/Neo-Revaea" className="inline-flex h-11 items-center px-6 text-base font-medium border rounded-full hover:bg-black/[.04] dark:hover:bg-white/[.06] transition-all">
+                    <Link href="https://github.com/Neo-Revaea" className="inline-flex h-10 sm:h-11 items-center px-4 sm:px-6 text-sm sm:text-base font-medium border rounded-full hover:bg-black/[.04] dark:hover:bg-white/[.06] transition-all">
                       Neo-Revaea
                     </Link>
                   </GlassReveal>
                 </div>
-                
-                <div className="mt-4 md:mt-6 flex flex-wrap items-center gap-x-4 gap-y-3 sm:gap-6 text-xs text-muted-foreground">
+
+              </div>
+            <div className="flex justify-start relative lg:-ml-8">
+              <div className="absolute inset-0 pointer-events-none select-none">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] sm:w-[250px] sm:h-[250px] md:w-[350px] md:h-[350px] lg:w-[500px] lg:h-[500px] bg-brand/20 dark:bg-brand/10 rounded-full blur-3xl opacity-30" />
+              </div>
+              <div className="relative z-10">
+                <GlassReveal className="flex items-center revaea-breathe-on-hover" delayMs={200} rounded="rounded-2xl lg:rounded-3xl">
+                  <Image 
+                    src="/revaea-2.webp"
+                    alt="Revaea" 
+                    width={500}
+                    height={500}
+                    className="revaea-breathe-target w-auto h-auto max-h-[300px] sm:max-h-[350px] md:max-h-[400px] lg:max-h-[500px] object-contain select-none transform-gpu origin-center"
+                    priority
+                    placeholder="blur"
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFdQIvw4B6jQAAAABJRU5ErkJggg=="
+                  />
+                </GlassReveal>
+
+                <div className="mt-4 md:mt-6 pl-2 sm:pl-3 flex flex-wrap items-center gap-x-4 gap-y-3 sm:gap-6 text-xs text-muted-foreground">
                   <div>
                     <Link
                       href="/igcrystal"
                       className="inline-flex items-center gap-1.5 text-brand hover:text-brand/90 underline underline-offset-4 decoration-brand/60 transition-colors group"
                     >
-                        <BlurText as="span" text="IGCrystal" animateBy="letters" stepDuration={0.25} />
+                      <BlurText as="span" text="IGCrystal" animateBy="letters" stepDuration={0.25} />
                       <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </Link>
                   </div>
@@ -68,7 +87,7 @@ export default function Home() {
                       href="/bayhyn"
                       className="inline-flex items-center gap-1.5 text-brand hover:text-brand/90 underline underline-offset-4 decoration-brand/60 transition-colors group"
                     >
-                        <BlurText as="span" text="BayHyn" animateBy="letters" stepDuration={0.25} />
+                      <BlurText as="span" text="BayHyn" animateBy="letters" stepDuration={0.25} />
                       <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </Link>
                   </div>
@@ -77,7 +96,7 @@ export default function Home() {
                       href="/xirayu"
                       className="inline-flex items-center gap-1.5 text-brand hover:text-brand/90 underline underline-offset-4 decoration-brand/60 transition-colors group"
                     >
-                        <BlurText as="span" text="Xirayu" animateBy="letters" stepDuration={0.25} />
+                      <BlurText as="span" text="Xirayu" animateBy="letters" stepDuration={0.25} />
                       <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </Link>
                   </div>
@@ -86,7 +105,7 @@ export default function Home() {
                       href="/tianzelle"
                       className="inline-flex items-center gap-1.5 text-brand hover:text-brand/90 underline underline-offset-4 decoration-brand/60 transition-colors group"
                     >
-                        <BlurText as="span" text="Tianzelle" animateBy="letters" stepDuration={0.25} />
+                      <BlurText as="span" text="Tianzelle" animateBy="letters" stepDuration={0.25} />
                       <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </Link>
                   </div>
@@ -95,29 +114,12 @@ export default function Home() {
                       href="https://github.com/Lucodia"
                       className="inline-flex items-center gap-1.5 text-brand hover:text-brand/90 underline underline-offset-4 decoration-brand/60 transition-colors group"
                     >
-                        <BlurText as="span" text="Lucodia" animateBy="letters" stepDuration={0.25} />
+                      <BlurText as="span" text="Lucodia" animateBy="letters" stepDuration={0.25} />
                       <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </Link>
                   </div>
                 </div>
-
               </div>
-            <div className="flex justify-start relative lg:-ml-8">
-              <div className="absolute inset-0 pointer-events-none select-none">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] sm:w-[250px] sm:h-[250px] md:w-[350px] md:h-[350px] lg:w-[500px] lg:h-[500px] bg-brand/20 dark:bg-brand/10 rounded-full blur-3xl opacity-30" />
-              </div>
-              <GlassReveal className="relative z-10 flex items-center revaea-breathe-on-hover" delayMs={200} rounded="rounded-2xl lg:rounded-3xl">
-                <Image 
-                  src="/revaea-2.webp"
-                  alt="Revaea" 
-                  width={500}
-                  height={500}
-                  className="revaea-breathe-target w-auto h-auto max-h-[300px] sm:max-h-[350px] md:max-h-[400px] lg:max-h-[500px] object-contain select-none transform-gpu origin-center"
-                  priority
-                  placeholder="blur"
-                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFdQIvw4B6jQAAAABJRU5ErkJggg=="
-                />
-              </GlassReveal>
             </div>
           </div>
         </div>
