@@ -7,6 +7,18 @@ import BackgroundWithMask from "@/components/ui/BackgroundWithMask";
 import GlassReveal from "@/components/ui/GlassReveal";
 import SparklesText from "@/components/ui/SparklesText";
 
+const heroBlurDataURL = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+  `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+    <defs>
+      <radialGradient id="g" cx="50%" cy="50%" r="65%">
+        <stop offset="0%" stop-color="#94a3b8" stop-opacity="0.16" />
+        <stop offset="100%" stop-color="#94a3b8" stop-opacity="0.04" />
+      </radialGradient>
+    </defs>
+    <rect width="40" height="40" fill="url(#g)" />
+  </svg>`
+)}`;
+
 export default function Home() {
   return (
     <main className="relative">
@@ -28,26 +40,26 @@ export default function Home() {
       <section className="relative overflow-hidden min-h-[calc(100vh-4rem)] flex items-center justify-center z-20">
         <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 pt-8 pb-16 md:pt-12 md:pb-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-6 lg:gap-4 items-center">
-            <div className="max-w-3xl lg:text-right w-full lg:w-auto mt-6 lg:mt-0 lg:ml-auto lg:mr-16 lg:pr-4">
-                <h1 className="font-sans text-4xl/tight sm:text-4xl/tight md:text-5xl/tight lg:text-6xl/tight font-semibold tracking-tight text-center lg:text-right">
+            <div className="max-w-3xl md:max-w-2xl lg:text-right w-full lg:w-auto mt-6 lg:mt-0 lg:ml-auto lg:mr-16 lg:pr-4">
+                <h1 className="font-sans text-4xl/tight sm:text-4xl/tight md:text-4xl/tight lg:text-6xl/tight font-semibold tracking-tight text-center lg:text-right">
                   <BlurText as="span" text="Revaea" animateBy="letters" />
                   <BlurText as="span" className="block text-brand" text="Understanding, Inclusion, Kindness" animateBy="words" />
                 </h1>
                 <BlurText
                   as="p"
-                  className="mt-4 md:mt-6 text-sm sm:text-base md:text-lg leading-6 sm:leading-7 md:leading-7 text-muted text-center lg:text-right"
+                  className="mt-4 md:mt-5 text-sm sm:text-base md:text-base lg:text-lg leading-6 sm:leading-7 md:leading-7 text-muted text-center lg:text-right"
                   text="When winds rise, petals scatter; when rain falls, rainbows appear. Meetings and partings are fleeting—yet always for rebirth."
                   animateBy="words"
                   delay={100}
                 />
-                <div className="mt-5 md:mt-8 flex items-center gap-4 sm:gap-6">
+                <div className="mt-5 md:mt-6 flex items-center gap-4 sm:gap-6 md:gap-4 lg:gap-6">
                   <GlassReveal delayMs={100}>
-                    <Link href="https://github.com/Revaea" className="inline-flex h-10 sm:h-11 items-center px-4 sm:px-6 text-sm sm:text-base font-medium text-brand-foreground bg-brand rounded-full shadow hover:opacity-90 transition-all">
+                    <Link href="https://github.com/Revaea" className="inline-flex h-10 sm:h-11 md:h-10 lg:h-11 items-center px-4 sm:px-6 md:px-4 lg:px-6 text-sm sm:text-base md:text-sm lg:text-base font-medium text-brand-foreground bg-brand rounded-full shadow hover:opacity-90 transition-all">
                       Reavea
                     </Link>
                   </GlassReveal>
                   <GlassReveal delayMs={250}>
-                    <Link href="https://github.com/Neo-Revaea" className="inline-flex h-10 sm:h-11 items-center px-4 sm:px-6 text-sm sm:text-base font-medium border rounded-full hover:bg-black/[.04] dark:hover:bg-white/[.06] transition-all">
+                    <Link href="https://github.com/Neo-Revaea" className="inline-flex h-10 sm:h-11 md:h-10 lg:h-11 items-center px-4 sm:px-6 md:px-4 lg:px-6 text-sm sm:text-base md:text-sm lg:text-base font-medium border rounded-full hover:bg-black/[.04] dark:hover:bg-white/[.06] transition-all">
                       Neo-Revaea
                     </Link>
                   </GlassReveal>
@@ -59,16 +71,16 @@ export default function Home() {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] sm:w-[250px] sm:h-[250px] md:w-[350px] md:h-[350px] lg:w-[500px] lg:h-[500px] bg-brand/20 dark:bg-brand/10 rounded-full blur-3xl opacity-30" />
               </div>
               <div className="relative z-10">
-                <GlassReveal className="flex items-center revaea-breathe-on-hover" delayMs={200} rounded="rounded-2xl lg:rounded-3xl">
+                <GlassReveal className="relative z-10 flex items-center revaea-breathe-on-hover" delayMs={200} rounded="rounded-2xl lg:rounded-3xl">
                   <Image 
                     src="/revaea-2.webp"
                     alt="Revaea" 
-                    width={500}
+                    width={917}
                     height={500}
                     className="revaea-breathe-target w-auto h-auto max-h-[300px] sm:max-h-[350px] md:max-h-[400px] lg:max-h-[500px] object-contain select-none transform-gpu origin-center"
                     priority
                     placeholder="blur"
-                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFdQIvw4B6jQAAAABJRU5ErkJggg=="
+                    blurDataURL={heroBlurDataURL}
                   />
                 </GlassReveal>
 
