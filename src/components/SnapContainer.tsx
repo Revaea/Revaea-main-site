@@ -21,7 +21,8 @@ export default function SnapContainer({ className, snapClassName = "snap-y snap-
       el.scrollTop = 0;
     } catch {}
 
-    setVisible(true);
+    const raf = window.requestAnimationFrame(() => setVisible(true));
+    return () => window.cancelAnimationFrame(raf);
   }, []);
 
   useEffect(() => {

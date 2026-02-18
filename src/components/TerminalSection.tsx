@@ -67,8 +67,11 @@ export default function TerminalSection({
     contentRef.current = lines.join("\n") + "\n";
     idxRef.current = 0;
     bufferRef.current = "";
-    setOutput("");
-    setTypingDone(false);
+    const id = window.setTimeout(() => {
+      setOutput("");
+      setTypingDone(false);
+    }, 0);
+    return () => window.clearTimeout(id);
   }, [lines]);
 
   useEffect(() => {
@@ -109,7 +112,10 @@ export default function TerminalSection({
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setHostLabel(window.location.hostname || "");
+      const id = window.setTimeout(() => {
+        setHostLabel(window.location.hostname || "");
+      }, 0);
+      return () => window.clearTimeout(id);
     }
   }, []);
 

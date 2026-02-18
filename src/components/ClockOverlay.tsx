@@ -18,10 +18,13 @@ export default function ClockOverlay({ className, locale, scoped = false }: Cloc
   );
 
   useEffect(() => {
-    setMounted(true);
+    const mountId = window.setTimeout(() => setMounted(true), 0);
     const tick = () => setNow(new Date());
     const id = window.setInterval(tick, 1000);
-    return () => window.clearInterval(id);
+    return () => {
+      window.clearTimeout(mountId);
+      window.clearInterval(id);
+    };
   }, []);
 
   const hours = `${now.getHours()}`.padStart(2, "0");

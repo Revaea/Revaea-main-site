@@ -601,6 +601,7 @@ const PrismaticBurst = ({
   useEffect(() => {
     const canvas = rendererRef.current?.gl?.canvas as HTMLCanvasElement | undefined;
     if (canvas) {
+      // eslint-disable-next-line react-hooks/immutability
       canvas.style.mixBlendMode = mixBlendMode && mixBlendMode !== 'none' ? mixBlendMode : '';
     }
   }, [mixBlendMode]);

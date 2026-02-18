@@ -13,6 +13,7 @@ export default function LockdownOverlay() {
     delay: number;
     width: number;
     height: number;
+    dumpHex: string;
   }>>([]);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -37,6 +38,7 @@ export default function LockdownOverlay() {
       delay: number;
       width: number;
       height: number;
+      dumpHex: string;
     }> = [];
 
     const coarseCellW = Math.max(72, Math.floor(basePopupWidth * 0.7));
@@ -74,6 +76,7 @@ export default function LockdownOverlay() {
         delay: i * 0.008, 
         width: basePopupWidth,
         height: basePopupHeight,
+        dumpHex: Math.floor(Math.random() * 999999).toString(16).toUpperCase(),
       });
       markVisited(left, top);
 
@@ -257,7 +260,8 @@ export default function LockdownOverlay() {
         delay: 0,
         opacity: 0.9,
         width: 320,
-        height: 140
+        height: 140,
+        dumpHex: Math.floor(Math.random() * 999999).toString(16).toUpperCase(),
       }));
       setPopups(prev => [...prev, ...extra]);
     };
@@ -372,7 +376,7 @@ export default function LockdownOverlay() {
               <div className="font-bold mb-1 text-black">CRITICAL SYSTEM FAILURE</div>
               <div className="text-[11px] leading-tight text-black">
                 System halted.<br/>
-                Memory Dump: 0x{Math.floor(Math.random() * 999999).toString(16).toUpperCase()}<br/>
+                Memory Dump: 0x{p.dumpHex}<br/>
                 Wait...
               </div>
             </div>

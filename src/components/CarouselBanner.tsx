@@ -66,7 +66,10 @@ export default function CarouselBanner({
 
   useEffect(() => {
     if (!inView || nextSrc) return;
-    setNextSrc(makeRandomUrl(baseUrl));
+    const id = window.setTimeout(() => {
+      setNextSrc(makeRandomUrl(baseUrl));
+    }, 0);
+    return () => window.clearTimeout(id);
   }, [inView, baseUrl, nextSrc]);
 
   useEffect(() => {
