@@ -6,6 +6,7 @@ import BlurText from "@/components/ui/BlurText";
 import BackgroundWithMask from "@/components/ui/BackgroundWithMask";
 import GlassReveal from "@/components/ui/GlassReveal";
 import SparklesText from "@/components/ui/SparklesText";
+import HoverButton from "@/components/ui/HoverButton";
 
 const heroBlurDataURL = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
   `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
@@ -54,20 +55,24 @@ export default function Home() {
               />
               <div className="mt-5 md:mt-6 flex items-center gap-4 sm:gap-6 md:gap-4 lg:gap-6">
                 <GlassReveal delayMs={100}>
-                  <Link
+                  <HoverButton
                     href="https://github.com/Revaea"
-                    className="inline-flex h-10 sm:h-11 md:h-10 lg:h-11 items-center px-4 sm:px-6 md:px-4 lg:px-6 text-sm sm:text-base md:text-sm lg:text-base font-medium text-brand-foreground bg-brand rounded-full hover:opacity-90 transition-all"
+                    className="inline-flex h-10 sm:h-11 md:h-10 lg:h-11 items-center px-4 sm:px-6 md:px-4 lg:px-6 text-sm sm:text-base md:text-sm lg:text-base font-medium text-brand-foreground bg-brand rounded-full hover:bg-brand/80 hover:text-brand-foreground hover:opacity-100 transition-all"
+                    circleColor="var(--color-brand)"
+                    circleOpacity={0.14}
                   >
                     Reavea
-                  </Link>
+                  </HoverButton>
                 </GlassReveal>
                 <GlassReveal delayMs={250}>
-                  <Link
+                  <HoverButton
                     href="https://github.com/Neo-Revaea"
-                    className="inline-flex h-10 sm:h-11 md:h-10 lg:h-11 items-center px-4 sm:px-6 md:px-4 lg:px-6 text-sm sm:text-base md:text-sm lg:text-base font-medium border rounded-full hover:bg-black/[.04] dark:hover:bg-white/[.06] transition-all"
+                    className="inline-flex h-10 sm:h-11 md:h-10 lg:h-11 items-center px-4 sm:px-6 md:px-4 lg:px-6 text-sm sm:text-base md:text-sm lg:text-base font-medium rounded-full bg-black/[.04] dark:bg-white/[.06] text-brand hover:bg-brand/05 hover:text-brand transition-all"
+                    circleColor="currentColor"
+                    circleOpacity={0.12}
                   >
                     Neo-Revaea
-                  </Link>
+                  </HoverButton>
                 </GlassReveal>
               </div>
             </div>
