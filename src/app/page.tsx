@@ -89,6 +89,7 @@ export default function Home() {
                     className="relative w-full max-w-[480px] sm:max-w-[560px] md:max-w-[640px] lg:max-w-[760px] aspect-[2816/1536]"
                     circleColor="var(--color-brand)"
                     circleOpacity={0.14}
+                    origin="cursor"
                   >
                     <Image
                       src="/revaea-2.webp"

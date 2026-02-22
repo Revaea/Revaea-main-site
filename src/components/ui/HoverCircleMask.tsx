@@ -8,6 +8,8 @@ export type HoverCircleMaskProps = {
   className?: string;
   circleColor?: string;
   circleOpacity?: number;
+  origin?: "bottom" | "cursor";
+  cursorPaddingPx?: number;
   hoverScale?: number;
   circleDurationMs?: number;
 };
@@ -17,12 +19,15 @@ export default function HoverCircleMask({
   className = "",
   circleColor = "var(--color-brand)",
   circleOpacity = 0.12,
+  origin = "bottom",
+  cursorPaddingPx = 8,
   hoverScale = 1.2,
   circleDurationMs = 500,
 }: HoverCircleMaskProps) {
   const hostRef = useRef<HTMLDivElement | null>(null);
   const circleRef = useRef<HTMLSpanElement | null>(null);
   const requiredScaleRef = useRef<number>(0);
+  const activePointerIdRef = useRef<number | null>(null);
   const prefersReducedRef = useRef(false);
 
   useEffect(() => {
@@ -39,7 +44,12 @@ export default function HoverCircleMask({
     const circleEl = circleRef.current;
     if (!hostEl || !circleEl) return;
 
+    // Reset to a known base state.
+    gsap.set(circleEl, { scale: 0, xPercent: 0, yPercent: 0 });
+
     const layoutCircle = () => {
+      if (origin !== "bottom") return;
+
       const rect = hostEl.getBoundingClientRect();
       const w = rect.width;
       const h = rect.height;
@@ -66,10 +76,13 @@ export default function HoverCircleMask({
 
       circleEl.style.width = `${D}px`;
       circleEl.style.height = `${D}px`;
+      circleEl.style.left = "50%";
       circleEl.style.bottom = `-${delta}px`;
+      circleEl.style.top = "";
 
       gsap.set(circleEl, {
         xPercent: -50,
+        yPercent: 0,
         scale: 0,
         transformOrigin: `50% ${originY}px`,
       });
@@ -78,27 +91,71 @@ export default function HoverCircleMask({
     layoutCircle();
     window.addEventListener("resize", layoutCircle);
     return () => window.removeEventListener("resize", layoutCircle);
-  }, []);
+  }, [origin]);
 
-  const onEnter = useCallback(() => {
-    const circle = circleRef.current;
-    if (!circle) return;
+  const layoutCursorCircleAt = useCallback(
+    (clientX: number, clientY: number) => {
+      const hostEl = hostRef.current;
+      const circleEl = circleRef.current;
+      if (!hostEl || !circleEl) return;
 
-    const effectiveScale = Math.max(hoverScale, requiredScaleRef.current || 0);
+      const rect = hostEl.getBoundingClientRect();
+      const w = rect.width;
+      const h = rect.height;
+      if (w <= 0 || h <= 0) return;
 
-    gsap.killTweensOf(circle);
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
 
-    if (prefersReducedRef.current) {
-      gsap.set(circle, { scale: effectiveScale });
-      return;
-    }
+      const d1 = Math.hypot(x, y);
+      const d2 = Math.hypot(w - x, y);
+      const d3 = Math.hypot(x, h - y);
+      const d4 = Math.hypot(w - x, h - y);
+      const r = Math.max(d1, d2, d3, d4) + cursorPaddingPx;
+      const D = Math.ceil(r * 2);
 
-    gsap.to(circle, {
-      scale: effectiveScale,
-      duration: circleDurationMs / 1000,
-      ease: "power2.out",
-    });
-  }, [circleDurationMs, hoverScale]);
+      requiredScaleRef.current = 1;
+      circleEl.style.width = `${D}px`;
+      circleEl.style.height = `${D}px`;
+      circleEl.style.left = `${x}px`;
+      circleEl.style.top = `${y}px`;
+      circleEl.style.bottom = "";
+
+      gsap.set(circleEl, {
+        xPercent: -50,
+        yPercent: -50,
+        transformOrigin: "50% 50%",
+      });
+    },
+    [cursorPaddingPx]
+  );
+
+  const start = useCallback(
+    (clientX: number, clientY: number) => {
+      const circle = circleRef.current;
+      if (!circle) return;
+
+      if (origin === "cursor") {
+        layoutCursorCircleAt(clientX, clientY);
+      }
+
+      const effectiveScale = origin === "cursor" ? 1 : Math.max(hoverScale, requiredScaleRef.current || 0);
+
+      gsap.killTweensOf(circle);
+
+      if (prefersReducedRef.current) {
+        gsap.set(circle, { scale: effectiveScale });
+        return;
+      }
+
+      gsap.to(circle, {
+        scale: effectiveScale,
+        duration: circleDurationMs / 1000,
+        ease: "power2.out",
+      });
+    },
+    [circleDurationMs, hoverScale, layoutCursorCircleAt, origin]
+  );
 
   const onLeave = useCallback(() => {
     const circle = circleRef.current;
@@ -118,16 +175,65 @@ export default function HoverCircleMask({
     });
   }, [circleDurationMs]);
 
+  const onPointerEnter = useCallback(
+    (ev: React.PointerEvent<HTMLDivElement>) => {
+      // For touch, we start on pointer down instead (hover doesn't exist).
+      if (ev.pointerType === "touch") return;
+      start(ev.clientX, ev.clientY);
+    },
+    [start]
+  );
+
+  const onPointerDown = useCallback(
+    (ev: React.PointerEvent<HTMLDivElement>) => {
+      if (ev.pointerType !== "touch") return;
+
+      activePointerIdRef.current = ev.pointerId;
+      // Capture so we reliably get pointerup/cancel even if the finger moves.
+      try {
+        ev.currentTarget.setPointerCapture(ev.pointerId);
+      } catch {
+        // ignore
+      }
+
+      start(ev.clientX, ev.clientY);
+    },
+    [start]
+  );
+
+  const onPointerUp = useCallback((ev: React.PointerEvent<HTMLDivElement>) => {
+    if (ev.pointerType !== "touch") return;
+    if (activePointerIdRef.current !== ev.pointerId) return;
+    activePointerIdRef.current = null;
+    onLeave();
+  }, [onLeave]);
+
+  const onPointerCancel = useCallback((ev: React.PointerEvent<HTMLDivElement>) => {
+    if (ev.pointerType !== "touch") return;
+    if (activePointerIdRef.current !== ev.pointerId) return;
+    activePointerIdRef.current = null;
+    onLeave();
+  }, [onLeave]);
+
+  const onPointerLeave = useCallback((ev: React.PointerEvent<HTMLDivElement>) => {
+    if (ev.pointerType === "touch") return;
+    onLeave();
+  }, [onLeave]);
+
   return (
     <div
       ref={hostRef}
-      onMouseEnter={onEnter}
-      onMouseLeave={onLeave}
+      onPointerEnter={onPointerEnter}
+      onPointerLeave={onPointerLeave}
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerCancel}
       className={"relative overflow-hidden " + className}
+      style={{ touchAction: "manipulation" }}
     >
       <span
         ref={circleRef}
-        className="absolute left-1/2 bottom-0 -translate-x-1/2 rounded-full z-10 pointer-events-none"
+        className="absolute rounded-full z-10 pointer-events-none"
         style={{ backgroundColor: circleColor, opacity: circleOpacity, transformOrigin: "50% 50%" }}
       />
       <div className="relative z-0 w-full h-full">{children}</div>
