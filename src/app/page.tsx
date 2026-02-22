@@ -7,6 +7,7 @@ import BackgroundWithMask from "@/components/ui/BackgroundWithMask";
 import GlassReveal from "@/components/ui/GlassReveal";
 import SparklesText from "@/components/ui/SparklesText";
 import HoverButton from "@/components/ui/HoverButton";
+import HoverCircleMask from "@/components/ui/HoverCircleMask";
 
 const heroBlurDataURL = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
   `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
@@ -84,7 +85,11 @@ export default function Home() {
 
               <div className="relative z-10 w-full">
                 <GlassReveal className="relative z-10 revaea-breathe-on-hover" delayMs={200} rounded="rounded-2xl lg:rounded-3xl">
-                  <div className="relative w-full max-w-[480px] sm:max-w-[560px] md:max-w-[640px] lg:max-w-[760px] aspect-[2816/1536]">
+                  <HoverCircleMask
+                    className="relative w-full max-w-[480px] sm:max-w-[560px] md:max-w-[640px] lg:max-w-[760px] aspect-[2816/1536]"
+                    circleColor="var(--color-brand)"
+                    circleOpacity={0.14}
+                  >
                     <Image
                       src="/revaea-2.webp"
                       alt="Revaea"
@@ -95,7 +100,7 @@ export default function Home() {
                       placeholder="blur"
                       blurDataURL={heroBlurDataURL}
                     />
-                  </div>
+                  </HoverCircleMask>
                 </GlassReveal>
 
                 <div className="mt-4 md:mt-4 pl-2 sm:pl-3 flex flex-wrap items-center gap-x-4 gap-y-3 md:gap-y-2 sm:gap-6 text-xs text-muted-foreground">
