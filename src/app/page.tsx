@@ -58,6 +58,7 @@ export default function Home() {
                 <GlassReveal delayMs={100}>
                   <HoverButton
                     href="https://github.com/Revaea"
+                    origin="cursor"
                     className="inline-flex h-10 sm:h-11 md:h-10 lg:h-11 items-center px-4 sm:px-6 md:px-4 lg:px-6 text-sm sm:text-base md:text-sm lg:text-base font-medium text-brand-foreground bg-brand rounded-full hover:bg-brand/80 hover:text-brand-foreground dark:hover:bg-brand/80 dark:hover:text-brand-foreground hover:opacity-100 transition-all"
                     circleColor="currentColor"
                     circleOpacity={0.14}
@@ -68,6 +69,7 @@ export default function Home() {
                 <GlassReveal delayMs={250}>
                   <HoverButton
                     href="https://github.com/Neo-Revaea"
+                    origin="cursor"
                     className="inline-flex h-10 sm:h-11 md:h-10 lg:h-11 items-center px-4 sm:px-6 md:px-4 lg:px-6 text-sm sm:text-base md:text-sm lg:text-base font-medium rounded-full bg-black/[.04] dark:bg-white/[.06] text-brand hover:bg-brand/05 hover:text-brand transition-all"
                     circleColor="currentColor"
                     circleOpacity={0.12}

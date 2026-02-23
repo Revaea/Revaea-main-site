@@ -9,6 +9,8 @@ export type HoverButtonProps = {
   children: React.ReactNode;
   circleColor?: string;
   circleOpacity?: number;
+  origin?: "bottom" | "cursor";
+  cursorPaddingPx?: number;
   hoverTextColor?: string;
   hoverScale?: number; // pill circle scale
   circleDurationMs?: number;
@@ -26,6 +28,8 @@ export default function HoverButton({
   children,
   circleColor = "var(--color-brand-foreground)",
   circleOpacity = 0.14,
+  origin = "bottom",
+  cursorPaddingPx = 8,
   hoverTextColor,
   hoverScale = 1.2,
   circleDurationMs = 500,
@@ -45,6 +49,7 @@ export default function HoverButton({
   const labelHeightRef = useRef(0);
   const rollTravelRef = useRef(0);
   const prefersReducedRef = useRef(false);
+  const activePointerIdRef = useRef<number | null>(null);
 
   const isPlainTextChild = typeof children === "string" || typeof children === "number";
   const shouldRollText = isPlainTextChild;
@@ -69,7 +74,12 @@ export default function HoverButton({
     const circleEl = circleRef.current;
     if (!linkEl || !circleEl) return;
 
+    // Reset to a known base state.
+    gsap.set(circleEl, { scale: 0, xPercent: 0, yPercent: 0 });
+
     const layoutCircle = () => {
+      if (origin !== "bottom") return;
+
       const rect = linkEl.getBoundingClientRect();
       const w = rect.width;
       const h = rect.height;
@@ -82,10 +92,13 @@ export default function HoverButton({
 
       circleEl.style.width = `${D}px`;
       circleEl.style.height = `${D}px`;
+      circleEl.style.left = "50%";
       circleEl.style.bottom = `-${delta}px`;
+      circleEl.style.top = "";
 
       gsap.set(circleEl, {
         xPercent: -50,
+        yPercent: 0,
         scale: 0,
         transformOrigin: `50% ${originY}px`,
       });
@@ -94,7 +107,122 @@ export default function HoverButton({
     layoutCircle();
     window.addEventListener("resize", layoutCircle);
     return () => window.removeEventListener("resize", layoutCircle);
-  }, [children]);
+  }, [children, origin]);
+
+  const layoutCursorCircleAt = useCallback(
+    (clientX: number, clientY: number) => {
+      const linkEl = linkRef.current;
+      const circleEl = circleRef.current;
+      if (!linkEl || !circleEl) return;
+
+      const rect = linkEl.getBoundingClientRect();
+      const w = rect.width;
+      const h = rect.height;
+      if (w <= 0 || h <= 0) return;
+
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+
+      const d1 = Math.hypot(x, y);
+      const d2 = Math.hypot(w - x, y);
+      const d3 = Math.hypot(x, h - y);
+      const d4 = Math.hypot(w - x, h - y);
+      const r = Math.max(d1, d2, d3, d4) + cursorPaddingPx;
+      const D = Math.ceil(r * 2);
+
+      circleEl.style.width = `${D}px`;
+      circleEl.style.height = `${D}px`;
+      circleEl.style.left = `${x}px`;
+      circleEl.style.top = `${y}px`;
+      circleEl.style.bottom = "";
+
+      gsap.set(circleEl, {
+        xPercent: -50,
+        yPercent: -50,
+        transformOrigin: "50% 50%",
+      });
+    },
+    [cursorPaddingPx]
+  );
+
+  const start = useCallback(
+    (clientX?: number, clientY?: number) => {
+      const circle = circleRef.current;
+      const contentEl = contentRef.current;
+      if (!circle || !contentEl) return;
+
+      const labelEl = labelRef.current;
+      const hoverLabelEl = hoverLabelRef.current;
+
+      if (origin === "cursor") {
+        const linkEl = linkRef.current;
+        if (linkEl && clientX != null && clientY != null) {
+          layoutCursorCircleAt(clientX, clientY);
+        } else if (linkEl) {
+          const rect = linkEl.getBoundingClientRect();
+          layoutCursorCircleAt(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        }
+      }
+
+      const effectiveScale = origin === "cursor" ? 1 : hoverScale;
+
+      gsap.killTweensOf([circle, contentEl]);
+      if (labelEl) gsap.killTweensOf(labelEl);
+      if (hoverLabelEl) gsap.killTweensOf(hoverLabelEl);
+
+      if (prefersReducedRef.current) {
+        gsap.set(circle, { scale: effectiveScale });
+        if (hoverTextColor) gsap.set(contentEl, { color: hoverTextColor });
+        if (shouldRollText && labelEl && hoverLabelEl) {
+          const travel = rollTravelRef.current || labelHeightRef.current + rollOffsetPx;
+          gsap.set(labelEl, { y: -travel });
+          gsap.set(hoverLabelEl, { y: 0, opacity: 1 });
+        }
+        return;
+      }
+
+      gsap.to(circle, {
+        scale: effectiveScale,
+        duration: circleDurationMs / 1000,
+        ease: "power2.out",
+      });
+
+      if (hoverTextColor) {
+        gsap.to(contentEl, {
+          color: hoverTextColor,
+          duration: 0.3,
+          ease: "power1.inOut",
+        });
+      }
+
+      if (shouldRollText && labelEl && hoverLabelEl) {
+        const travel = rollTravelRef.current || labelHeightRef.current + rollOffsetPx;
+        gsap.to(labelEl, {
+          y: -travel,
+          duration: rollDurationMs / 1000,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
+        gsap.to(hoverLabelEl, {
+          y: 0,
+          opacity: 1,
+          duration: rollDurationMs / 1000,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
+      }
+    },
+    [
+      circleDurationMs,
+      hoverScale,
+      hoverTextColor,
+      layoutCursorCircleAt,
+      origin,
+      rollDurationMs,
+      rollOffsetPx,
+      shouldRollText,
+    ]
+  );
 
   useLayoutEffect(() => {
     if (!shouldRollText) return;
@@ -125,61 +253,6 @@ export default function HoverButton({
 
     return () => window.removeEventListener("resize", layoutText);
   }, [shouldRollText, children, rollOffsetPx]);
-
-  const onEnter = useCallback(() => {
-    const circle = circleRef.current;
-    const contentEl = contentRef.current;
-    if (!circle || !contentEl) return;
-
-    const labelEl = labelRef.current;
-    const hoverLabelEl = hoverLabelRef.current;
-
-    gsap.killTweensOf([circle, contentEl]);
-    if (labelEl) gsap.killTweensOf(labelEl);
-    if (hoverLabelEl) gsap.killTweensOf(hoverLabelEl);
-
-    if (prefersReducedRef.current) {
-      gsap.set(circle, { scale: hoverScale });
-      if (hoverTextColor) gsap.set(contentEl, { color: hoverTextColor });
-      if (shouldRollText && labelEl && hoverLabelEl) {
-        const travel = rollTravelRef.current || labelHeightRef.current + rollOffsetPx;
-        gsap.set(labelEl, { y: -travel });
-        gsap.set(hoverLabelEl, { y: 0, opacity: 1 });
-      }
-      return;
-    }
-
-    gsap.to(circle, {
-      scale: hoverScale,
-      duration: circleDurationMs / 1000,
-      ease: "power2.out",
-    });
-
-    if (hoverTextColor) {
-      gsap.to(contentEl, {
-        color: hoverTextColor,
-        duration: 0.3,
-        ease: "power1.inOut",
-      });
-    }
-
-    if (shouldRollText && labelEl && hoverLabelEl) {
-      const travel = rollTravelRef.current || labelHeightRef.current + rollOffsetPx;
-      gsap.to(labelEl, {
-        y: -travel,
-        duration: rollDurationMs / 1000,
-        ease: "power2.out",
-        overwrite: "auto",
-      });
-      gsap.to(hoverLabelEl, {
-        y: 0,
-        opacity: 1,
-        duration: rollDurationMs / 1000,
-        ease: "power2.out",
-        overwrite: "auto",
-      });
-    }
-  }, [hoverScale, circleDurationMs, hoverTextColor, rollDurationMs, rollOffsetPx, shouldRollText]);
 
   const onLeave = useCallback(() => {
     const circle = circleRef.current;
@@ -236,6 +309,59 @@ export default function HoverButton({
     }
   }, [circleDurationMs, hoverTextColor, rollDurationMs, rollOffsetPx, shouldRollText]);
 
+  const onPointerEnter = useCallback(
+    (ev: React.PointerEvent<HTMLAnchorElement>) => {
+      // For touch, we start on pointer down instead (hover doesn't exist).
+      if (ev.pointerType === "touch") return;
+      start(ev.clientX, ev.clientY);
+    },
+    [start]
+  );
+
+  const onPointerLeave = useCallback(
+    (ev: React.PointerEvent<HTMLAnchorElement>) => {
+      if (ev.pointerType === "touch") return;
+      onLeave();
+    },
+    [onLeave]
+  );
+
+  const onPointerDown = useCallback(
+    (ev: React.PointerEvent<HTMLAnchorElement>) => {
+      if (ev.pointerType !== "touch") return;
+
+      activePointerIdRef.current = ev.pointerId;
+      try {
+        ev.currentTarget.setPointerCapture(ev.pointerId);
+      } catch {
+        // ignore
+      }
+
+      start(ev.clientX, ev.clientY);
+    },
+    [start]
+  );
+
+  const onPointerUp = useCallback(
+    (ev: React.PointerEvent<HTMLAnchorElement>) => {
+      if (ev.pointerType !== "touch") return;
+      if (activePointerIdRef.current !== ev.pointerId) return;
+      activePointerIdRef.current = null;
+      onLeave();
+    },
+    [onLeave]
+  );
+
+  const onPointerCancel = useCallback(
+    (ev: React.PointerEvent<HTMLAnchorElement>) => {
+      if (ev.pointerType !== "touch") return;
+      if (activePointerIdRef.current !== ev.pointerId) return;
+      activePointerIdRef.current = null;
+      onLeave();
+    },
+    [onLeave]
+  );
+
   return (
     <Link
       href={href}
@@ -244,15 +370,19 @@ export default function HoverButton({
       rel={rel}
       aria-label={ariaLabel}
       ref={linkRef}
-      onMouseEnter={onEnter}
-      onMouseLeave={onLeave}
-      onFocus={onEnter}
+      onPointerEnter={onPointerEnter}
+      onPointerLeave={onPointerLeave}
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerCancel}
+      onFocus={() => start()}
       onBlur={onLeave}
       className={"relative overflow-hidden " + className}
+      style={{ touchAction: "manipulation" }}
     >
       <span
         ref={circleRef}
-        className="absolute left-1/2 bottom-0 -translate-x-1/2 rounded-full z-0 pointer-events-none"
+        className="absolute rounded-full z-0 pointer-events-none"
         style={{ backgroundColor: circleColor, opacity: circleOpacity, transformOrigin: "50% 50%" }}
       />
 
