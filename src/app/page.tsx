@@ -98,7 +98,8 @@ export default function Home() {
                       alt="Revaea"
                       fill
                       sizes="(min-width: 1024px) 760px, (min-width: 768px) 640px, (min-width: 640px) 560px, 480px"
-                      className="revaea-breathe-target object-contain select-none transform-gpu origin-center"
+                      className="revaea-breathe-target object-contain select-none [-webkit-user-drag:none] transform-gpu origin-center"
+                      draggable={false}
                       priority
                       placeholder="blur"
                       blurDataURL={heroBlurDataURL}
