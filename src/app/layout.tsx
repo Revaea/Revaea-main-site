@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import Shell from "@/components/Shell";
 import "./globals.css";
 import "./igcrystal/igcrystal.css";
@@ -105,6 +106,7 @@ export default function RootLayout({
         style={{ overscrollBehavior: 'none' }}
       >
         <Analytics/>
+        <SpeedInsights/>
         <Shell>{children}</Shell>
       </body>
     </html>
