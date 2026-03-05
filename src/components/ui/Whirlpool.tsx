@@ -31,6 +31,7 @@ export type WhirlpoolProps = {
   className?: string;
   blur?: number;
   children?: React.ReactNode;
+  onReady?: () => void;
 };
 
 type Instance = {
@@ -51,9 +52,11 @@ export default function Whirlpool({
   className,
   blur = 0,
   children,
+  onReady,
 }: WhirlpoolProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const onReadyRef = useRef<(() => void) | undefined>(onReady);
 
   const blurStyle = useMemo(
     () =>
@@ -68,6 +71,10 @@ export default function Whirlpool({
     if (Math.abs(s - 1) < 0.001) return undefined;
     return { filter: `saturate(${s})` } as React.CSSProperties;
   }, [saturation]);
+
+  useEffect(() => {
+    onReadyRef.current = onReady;
+  }, [onReady]);
 
   useEffect(() => {
     const canvasEl = canvasRef.current;
@@ -95,6 +102,7 @@ export default function Whirlpool({
     let imesh: InstancedMesh | undefined;
     let effectComposer: EffectComposer | undefined;
     let rafId: number | undefined;
+    let didNotifyReady = false;
 
     const light = new PointLight(0x0060ff, 0.5);
 
@@ -243,6 +251,15 @@ export default function Whirlpool({
 
       imesh.instanceMatrix.needsUpdate = true;
       effectComposer.render();
+
+      if (!didNotifyReady) {
+        didNotifyReady = true;
+        try {
+          onReadyRef.current?.();
+        } catch {
+          // ignore
+        }
+      }
     }
 
     function onPointerMove(event: PointerEvent) {
@@ -284,7 +301,7 @@ export default function Whirlpool({
     loadParticleInstances();
     setupScene();
     initInstances();
-    animate();
+    rafId = window.requestAnimationFrame(animate);
 
     if (enablePointerTracking) {
       window.addEventListener("pointermove", onPointerMove, { passive: true });

@@ -2,17 +2,20 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { ArrowLeft } from "lucide-react";
-import ForestHouse from "@/components/ui/ForestHouse";
-import FlockingBackground from "@/components/ui/FlockingBackground";
 import StaggeredMenu from "@/components/ui/StaggeredMenu";
 import { MENU_ITEMS, SOCIAL_ITEMS } from "@/config/menu";
+
+const ForestHouse = dynamic(() => import("@/components/ui/ForestHouse"), { ssr: false });
+const FlockingBackground = dynamic(() => import("@/components/ui/FlockingBackground"), { ssr: false });
 
 export default function TianzelleShell({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const [isLoaded, setIsLoaded] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [viewport, setViewport] = useState<{ w: number; h: number }>(() => {
     if (typeof window === "undefined") return { w: 1024, h: 768 };
@@ -37,6 +40,11 @@ export default function TianzelleShell({
       maxTouchPoints: navigator.maxTouchPoints ?? 0,
     };
   });
+
+  useEffect(() => {
+    const rafId = window.requestAnimationFrame(() => setIsLoaded(true));
+    return () => window.cancelAnimationFrame(rafId);
+  }, []);
 
   useEffect(() => {
     const readViewport = () => {
@@ -142,7 +150,8 @@ export default function TianzelleShell({
       <Link
         href="/"
         className={`fixed top-6 left-5 md:top-8 md:left-10 lg:left-16 z-50 inline-flex items-center gap-2 text-xs md:text-sm font-light tracking-[0.45em] uppercase text-black/70 dark:text-white/70 transition-all duration-500 hover:text-black dark:hover:text-white group
-          ${isMenuOpen ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"}
+          ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}
+          ${isMenuOpen ? "opacity-0 pointer-events-none" : "pointer-events-auto"}
           ${isMenuOpen ? "lg:opacity-100 lg:pointer-events-auto" : ""}
         `}
         style={{ fontFamily: "var(--font-geist-mono)" }}
@@ -164,7 +173,9 @@ export default function TianzelleShell({
         accentColor="#f43f5eff"
         isFixed={true}
         displayLogo={false}
-        toggleClassName="fixed top-6 right-5 md:top-8 md:right-10 lg:right-16 z-50 text-xs md:text-sm !font-light tracking-[0.45em] uppercase transition-opacity duration-500 opacity-90 hover:opacity-100"
+        toggleClassName={`fixed top-6 right-5 md:top-8 md:right-10 lg:right-16 z-50 text-xs md:text-sm !font-light tracking-[0.45em] uppercase transition-all duration-500 hover:opacity-100 ${
+          isLoaded ? "opacity-90 translate-y-0" : "opacity-0 -translate-y-4"
+        }`}
         toggleStyle={{ fontFamily: "var(--font-geist-mono)" }}
         onMenuOpen={() => setIsMenuOpen(true)}
         onMenuClose={() => setIsMenuOpen(false)}

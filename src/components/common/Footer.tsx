@@ -1,18 +1,8 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import { MessageSquare, NotebookText, ShieldCheck, FileText } from "lucide-react";
 
 export default function Footer() {
-  const pathname = usePathname();
-  const hideLayoutChrome = pathname?.startsWith("/xirayu");
-
-  if (hideLayoutChrome) {
-    return null;
-  }
-
   return (
     <footer className="border-t border-black/5 dark:border-white/10 mt-20 relative z-40 backdrop-blur-md bg-white/60 dark:bg-black/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 grid gap-8 md:grid-cols-4 text-sm text-muted">
@@ -27,8 +17,8 @@ export default function Footer() {
         <div>
           <div className="font-medium mb-2">Navigation</div>
           <ul className="space-y-1">
-            <li><Link href="https://c.Revaea.com" className="hover:text-brand flex items-center gap-1"><MessageSquare className="h-4 w-4" />Chat</Link></li>
-            <li><Link href="https://n.Revaea.com" className="hover:text-brand flex items-center gap-1"><NotebookText className="h-4 w-4" />Notes</Link></li>
+            <li><a href="https://c.Revaea.com" className="hover:text-brand flex items-center gap-1"><MessageSquare className="h-4 w-4" />Chat</a></li>
+            <li><a href="https://n.Revaea.com" className="hover:text-brand flex items-center gap-1"><NotebookText className="h-4 w-4" />Notes</a></li>
           </ul>
         </div>
 

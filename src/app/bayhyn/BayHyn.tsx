@@ -1,11 +1,13 @@
 "use client";
 
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { ArrowLeft } from "lucide-react";
-import Whirlpool from "@/components/ui/Whirlpool"; 
 import StaggeredMenu from "@/components/ui/StaggeredMenu";
 import { MENU_ITEMS, SOCIAL_ITEMS } from "@/config/menu";
+
+const Whirlpool = dynamic(() => import("@/components/ui/Whirlpool"), { ssr: false });
 
 type BayHynBackgroundContextValue = {
   setScrollRatio: (ratio01: number) => void;
@@ -22,8 +24,15 @@ export function useBayHynBackground() {
 }
 
 export default function BayHynShell({ children }: { children: React.ReactNode }) {
+  const [isLoaded, setIsLoaded] = useState(false);
   const [scrollRatio, setScrollRatio] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [whirlpoolReady, setWhirlpoolReady] = useState(false);
+
+  useEffect(() => {
+    const rafId = window.requestAnimationFrame(() => setIsLoaded(true));
+    return () => window.cancelAnimationFrame(rafId);
+  }, []);
 
   const saturation = useMemo(() => {
     const r = Math.min(1, Math.max(0, scrollRatio));
@@ -37,7 +46,8 @@ export default function BayHynShell({ children }: { children: React.ReactNode })
       <Link
         href="/"
         className={`fixed top-6 left-5 md:top-8 md:left-10 lg:left-16 z-50 inline-flex items-center gap-2 text-xs md:text-sm font-light tracking-[0.45em] uppercase text-white/70 transition-all duration-500 hover:text-white mix-blend-difference group
-          ${isMenuOpen ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"}
+          ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}
+          ${isMenuOpen ? "opacity-0 pointer-events-none" : "pointer-events-auto"}
           ${isMenuOpen ? "lg:opacity-100 lg:pointer-events-auto" : ""}
         `}
         style={{ fontFamily: "var(--font-geist-mono)" }}
@@ -59,14 +69,20 @@ export default function BayHynShell({ children }: { children: React.ReactNode })
         accentColor="#c793ffff"
         isFixed={true}
         displayLogo={false}
-        toggleClassName="fixed top-6 right-5 md:top-8 md:right-10 lg:right-16 z-50 text-xs md:text-sm font-light tracking-[0.45em] uppercase text-white/70 transition-all duration-500 hover:text-white mix-blend-difference"
+        toggleClassName={`fixed top-6 right-5 md:top-8 md:right-10 lg:right-16 z-50 text-xs md:text-sm font-light tracking-[0.45em] uppercase text-white/70 transition-all duration-500 hover:text-white mix-blend-difference ${
+          isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
+        }`}
         toggleStyle={{ fontFamily: "var(--font-geist-mono)" }}
     
         onMenuOpen={() => setIsMenuOpen(true)}
         onMenuClose={() => setIsMenuOpen(false)}
       />
 
-      <div className="fixed inset-0 z-0 h-dvh w-screen">
+      <div
+        className={`fixed inset-0 z-0 h-dvh w-screen transition-opacity duration-[1200ms] ease-out ${
+          whirlpoolReady ? "opacity-100" : "opacity-0"
+        }`}
+      >
         <Whirlpool 
             className="h-full w-full" 
             blur={0} 
@@ -75,6 +91,11 @@ export default function BayHynShell({ children }: { children: React.ReactNode })
             enablePointerTracking={false}
             attractionStrength={0}
             saturation={saturation}
+            onReady={() => {
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => setWhirlpoolReady(true));
+              });
+            }}
         >
           <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-purple-950/30 via-fuchsia-950/10 to-slate-950/75" />
           <div className="absolute -inset-[18%] pointer-events-none will-change-transform bg-[radial-gradient(circle_at_28%_18%,theme(colors.fuchsia.300/0.14),transparent_55%),radial-gradient(circle_at_72%_78%,theme(colors.violet.300/0.12),transparent_50%)] animate-[revaea-nebula-drift_18s_ease-in-out_infinite] motion-reduce:animate-none" />

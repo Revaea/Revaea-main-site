@@ -82,7 +82,8 @@ const TermsPage = () => {
               animateBy="words"
             />
             <p className="text-sm leading-relaxed text-muted">
-              Welcome to Revaea-Chat (https://c.revaea.com). These terms describe the mindful, respectful environment we build together. Accessing the service means you understand and accept the guidance below.
+              Welcome to Revaea-Chat (https://c.revaea.com). These terms describe the mindful, respectful environment
+              we build together. Accessing the service means you understand and accept the guidance below.
             </p>
           </header>
         </Reveal>
@@ -123,7 +124,8 @@ const TermsPage = () => {
               Updates
             </div>
             <p>
-              Terms may evolve as the service grows. Updates appear here, and continued use after changes indicates acceptance of the revised terms.
+              Terms may evolve as the service grows. Updates appear here, and continued use after changes indicates
+              acceptance of the revised terms.
             </p>
             <div className="flex items-center gap-2 text-base font-semibold text-foreground">
               <ContactRound className="h-5 w-5 text-brand" />

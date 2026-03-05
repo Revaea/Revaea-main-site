@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import PrismaticBurst from "@/components/ui/PrismaticBurst";
+import dynamic from "next/dynamic";
+
+const PrismaticBurst = dynamic(() => import("@/components/ui/PrismaticBurst"), { ssr: false });
 
 export type TerminalSectionProps = {
   lines?: string[];

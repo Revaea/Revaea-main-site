@@ -34,6 +34,10 @@ export default function XirayuShell({
   screenSize: XirayuScreenSize;
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [sphereReady, setSphereReady] = useState(false);
+  const [starfieldReady, setStarfieldReady] = useState(false);
+
+  const backgroundVisible = isLoaded && sphereReady && starfieldReady;
 
   const pageConfig = useMemo(
     () => ({
@@ -84,25 +88,27 @@ export default function XirayuShell({
 
       <FlowingSphereBackground
         className={`pointer-events-none select-none fixed inset-0 transition-opacity duration-[1200ms] ease-out ${
-          isLoaded ? "opacity-100" : "opacity-0"
+          backgroundVisible ? "opacity-100" : "opacity-0"
         }`}
         style={{ zIndex: 0 }}
         config={pageConfig}
         saturationOverride={saturation}
+        onReady={() => setSphereReady(true)}
       />
 
       <StarfieldWarp
         count={screenSize === "mobile" ? 140 : 220}
         color="#3c5c6f6a"
         className={`pointer-events-none select-none fixed inset-0 transition-opacity duration-[1200ms] ease-out ${
-          isLoaded ? "opacity-100" : "opacity-0"
+          backgroundVisible ? "opacity-100" : "opacity-0"
         }`}
-        style={{ zIndex: 0, opacity: isLoaded ? 0.55 : 0 }}
+        style={{ zIndex: 0, opacity: backgroundVisible ? 0.55 : 0 }}
+        onReady={() => setStarfieldReady(true)}
       />
 
       <div
         className={`fixed inset-0 z-0 pointer-events-none bg-gradient-to-t from-black/90 via-black/40 to-transparent lg:hidden transition-opacity duration-[1200ms] ease-out ${
-          isLoaded ? "opacity-80" : "opacity-0"
+          backgroundVisible ? "opacity-80" : "opacity-0"
         }`}
       />
 

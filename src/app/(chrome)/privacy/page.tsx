@@ -89,7 +89,8 @@ const PrivacyPage = () => {
               animateBy="words"
             />
             <p className="text-sm leading-relaxed text-muted">
-              Your privacy matters. This self-hosted instance of Revaea-Chat collects only what is needed to authenticate conversations and keep the community safe.
+              Your privacy matters. This self-hosted instance of Revaea-Chat collects only what is needed to
+              authenticate conversations and keep the community safe.
             </p>
           </header>
         </Reveal>
@@ -140,7 +141,8 @@ const PrivacyPage = () => {
               Contact & Deletion
             </div>
             <p>
-              You may request account removal, revoke Google access, or ask any privacy question by contacting the administrator at
+              You may request account removal, revoke Google access, or ask any privacy question by contacting the
+              administrator at
               <a
                 className="mx-1 font-medium text-brand underline decoration-dotted underline-offset-4 transition hover:text-brand/80"
                 href="mailto:cedar2352@gmail.com"
