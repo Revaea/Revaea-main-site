@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import "./igcrystal.css";
+
 const title = "IGCrystal · ViaLonga Somniviva";
 const description =
   "The wind swept across the vast wilderness, shimmering with silver light, as footprints were slowly swallowed by the stars.";

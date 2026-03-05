@@ -1,9 +1,9 @@
 "use client";
 
 import { useRef, useState } from "react";
-import CarouselBanner from "@/components/CarouselBanner";
-import ClockOverlay from "@/components/ClockOverlay";
-import MusicCard from "@/components/MusicCard";
+import CarouselBanner from "./CarouselBanner";
+import ClockOverlay from "./ClockOverlay";
+import MusicCard from "./MusicCard";
 
 export default function HeroSection() {
   const [parallax, setParallax] = useState<{ x: number; y: number }>({ x: 0, y: 0 });

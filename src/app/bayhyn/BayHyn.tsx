@@ -2,10 +2,12 @@
 
 import { createContext, useContext, useMemo, useState } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { ArrowLeft } from "lucide-react";
-import Whirlpool from "@/components/ui/Whirlpool"; 
 import StaggeredMenu from "@/components/ui/StaggeredMenu";
 import { MENU_ITEMS, SOCIAL_ITEMS } from "@/config/menu";
+
+const Whirlpool = dynamic(() => import("@/components/ui/Whirlpool"), { ssr: false });
 
 type BayHynBackgroundContextValue = {
   setScrollRatio: (ratio01: number) => void;

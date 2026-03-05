@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import TerminalSection from "@/components/TerminalSection";
-import LockdownOverlay from "@/components/LockdownOverlay";
-import SmoothScrollEnhancer from "@/components/SmoothScrollEnhancer";
-import HeroSection from "@/components/HeroSection";
-import ViewportHeightFix from "@/components/ViewportHeightFix";
-import SnapContainer from "@/components/SnapContainer";
+import TerminalSection from "@/components/pages/igcrystal/TerminalSection";
+import LockdownOverlay from "@/components/pages/igcrystal/LockdownOverlay";
+import SmoothScrollEnhancer from "@/components/pages/igcrystal/SmoothScrollEnhancer";
+import HeroSection from "@/components/pages/igcrystal/HeroSection";
+import ViewportHeightFix from "@/components/pages/igcrystal/ViewportHeightFix";
+import SnapContainer from "@/components/pages/igcrystal/SnapContainer";
 
 export const dynamic = "force-dynamic";
 

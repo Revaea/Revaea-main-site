@@ -1,6 +1,20 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, BookOpen, Coffee, Feather, Gem, Heart, MoonStar, Music, Palette, Share2, Sparkles, Users, Wand2 } from "lucide-react";
+import {
+  ArrowUpRight,
+  BookOpen,
+  Coffee,
+  Feather,
+  Gem,
+  Heart,
+  MoonStar,
+  Music,
+  Palette,
+  Share2,
+  Sparkles,
+  Users,
+  Wand2,
+} from "lucide-react";
 import Reveal from "@/components/ui/Reveal";
 import BlurText from "@/components/ui/BlurText";
 import BackgroundWithMask from "@/components/ui/BackgroundWithMask";
@@ -45,7 +59,12 @@ export default function Home() {
             <div className="max-w-3xl md:max-w-2xl lg:text-right w-full lg:w-auto mt-6 lg:mt-0 lg:ml-auto lg:mr-16 lg:pr-4">
               <h1 className="font-sans text-4xl/tight sm:text-4xl/tight md:text-4xl/tight lg:text-6xl/tight font-semibold tracking-tight text-center lg:text-right">
                 <BlurText as="span" text="Revaea" animateBy="letters" />
-                <BlurText as="span" className="block text-brand" text="Understanding, Inclusion, Kindness" animateBy="words" />
+                <BlurText
+                  as="span"
+                  className="block text-brand"
+                  text="Understanding, Inclusion, Kindness"
+                  animateBy="words"
+                />
               </h1>
               <BlurText
                 as="p"
@@ -86,7 +105,11 @@ export default function Home() {
               </div>
 
               <div className="relative z-10 w-full">
-                <GlassReveal className="relative z-10 revaea-breathe-on-hover" delayMs={200} rounded="rounded-2xl lg:rounded-3xl">
+                <GlassReveal
+                  className="relative z-10 revaea-breathe-on-hover"
+                  delayMs={200}
+                  rounded="rounded-2xl lg:rounded-3xl"
+                >
                   <HoverCircleMask
                     className="relative w-full max-w-[480px] sm:max-w-[560px] md:max-w-[640px] lg:max-w-[760px] aspect-[2816/1536]"
                     circleColor="var(--color-brand)"
@@ -182,9 +205,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div
-              className="mt-4 h-[2px] w-full bg-blue-500 dark:bg-blue-500" 
-            />
+            <div className="mt-4 h-[2px] w-full bg-blue-500 dark:bg-blue-500" />
           </div>
         </section>
       </Reveal>
@@ -193,11 +214,24 @@ export default function Home() {
       <Reveal delayMs={80}>
         <section className="py-6 relative z-20">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <h3 className="text-xl font-semibold tracking-tight flex items-center gap-2"><Sparkles className="h-5 w-5 text-brand" />World Overview</h3>
+            <h3 className="text-xl font-semibold tracking-tight flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-brand" />World Overview
+            </h3>
             <div className="mt-3 space-y-3 text-[15px] leading-7 text-muted pl-4">
-              <p>Revaea is a magical world built upon will and intention. Here, reality is not upheld by physical laws, but woven by the shared resolve of individuals and communities: the stronger the belief, the clearer the world becomes. Imagination, wishes—even dreams—can cast themselves into living, tangible forms.</p>
-              <p>Its civilization wears a medieval silhouette—Gothic spires, floating isles, stone streets, and pastoral villages. Yet beneath that gentle surface lies a highly developed magical technology, centered on what locals call “Heartflow Resonance.”</p>
-              <p>There is no internet, but there are “Thought-Conduction Arrays” that let hearts speak across distance. There are no aircraft, but “Spiritwind Stones” can carry you freely through the sky.</p>
+              <p>
+                Revaea is a magical world built upon will and intention. Here, reality is not upheld by physical laws,
+                but woven by the shared resolve of individuals and communities: the stronger the belief, the clearer the
+                world becomes. Imagination, wishes—even dreams—can cast themselves into living, tangible forms.
+              </p>
+              <p>
+                Its civilization wears a medieval silhouette—Gothic spires, floating isles, stone streets, and pastoral
+                villages. Yet beneath that gentle surface lies a highly developed magical technology, centered on what
+                locals call “Heartflow Resonance.”
+              </p>
+              <p>
+                There is no internet, but there are “Thought-Conduction Arrays” that let hearts speak across distance.
+                There are no aircraft, but “Spiritwind Stones” can carry you freely through the sky.
+              </p>
             </div>
           </div>
         </section>
@@ -207,11 +241,22 @@ export default function Home() {
       <Reveal delayMs={120}>
         <section className="py-6 relative z-20">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <h3 className="text-xl font-semibold tracking-tight flex items-center gap-2"><Heart className="h-5 w-5 text-brand" />Core Theme</h3>
+            <h3 className="text-xl font-semibold tracking-tight flex items-center gap-2">
+              <Heart className="h-5 w-5 text-brand" />Core Theme
+            </h3>
             <div className="mt-3 space-y-3 text-[15px] leading-7 text-muted pl-4">
-              <p>Revaea does not glorify war, and it has no faction defined as “evil.” Instead, it is an ongoing experiment in spirit and order—a sustained exploration of what harmony could look like.</p>
-              <p>Every life is encouraged to return to its truest self. Through meditation, creation, and conversation, people resonate with the world—and in this place, the mind is the truth.</p>
-              <p>Everything is a “reflection of the heart.” The purer the emotion, the deeper its influence on reality: anger can summon storms, and love can awaken sleeping stars.</p>
+              <p>
+                Revaea does not glorify war, and it has no faction defined as “evil.” Instead, it is an ongoing
+                experiment in spirit and order—a sustained exploration of what harmony could look like.
+              </p>
+              <p>
+                Every life is encouraged to return to its truest self. Through meditation, creation, and conversation,
+                people resonate with the world—and in this place, the mind is the truth.
+              </p>
+              <p>
+                Everything is a “reflection of the heart.” The purer the emotion, the deeper its influence on reality:
+                anger can summon storms, and love can awaken sleeping stars.
+              </p>
             </div>
           </div>
         </section>
@@ -221,15 +266,42 @@ export default function Home() {
       <Reveal delayMs={160}>
         <section id="cases" className="py-6 relative z-20">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <h3 className="text-xl font-semibold tracking-tight flex items-center gap-2"><Users className="h-5 w-5 text-brand" />Society</h3>
-            <p className="mt-3 text-[15px] leading-7 text-muted pl-4">Revaea’s social structure is loose and free—there are almost no traditional nations or governments. Instead, life gathers into communities known as “Dream Circles.”</p>
-            <p className="mt-3 text-[15px] leading-7 text-muted pl-4">Dream Circles form naturally among people with shared ideals and resonant intentions. They remain independent yet cooperate and support one another. Between them there is no rule—only resonance and response.</p>
+            <h3 className="text-xl font-semibold tracking-tight flex items-center gap-2">
+              <Users className="h-5 w-5 text-brand" />Society
+            </h3>
+            <p className="mt-3 text-[15px] leading-7 text-muted pl-4">
+              Revaea’s social structure is loose and free—there are almost no traditional nations or governments.
+              Instead, life gathers into communities known as “Dream Circles.”
+            </p>
+            <p className="mt-3 text-[15px] leading-7 text-muted pl-4">
+              Dream Circles form naturally among people with shared ideals and resonant intentions. They remain
+              independent yet cooperate and support one another. Between them there is no rule—only resonance and
+              response.
+            </p>
             <div className="mt-4 space-y-2 text-[15px] leading-7 pl-4">
               <div className="text-muted">Common Dream Circles include—</div>
               <ul className="space-y-2 text-muted">
-                <li className="flex items-start gap-2"><Coffee className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" /><span><span className="font-medium">Serene Tea Circle</span>: a retreat community centered on spiritual healing and tea meditation.</span></li>
-                <li className="flex items-start gap-2"><BookOpen className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" /><span><span className="font-medium">Memory Library</span>: an archive that preserves each resident’s inner visions and lived experiences.</span></li>
-                <li className="flex items-start gap-2"><Palette className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" /><span><span className="font-medium">Illusion Garden</span>: artists paint with intention, and their works become semi-real spaces.</span></li>
+                <li className="flex items-start gap-2">
+                  <Coffee className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" />
+                  <span>
+                    <span className="font-medium">Serene Tea Circle</span>: a retreat community centered on spiritual
+                    healing and tea meditation.
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <BookOpen className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" />
+                  <span>
+                    <span className="font-medium">Memory Library</span>: an archive that preserves each resident’s
+                    inner visions and lived experiences.
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Palette className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" />
+                  <span>
+                    <span className="font-medium">Illusion Garden</span>: artists paint with intention, and their works
+                    become semi-real spaces.
+                  </span>
+                </li>
               </ul>
             </div>
           </div>
@@ -240,13 +312,30 @@ export default function Home() {
       <Reveal delayMs={200}>
         <section id="faq" className="py-6 relative z-20">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <h3 className="text-xl font-semibold tracking-tight flex items-center gap-2"><Wand2 className="h-5 w-5 text-brand" />Magic System: Mindcraft</h3>
-            <p className="mt-3 text-[15px] leading-7 text-muted pl-4">Magic in Revaea is not the control of external forces, but the manifestation of one’s inner spirit. Power comes from understanding, not conquest.</p>
+            <h3 className="text-xl font-semibold tracking-tight flex items-center gap-2">
+              <Wand2 className="h-5 w-5 text-brand" />Magic System: Mindcraft
+            </h3>
+            <p className="mt-3 text-[15px] leading-7 text-muted pl-4">
+              Magic in Revaea is not the control of external forces, but the manifestation of one’s inner spirit. Power
+              comes from understanding, not conquest.
+            </p>
             <ul className="mt-3 space-y-2 text-[15px] leading-7 text-muted pl-4">
-              <li className="flex items-start gap-2"><Sparkles className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" />Manifestation: give form to thoughts, shaped jointly by emotion and understanding.</li>
-              <li className="flex items-start gap-2"><Share2 className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" />Resonance Circuits: link multiple minds into a shared thinking loop for true group coordination.</li>
-              <li className="flex items-start gap-2"><MoonStar className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" />Dreamweaving: build spaces in dreams, then anchor them into reality through starlight.</li>
-              <li className="flex items-start gap-2"><Gem className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" />Temperate Artifacts: heartcrystal-driven magitech that values stability, gentleness, and beauty.</li>
+              <li className="flex items-start gap-2">
+                <Sparkles className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" />Manifestation: give
+                form to thoughts, shaped jointly by emotion and understanding.
+              </li>
+              <li className="flex items-start gap-2">
+                <Share2 className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" />Resonance Circuits:
+                link multiple minds into a shared thinking loop for true group coordination.
+              </li>
+              <li className="flex items-start gap-2">
+                <MoonStar className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" />Dreamweaving: build
+                spaces in dreams, then anchor them into reality through starlight.
+              </li>
+              <li className="flex items-start gap-2">
+                <Gem className="h-[18px] w-[18px] mt-1 text-brand flex-none md:h-5 md:w-5" />Temperate Artifacts:
+                heartcrystal-driven magitech that values stability, gentleness, and beauty.
+              </li>
             </ul>
           </div>
         </section>
@@ -256,10 +345,21 @@ export default function Home() {
       <Reveal delayMs={240}>
         <section id="style" className="py-6 relative z-20">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <h3 className="text-2xl font-semibold tracking-tight flex items-center gap-2"><Music className="h-5 w-5 text-brand" />Tone & Style</h3>
-            <p className="mt-3 text-[15px] leading-7 text-muted pl-4">Revaea is like a long poem with no dark chapter. The world moves slowly and gently: floating hot springs at dawn, spirit-song gatherings under starry nights, and the quiet footsteps of catfolk and travelers along silver-vine flower streets.</p>
-            <p className="mt-3 text-[15px] leading-7 text-muted pl-4">All fierce conflicts are long past. What remains is a world that breathes—slowly healing and mending itself.</p>
-            <p className="mt-3 text-[15px] leading-7 text-muted pl-4">Like a living being with a soul, it answers—quietly, tenderly—every heart that has ever been lost.</p>
+            <h3 className="text-2xl font-semibold tracking-tight flex items-center gap-2">
+              <Music className="h-5 w-5 text-brand" />Tone & Style
+            </h3>
+            <p className="mt-3 text-[15px] leading-7 text-muted pl-4">
+              Revaea is like a long poem with no dark chapter. The world moves slowly and gently: floating hot springs
+              at dawn, spirit-song gatherings under starry nights, and the quiet footsteps of catfolk and travelers
+              along silver-vine flower streets.
+            </p>
+            <p className="mt-3 text-[15px] leading-7 text-muted pl-4">
+              All fierce conflicts are long past. What remains is a world that breathes—slowly healing and mending
+              itself.
+            </p>
+            <p className="mt-3 text-[15px] leading-7 text-muted pl-4">
+              Like a living being with a soul, it answers—quietly, tenderly—every heart that has ever been lost.
+            </p>
           </div>
         </section>
       </Reveal>

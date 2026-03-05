@@ -2,11 +2,13 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { ArrowLeft } from "lucide-react";
-import ForestHouse from "@/components/ui/ForestHouse";
-import FlockingBackground from "@/components/ui/FlockingBackground";
 import StaggeredMenu from "@/components/ui/StaggeredMenu";
 import { MENU_ITEMS, SOCIAL_ITEMS } from "@/config/menu";
+
+const ForestHouse = dynamic(() => import("@/components/ui/ForestHouse"), { ssr: false });
+const FlockingBackground = dynamic(() => import("@/components/ui/FlockingBackground"), { ssr: false });
 
 export default function TianzelleShell({
   children,

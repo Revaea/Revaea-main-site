@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import Shell from "@/components/Shell";
 import "./globals.css";
-import "./igcrystal/igcrystal.css";
+
+import { getBaseUrl, getMetadataBase } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +23,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://revaea.com"),
+  metadataBase: getMetadataBase(),
   
   title: {
     default: "Revaea — Woven by Will, Lit by Peace",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Revaea — Woven by Will, Lit by Peace",
     description: "A world woven by resonant will—paced by calm and kindness, where love can awaken the stars.",
-    url: "https://revaea.com",
+    url: getBaseUrl(),
     siteName: "Revaea",
     locale: "en_US",
     type: "website",
@@ -107,7 +107,7 @@ export default function RootLayout({
       >
         <Analytics/>
         <SpeedInsights/>
-        <Shell>{children}</Shell>
+        {children}
       </body>
     </html>
   );
