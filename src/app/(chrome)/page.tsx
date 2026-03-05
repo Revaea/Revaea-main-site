@@ -94,12 +94,12 @@ export default function Home() {
 
               <div className="relative z-10 w-full">
                 <GlassReveal
-                  className="relative z-10 revaea-breathe-on-hover"
+                  className="relative z-10 revaea-breathe-on-hover bg-black/[.04] dark:bg-white/[.06]"
                   delayMs={200}
                   rounded="rounded-2xl lg:rounded-3xl"
                 >
                   <HoverCircleMask
-                    className="relative w-full max-w-[480px] sm:max-w-[560px] md:max-w-[640px] lg:max-w-[760px] aspect-[2816/1536] bg-black/[.04] dark:bg-white/[.06]"
+                    className="relative w-full max-w-[480px] sm:max-w-[560px] md:max-w-[640px] lg:max-w-[760px] aspect-[2816/1536]"
                     circleColor="var(--color-brand)"
                     circleOpacity={0.14}
                     origin="cursor"
