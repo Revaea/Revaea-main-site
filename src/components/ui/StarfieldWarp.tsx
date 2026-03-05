@@ -14,6 +14,7 @@ export type StarfieldWarpProps = {
   count?: number;
   className?: string;
   style?: React.CSSProperties;
+  onReady?: () => void;
 };
 
 function hexToRgb(hex: string) {
@@ -36,10 +37,16 @@ export default function StarfieldWarp({
   count = 200,
   className,
   style,
+  onReady,
 }: StarfieldWarpProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const onReadyRef = useRef<(() => void) | undefined>(onReady);
 
   const rgb = useMemo(() => hexToRgb(color), [color]);
+
+  useEffect(() => {
+    onReadyRef.current = onReady;
+  }, [onReady]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -56,6 +63,7 @@ export default function StarfieldWarp({
     let lastCssWidth = 0;
     let lastCssHeight = 0;
     let lastDpr = 0;
+    let didNotifyReady = false;
 
     function getCssSize() {
       const rect = canvasEl.getBoundingClientRect();
@@ -187,6 +195,15 @@ export default function StarfieldWarp({
           star.z = width || 1;
           star.x = (Math.random() - 0.5) * 2 * width;
           star.y = (Math.random() - 0.5) * 2 * height;
+        }
+      }
+
+      if (!didNotifyReady) {
+        didNotifyReady = true;
+        try {
+          onReadyRef.current?.();
+        } catch {
+          // ignore
         }
       }
     }

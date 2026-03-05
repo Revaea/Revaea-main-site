@@ -26,6 +26,7 @@ export function useBayHynBackground() {
 export default function BayHynShell({ children }: { children: React.ReactNode }) {
   const [scrollRatio, setScrollRatio] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [whirlpoolReady, setWhirlpoolReady] = useState(false);
 
   const saturation = useMemo(() => {
     const r = Math.min(1, Math.max(0, scrollRatio));
@@ -68,7 +69,11 @@ export default function BayHynShell({ children }: { children: React.ReactNode })
         onMenuClose={() => setIsMenuOpen(false)}
       />
 
-      <div className="fixed inset-0 z-0 h-dvh w-screen">
+      <div
+        className={`fixed inset-0 z-0 h-dvh w-screen transition-opacity duration-[1200ms] ease-out ${
+          whirlpoolReady ? "opacity-100" : "opacity-0"
+        }`}
+      >
         <Whirlpool 
             className="h-full w-full" 
             blur={0} 
@@ -77,6 +82,7 @@ export default function BayHynShell({ children }: { children: React.ReactNode })
             enablePointerTracking={false}
             attractionStrength={0}
             saturation={saturation}
+            onReady={() => setWhirlpoolReady(true)}
         >
           <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-purple-950/30 via-fuchsia-950/10 to-slate-950/75" />
           <div className="absolute -inset-[18%] pointer-events-none will-change-transform bg-[radial-gradient(circle_at_28%_18%,theme(colors.fuchsia.300/0.14),transparent_55%),radial-gradient(circle_at_72%_78%,theme(colors.violet.300/0.12),transparent_50%)] animate-[revaea-nebula-drift_18s_ease-in-out_infinite] motion-reduce:animate-none" />

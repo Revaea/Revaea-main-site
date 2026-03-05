@@ -40,13 +40,16 @@ export interface FlowingSphereBackgroundProps {
   style?: React.CSSProperties;
   /** Override saturation value; set null/undefined to restore breathing */
   saturationOverride?: number | null;
+  /** Called after the first successful render frame */
+  onReady?: () => void;
 }
 
 export default function FlowingSphereBackground({ 
   config = {},
   className = '',
   style = {},
-  saturationOverride
+  saturationOverride,
+  onReady,
 }: FlowingSphereBackgroundProps) {
   type Uniform<T> = { value: T };
   type FlowingSphereUniforms = {
@@ -58,12 +61,17 @@ export default function FlowingSphereBackground({
 
   const containerRef = useRef<HTMLDivElement>(null);
   const cleanupRef = useRef<(() => void) | null>(null);
+  const onReadyRef = useRef<(() => void) | undefined>(onReady);
   
   const saturationOverrideRef = useRef<number | null>(null);
 
   useEffect(() => {
     saturationOverrideRef.current = typeof saturationOverride === 'number' ? saturationOverride : null;
   }, [saturationOverride]);
+
+  useEffect(() => {
+    onReadyRef.current = onReady;
+  }, [onReady]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -244,6 +252,7 @@ export default function FlowingSphereBackground({
         resize();
 
         let startTime: number | null = null;
+        let didNotifyReady = false;
 
         const update = (t: number) => {
           if (isDestroyed) return;
@@ -264,6 +273,15 @@ export default function FlowingSphereBackground({
           }
 
           renderer.render({ scene: mesh });
+
+          if (!didNotifyReady) {
+            didNotifyReady = true;
+            try {
+              onReadyRef.current?.();
+            } catch {
+              // ignore
+            }
+          }
         };
 
         animationFrameId = requestAnimationFrame(update);
