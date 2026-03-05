@@ -301,7 +301,7 @@ export default function Whirlpool({
     loadParticleInstances();
     setupScene();
     initInstances();
-    animate();
+    rafId = window.requestAnimationFrame(animate);
 
     if (enablePointerTracking) {
       window.addEventListener("pointermove", onPointerMove, { passive: true });
