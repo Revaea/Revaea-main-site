@@ -1,6 +1,5 @@
-import Link from "next/link";
 import Image from "next/image";
-import { MessageSquare, NotebookText, ShieldCheck, FileText } from "lucide-react";
+import { Rss, Bird, CircleStar, Clapperboard } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -17,24 +16,16 @@ export default function Footer() {
         <div>
           <div className="font-medium mb-2">Navigation</div>
           <ul className="space-y-1">
-            <li><a href="https://c.Revaea.com" className="hover:text-brand flex items-center gap-1"><MessageSquare className="h-4 w-4" />Chat</a></li>
-            <li><a href="https://n.Revaea.com" className="hover:text-brand flex items-center gap-1"><NotebookText className="h-4 w-4" />Notes</a></li>
+            <li><a href="https://blog.igcrystal.icu/blog/" className="hover:text-brand flex items-center gap-1"><Rss className="h-4 w-4" />Blog</a></li>
+            <li><a href="https://hls.revaea.com" className="hover:text-brand flex items-center gap-1"><Clapperboard className="h-4 w-4" />HLS</a></li>
           </ul>
         </div>
 
         <div>
-          <div className="font-medium mb-2">Legal</div>
+          <div className="font-medium mb-2">World</div>
           <ul className="space-y-1">
-            <li>
-              <Link href="/privacy" target="_blank" className="hover:text-brand flex items-center gap-1">
-                <ShieldCheck className="h-4 w-4" />Privacy Policy
-              </Link>
-            </li>
-            <li>
-              <Link href="/terms" target="_blank" className="hover:text-brand flex items-center gap-1">
-                <FileText className="h-4 w-4" />Terms of Service
-              </Link>
-            </li>
+            <li><a href="https://lfl.i0c.cc" className="hover:text-brand flex items-center gap-1"><Bird className="h-4 w-4" />LandfillLand</a></li>
+            <li><a href="https://github.com/Neo-Life" className="hover:text-brand flex items-center gap-1"><CircleStar className="h-4 w-4" />NeoLife</a></li>
           </ul>
         </div>
 

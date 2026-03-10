@@ -10,8 +10,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/bayhyn", priority: 0.7, changeFrequency: "weekly" as const },
     { path: "/xirayu", priority: 0.8, changeFrequency: "weekly" as const },
     { path: "/tianzelle", priority: 0.7, changeFrequency: "weekly" as const },
-    { path: "/privacy", priority: 0.5, changeFrequency: "monthly" as const },
-    { path: "/terms", priority: 0.5, changeFrequency: "monthly" as const },  
   ];
 
   const now = new Date();

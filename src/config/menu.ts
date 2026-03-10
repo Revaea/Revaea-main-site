@@ -4,8 +4,7 @@ export const MENU_ITEMS: StaggeredMenuItem[] = [
   { label: "Home", ariaLabel: "Go to home page", link: "/" },
   { label: "IGCrystal", ariaLabel: "Open IGCrystal page", link: "/igcrystal" },
   { label: "About", ariaLabel: "Learn about me", link: "https://github.com/Revaea" },
-  { label: "Note", ariaLabel: "View my notes", link: "https://n.Revaea.com" },
-  { label: "Chat", ariaLabel: "Join the chat room", link: "https://c.Revaea.com" },
+  { label: "Blog", ariaLabel: "View my blog", link: "https://blog.igcrystal.icu/blog/" },
 ];
 
 export const SOCIAL_ITEMS: StaggeredMenuSocialItem[] = [

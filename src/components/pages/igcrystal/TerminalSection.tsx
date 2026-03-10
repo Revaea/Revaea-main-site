@@ -142,9 +142,6 @@ export default function TerminalSection({
 
   const LINKS = [
     { label: "Blog", href: "https://blog.igcrystal.icu" },
-    { label: "Chat", href: "https://c.revaea.com" },
-    { label: "Note", href: "https://n.revaea.com" },
-    { label: "Status", href: "https://st.revaea.com/status/all" },
   ];
 
   const renderLinks = () => (

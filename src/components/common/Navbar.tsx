@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { MessageSquare, NotebookText } from "lucide-react";
+import { Rss, Clapperboard } from "lucide-react";
 
 export default function Navbar() {
   return (
@@ -11,8 +11,8 @@ export default function Navbar() {
           <span>Revaea</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm">
-          <a href="https://c.Revaea.com" className="hover:text-brand flex items-center gap-1"><MessageSquare className="h-4 w-4" />Chat</a>
-          <a href="https://n.Revaea.com" className="hover:text-brand flex items-center gap-1"><NotebookText className="h-4 w-4" />Notes</a>
+          <a href="https://blog.igcrystal.icu/blog/" className="hover:text-brand flex items-center gap-1"><Rss className="h-4 w-4" />Blog</a>
+          <a href="https://hls.revaea.com" className="hover:text-brand flex items-center gap-1"><Clapperboard className="h-4 w-4" />HLS</a>
         </nav>
         <a
           href="https://github.com/Revaea"
