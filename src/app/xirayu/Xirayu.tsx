@@ -56,7 +56,7 @@ export default function XirayuShell({
         }
           ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}
         `}
-        style={{ fontFamily: "var(--font-geist-mono)" }}
+        style={{ fontFamily: "var(--font-mono-family)" }}
       >
         <ArrowLeft className="w-4 h-4 transition-transform duration-300 ease-out group-hover:-translate-x-1" />
         <span className="tracking-[0.55em]">BACK</span>
@@ -83,7 +83,7 @@ export default function XirayuShell({
           transition-all duration-500 hover:text-white
           ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}
         `}
-        toggleStyle={{ fontFamily: "var(--font-geist-mono)" }}
+        toggleStyle={{ fontFamily: "var(--font-mono-family)" }}
       />
 
       <FlowingSphereBackground

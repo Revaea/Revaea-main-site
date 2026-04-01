@@ -14,7 +14,7 @@
 
 .tianzelle .tz-cute-title,
 .tianzelle .tz-cute-paragraph {
-  font-family: var(--font-tianzelle-cute), var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+  font-family: var(--font-tianzelle-cute), var(--font-ui-family), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
     "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
     "Noto Color Emoji";
   font-kerning: normal;

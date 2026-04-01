@@ -154,7 +154,7 @@ export default function TianzelleShell({
           ${isMenuOpen ? "opacity-0 pointer-events-none" : "pointer-events-auto"}
           ${isMenuOpen ? "lg:opacity-100 lg:pointer-events-auto" : ""}
         `}
-        style={{ fontFamily: "var(--font-geist-mono)" }}
+        style={{ fontFamily: "var(--font-mono-family)" }}
       >
         <ArrowLeft className="w-4 h-4 transition-transform duration-300 ease-out group-hover:-translate-x-1" />
         <span className="tracking-[0.55em]">BACK</span>
@@ -176,7 +176,7 @@ export default function TianzelleShell({
         toggleClassName={`fixed top-6 right-5 md:top-8 md:right-10 lg:right-16 z-50 text-xs md:text-sm !font-light tracking-[0.45em] uppercase transition-all duration-500 hover:opacity-100 ${
           isLoaded ? "opacity-90 translate-y-0" : "opacity-0 -translate-y-4"
         }`}
-        toggleStyle={{ fontFamily: "var(--font-geist-mono)" }}
+        toggleStyle={{ fontFamily: "var(--font-mono-family)" }}
         onMenuOpen={() => setIsMenuOpen(true)}
         onMenuClose={() => setIsMenuOpen(false)}
       />

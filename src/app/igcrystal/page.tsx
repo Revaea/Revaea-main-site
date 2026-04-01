@@ -30,7 +30,7 @@ export default function Home() {
           className={`fixed top-6 left-5 md:top-8 md:left-10 lg:left-16 z-50 inline-flex items-center gap-2 text-xs md:text-sm font-light tracking-[0.45em] uppercase text-white/70 hover:text-white transition-all duration-500 group ${
             isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
           }`}
-          style={{ fontFamily: "var(--font-geist-mono)" }}
+          style={{ fontFamily: "var(--font-mono-family)" }}
         >
           <ArrowLeft className="w-4 h-4 transition-transform duration-300 ease-out group-hover:-translate-x-1" />
           <span className="tracking-[0.55em]">BACK</span>

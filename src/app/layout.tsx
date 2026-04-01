@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Comic_Neue, Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -9,6 +9,13 @@ import { getBaseUrl, getMetadataBase } from "@/lib/site";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+});
+
+const comicNeue = Comic_Neue({
+  variable: "--font-comic-neue",
+  subsets: ["latin"],
+  weight: ["300", "400", "700"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -100,9 +107,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth">
+    <html
+      lang="en"
+      className={`${comicNeue.variable} ${geistSans.variable} ${geistMono.variable} scroll-smooth`}
+      data-scroll-behavior="smooth"
+    >
       <body 
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-dvh bg-background text-foreground`}
+        className="antialiased min-h-dvh bg-background text-foreground"
         style={{ overscrollBehavior: 'none' }}
       >
         <Analytics/>
