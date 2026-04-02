@@ -93,6 +93,17 @@
   }
 }
 
+@keyframes igcyukiraBackIn {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 0.7;
+    transform: translateY(0);
+  }
+}
+
 @keyframes pulse {
   0%,
   100% {
