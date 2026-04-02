@@ -6,6 +6,15 @@ export default function SmoothScrollEnhancer() {
   const lockedRef = useRef(false);
   const rafRef = useRef<number | null>(null);
 
+  const isEditableTarget = (t: EventTarget | null) => {
+    const el = t as HTMLElement | null;
+    if (!el) return false;
+    const tag = el.tagName;
+    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return true;
+    if (el.isContentEditable) return true;
+    return false;
+  };
+
   const getSnapStops = (container: Element) => {
     const sections = Array.from(container.querySelectorAll('.snap-section')) as HTMLElement[];
     const stops = sections
@@ -89,6 +98,10 @@ export default function SmoothScrollEnhancer() {
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.defaultPrevented) return;
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (isEditableTarget(e.target)) return;
+
   const target = document.querySelector('[data-snap-container]');
       if (!target) return;
   if (lockedRef.current) { e.preventDefault(); return; }

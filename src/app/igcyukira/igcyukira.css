@@ -1,0 +1,211 @@
+/* Route-scoped theme + utilities for /igcyukira (migrated from origin_igcyukira). */
+
+.igcyukira {
+  --ice: #e8f4fd;
+  --sky: #b8dff5;
+  --crystal: #7ec8e3;
+  --deep: #3a9bbf;
+  --abyss: #1a5f7a;
+  --white: #ffffff;
+  --dark-mode-bg: #050d14;
+  --dark-mode-accent: #0a2535;
+  --text-primary: #0d2b3e;
+  --text-secondary: #4a7a94;
+  --text-muted: #8ab4c8;
+  --gold: #c8a96e;
+  --transition: cubic-bezier(0.16, 1, 0.3, 1);
+
+  background: var(--ice);
+  color: var(--text-primary);
+  /*
+    Prevent accidental horizontal scroll without creating a scrolling container
+    that can break `position: sticky`.
+  */
+  overflow-x: clip;
+  min-height: 100dvh;
+}
+
+@supports not (overflow: clip) {
+  .igcyukira {
+    overflow-x: hidden;
+  }
+}
+
+/* Font helper classes (Tailwind utilities in origin project). */
+.igcyukira .font-brandSerif {
+  font-family: var(--font-brand-serif), serif;
+}
+
+.igcyukira .font-brandDisplay {
+  font-family: var(--font-brand-display), serif;
+}
+
+.igcyukira .font-brandMono {
+  font-family: var(--font-brand-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}
+
+@media (pointer: fine) {
+  body.has-crystal-cursor,
+  body.has-crystal-cursor * {
+    cursor: none !important;
+  }
+}
+
+@media (pointer: coarse) {
+  #cursor,
+  #cursor-trail {
+    display: none;
+  }
+}
+
+/* ── Animations (for Tailwind arbitrary animate-[...] usage) ── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes blurUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes rotateBorder {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes floatTag {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes scrollLine {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  51% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Reveal utilities (was Tailwind @layer utilities in origin project). */
+.igcyukira .reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 800ms var(--transition), transform 800ms var(--transition);
+  will-change: opacity, transform;
+}
+
+.igcyukira .reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/*
+  Sticky + transform is a known troublemaker across browsers.
+  Keep sticky elements revealable via opacity only, so `position: sticky` can work reliably.
+*/
+.igcyukira .reveal.sticky {
+  transform: none;
+  transition: opacity 800ms var(--transition);
+  will-change: opacity;
+}
+
+.igcyukira .reveal.sticky.visible {
+  transform: none;
+}
+
+.igcyukira .reveal-delay-1 {
+  transition-delay: 0.1s;
+}
+
+.igcyukira .reveal-delay-2 {
+  transition-delay: 0.2s;
+}
+
+.igcyukira .reveal-delay-3 {
+  transition-delay: 0.3s;
+}
+
+.igcyukira .reveal-delay-4 {
+  transition-delay: 0.4s;
+}
+
+/*
+  Formula cards are also reveal targets.
+  After they become visible, remove reveal delays and use a dedicated hover transition
+  (including box-shadow) to avoid any perceived "jump" on hover.
+*/
+.igcyukira .formula-card.reveal.visible {
+  transition: transform 520ms var(--transition), box-shadow 520ms var(--transition);
+  transition-delay: 0s;
+  will-change: transform, box-shadow;
+}
+
+.igcyukira .formula-card.reveal.visible:hover {
+  transition-delay: 0s;
+}

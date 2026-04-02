@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     title,
     description,
     siteName: "Revaea",
-    locale: "zh_CN",
+    locale: "en_US",
     type: "website",
     url,
     images: [

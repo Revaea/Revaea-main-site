@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 const PrismaticBurst = dynamic(() => import("@/components/ui/PrismaticBurst"), { ssr: false });
 
@@ -42,7 +43,7 @@ export default function TerminalSection({
   const [inView, setInView] = useState<boolean>(false);
   const contentRef = useRef<string>("");
   const timeoutRef = useRef<number | null>(null);
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const [input, setInput] = useState<string>("");
   const [entries, setEntries] = useState<Array<React.ReactNode>>([]);
   const [isGlitch, setIsGlitch] = useState<boolean>(false);
@@ -121,6 +122,15 @@ export default function TerminalSection({
     }
   }, []);
 
+  useEffect(() => {
+    const el = inputRef.current;
+    if (!el) return;
+
+    // Auto-grow to fit wrapped lines.
+    el.style.height = "auto";
+    el.style.height = `${el.scrollHeight}px`;
+  }, [input, typingDone]);
+
   const pushEntry = (node: React.ReactNode) => {
     setEntries((prev) => [...prev, node]);
   };
@@ -142,6 +152,9 @@ export default function TerminalSection({
 
   const LINKS = [
     { label: "Blog", href: "https://blog.igcrystal.icu" },
+    { label: "GitHub", href: "https://github.com/IGCrystal" },
+    { label: "Bilibili", href: "https://space.bilibili.com/523637242" },
+    { label: "X (Twitter)", href: "https://x.com/Cedar2352" },
   ];
 
   const renderLinks = () => (
@@ -155,13 +168,13 @@ export default function TerminalSection({
   );
 
   const handleCommand = (cmdRaw: string) => {
-    const cmd = cmdRaw.trim().toLowerCase();
+    const cmd = cmdRaw.trim().replace(/\s+/g, " ").toLowerCase();
     if (!cmd) return;
     switch (cmd) {
       case "help": {
         pushEntry(
           <div>
-            Available commands: <span className="text-emerald-400">help</span>, <span className="text-emerald-400">others</span>, <span className="text-emerald-400">aboutme</span>, <span className="text-emerald-400">clear</span>, <span className="text-emerald-400">rm</span>
+            Available commands: <span className="text-emerald-400">help</span>, <span className="text-emerald-400">others</span>, <span className="text-emerald-400">about</span>, <span className="text-emerald-400">clear</span>, <span className="text-emerald-400">remove all</span>
           </div>
         );
         break;
@@ -169,18 +182,23 @@ export default function TerminalSection({
       case "others":
         pushEntry(renderLinks());
         break;
-      case "aboutme":
+      case "about":
         pushEntry(
           <div>
-            ViaLonga · Somniviva — building quiet, long roads and bright dreams.
+            <div>ViaLonga · Somniviva — building quiet, long roads and bright dreams.</div>
+            <div className="mt-2">
+              Learn about{" "}
+              <Link className="underline decoration-dotted hover:opacity-90" href="/igcyukira">
+                IGCrystal
+              </Link>
+            </div>
           </div>
         );
         break;
       case "clear":
         setEntries([]);
         break;
-      case "remove":
-      case "rm": {
+      case "remove all": {
         pushEntry(
           <div className="text-red-400">
             This operation will crash the system. Continue? [y/N]
@@ -221,7 +239,7 @@ export default function TerminalSection({
     setPendingConfirm(null);
   };
 
-  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (!typingDone) return;
     const { key } = e;
     if (key === "Enter") {
@@ -305,14 +323,14 @@ export default function TerminalSection({
 {typingDone ? (
   <> 
     {"\n"} 
-    <div className="flex flex-nowrap items-center gap-0 whitespace-nowrap break-normal overflow-x-auto max-w-full">
+    <div className="flex flex-wrap items-start gap-x-0 gap-y-1 break-words max-w-full">
       <span className="text-emerald-400">{username}</span>
       <span>@</span>
       <span className="text-sky-400">{hostname ?? hostLabel}</span>
       <span>:</span>
       <span className="text-blue-400">~</span>
       <span>$ </span>
-      <input
+      <textarea
         ref={inputRef}
         value={input}
         onChange={(e) => setInput(e.target.value.slice(0, 512))}
@@ -322,7 +340,8 @@ export default function TerminalSection({
         autoCapitalize="none"
         autoCorrect="off"
         spellCheck={false}
-        className="outline-none inline-block min-w-[1px] bg-transparent border-0 p-0 m-0 text-inherit w-auto shrink-0"
+        rows={1}
+        className="outline-none inline-block min-w-[8ch] flex-1 bg-transparent border-0 p-0 m-0 text-inherit resize-none overflow-hidden [overflow-wrap:anywhere]"
       />
     </div>
   </> 
