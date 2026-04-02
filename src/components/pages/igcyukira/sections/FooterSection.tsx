@@ -16,7 +16,7 @@ export function FooterSection() {
           </p>
         </div>
         <div className="text-right max-[900px]:text-left">
-          <p className="mt-8 font-brandMono text-[0.55rem] tracking-[0.2em] text-[rgba(184,223,245,0.5)]">
+          <p className="mt-8 font-brandMono text-[0.55rem] tracking-[0.2em] text-[rgba(184,223,245,0.9)]">
             Ice Glycoside Crystal / Pure / Rational / Calm
           </p>
         </div>

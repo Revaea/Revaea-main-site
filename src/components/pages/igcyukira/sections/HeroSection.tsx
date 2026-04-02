@@ -22,7 +22,7 @@ export function HeroSection() {
         className="absolute inset-0 [will-change:transform] bg-[radial-gradient(ellipse_80%_60%_at_60%_50%,rgba(184,223,245,0.35)_0%,transparent_70%),radial-gradient(ellipse_40%_80%_at_10%_80%,rgba(126,200,227,0.15)_0%,transparent_60%),radial-gradient(ellipse_50%_40%_at_90%_10%,rgba(58,155,191,0.08)_0%,transparent_60%)]"
       />
       <div
-        className="absolute inset-0 bg-[linear-gradient(rgba(184,223,245,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(184,223,245,0.15)_1px,transparent_1px)] bg-[length:60px_60px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_50%,black_30%,transparent_100%)]"
+        className="absolute inset-0 bg-[linear-gradient(rgba(184,223,245,0.32)_1.5px,transparent_1.5px),linear-gradient(90deg,rgba(184,223,245,0.32)_1.5px,transparent_1.5px)] bg-[length:60px_60px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_50%,black_40%,transparent_96%)]"
         aria-hidden="true"
       />
 
