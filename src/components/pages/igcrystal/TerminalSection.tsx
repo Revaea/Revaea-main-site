@@ -37,6 +37,8 @@ export default function TerminalSection({
   username = "user",
   hostname,
 }: TerminalSectionProps) {
+  const COMMANDS = ["help", "others", "about", "clear", "remove all"] as const;
+  const INPUT_MAX_CHARS = COMMANDS.reduce((max, cmd) => Math.max(max, cmd.length), 0);
   const [output, setOutput] = useState<string>("");
   const [typingDone, setTypingDone] = useState<boolean>(false);
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -333,7 +335,8 @@ export default function TerminalSection({
       <textarea
         ref={inputRef}
         value={input}
-        onChange={(e) => setInput(e.target.value.slice(0, 512))}
+        maxLength={INPUT_MAX_CHARS}
+        onChange={(e) => setInput(e.target.value.slice(0, INPUT_MAX_CHARS))}
         onKeyDown={onKeyDown}
         aria-label="terminal input"
         inputMode="text"
