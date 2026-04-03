@@ -1,0 +1,17 @@
+:root {
+  color-scheme: light dark;
+  --background: light-dark(#ffffff, #0a0a0a);
+  --foreground: light-dark(#171717, #ededed);
+  /* Base palette (single source of truth) */
+  --brand: light-dark(#0278c7, #0090d8);
+  --brand-foreground: #ffffff;
+  --accent: light-dark(#3895f8, #6db9dd);
+  --muted: light-dark(#8e98ac, #94a3b8);
+  --muted-foreground: light-dark(#878f9f, #64748b);
+  /* BackgroundWithMask tuning */
+  --revaea-bg-mask: light-dark(rgb(255 255 255 / 80%), rgb(10 10 10 / 78%));
+
+  --font-primary-family: var(--font-comic-neue);
+  --font-ui-family: var(--font-geist-sans);
+  --font-mono-family: var(--font-geist-mono);
+}
