@@ -4,7 +4,7 @@ import { RevealImage } from "@/components/ui/reveal";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-black/5 dark:border-white/10 mt-20 relative z-40 overflow-hidden backdrop-blur-md bg-white/60 dark:bg-black/60">
+    <footer className="border-t border-black/5 dark:border-white/10 mt-20 relative z-40 overflow-hidden backdrop-blur-md bg-white/60 dark:bg-black/60 select-none">
       {/* Mobile: full width/height cover */}
       <div aria-hidden="true" className="md:hidden absolute inset-0 z-0 pointer-events-none opacity-25 dark:opacity-15">
         <RevealImage
