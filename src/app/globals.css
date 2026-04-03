@@ -7,7 +7,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
   --background: #ffffff;
   --foreground: #171717;
   /* Base palette (single source of truth) */
@@ -38,6 +38,28 @@
 
   /* BackgroundWithMask tuning */
   --revaea-bg-mask-opacity: 0.78;
+}
+
+/*
+  System dark fallback (pre-hydration):
+  When Tailwind `dark:` is class-driven, the `.dark` class is added by JS.
+  Some browsers may paint once before that happens, causing a brief light flash.
+  This media-query ensures the *CSS variables* match the OS from the first paint.
+*/
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --background: #0a0a0a;
+    --foreground: #ededed;
+
+    --brand: #07a9fa;
+    --brand-foreground: #ffffff;
+    --accent: #7dd3fc;
+    --muted: #94a3b8;
+    --muted-foreground: #64748b;
+
+    --revaea-bg-mask-opacity: 0.78;
+  }
 }
 
 @theme inline {
