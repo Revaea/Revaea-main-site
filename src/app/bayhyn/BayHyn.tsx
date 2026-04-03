@@ -47,10 +47,10 @@ export default function BayHynShell({ children }: { children: React.ReactNode })
 
       <Link
         href="/"
-        className={`fixed top-6 left-5 md:top-8 md:left-10 lg:left-16 z-50 inline-flex items-center gap-2 text-xs md:text-sm font-light tracking-[0.45em] uppercase text-white/70 transition-all duration-500 hover:text-white mix-blend-difference group
+        className={`fixed top-6 left-5 md:top-8 md:left-10 lg:left-16 z-50 inline-flex items-center gap-2 text-xs md:text-sm font-light tracking-[0.45em] uppercase text-white/70 hover:text-white transition-all duration-500 group ${
+          isMenuOpen ? "pointer-events-none" : ""
+        }
           ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}
-          ${isMenuOpen ? "opacity-0 pointer-events-none" : "pointer-events-auto"}
-          ${isMenuOpen ? "lg:opacity-100 lg:pointer-events-auto" : ""}
         `}
         style={{ fontFamily: "var(--font-mono-family)" }}
       >
