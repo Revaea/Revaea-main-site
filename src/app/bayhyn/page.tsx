@@ -257,7 +257,8 @@ export default function BayHynPage() {
             text={t}
             sparklesCount={10}
             className="inline-block"
-            textClassName="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 via-sky-100 to-white/70 drop-shadow-lg"
+            textClassName="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 via-fuchsia-200 to-white/70 drop-shadow-lg"
+            colors={{ first: "#b4a2fd", second: "#a855f7" }}
           />
         )}
         blocks={STORY_PARAGRAPHS}

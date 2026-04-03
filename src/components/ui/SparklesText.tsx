@@ -22,7 +22,7 @@ export interface SparklesTextProps {
   as?: "div" | "span";
 }
 
-const DEFAULT_COLORS = { first: "#9E7AFF", second: "#FE8BBB" };
+const DEFAULT_COLORS = { first: "#38bdf8", second: "#0284c7" };
 
 function fnv1a32(input: string) {
   let hash = 0x811c9dc5;

@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Comic_Neue, Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 import { getBaseUrl, getMetadataBase } from "@/lib/site";
+import SystemThemeSync from "@/components/common/Theme";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,7 +27,7 @@ const geistMono = Geist_Mono({
 
 // 1. Export viewport config separately (recommended in Next.js 14+)
 export const viewport: Viewport = {
-  themeColor: "#4CABF7", // Example: sky-blue tint for mobile browser UI.
+  themeColor: "#0284c7", // Brand (sky) tint for mobile browser UI.
   colorScheme: "dark light",
 };
 
@@ -111,13 +113,28 @@ export default function RootLayout({
       lang="en"
       className={`${comicNeue.variable} ${geistSans.variable} ${geistMono.variable} scroll-smooth`}
       data-scroll-behavior="smooth"
+      suppressHydrationWarning
     >
+      <head>
+        <Script
+          id="revaea-system-theme-init"
+          strategy="beforeInteractive"
+        >{`(function(){
+  try {
+    var root = document.documentElement;
+    var mql = window.matchMedia('(prefers-color-scheme: dark)');
+    if (mql && mql.matches) root.classList.add('dark');
+    else root.classList.remove('dark');
+  } catch (_) {}
+})();`}</Script>
+      </head>
       <body 
         className="antialiased min-h-dvh bg-background text-foreground"
         style={{ overscrollBehavior: 'none' }}
       >
         <Analytics/>
         <SpeedInsights/>
+        <SystemThemeSync />
         {children}
       </body>
     </html>

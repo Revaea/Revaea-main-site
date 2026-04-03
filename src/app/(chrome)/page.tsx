@@ -29,12 +29,11 @@ export default function Home() {
         magnetLinesProps={{
           rows: 18,
           columns: 18,
-          lineColor: "#94a3b8",
+          lineColor: "var(--color-brand)",
           lineWidth: "0.6vmin",
           lineHeight: "3vmin",
           baseAngle: -8,
         }}
-        maskOpacity={0.85}
         enableBlur={false}
       />
 
@@ -180,8 +179,8 @@ export default function Home() {
                     text="A World Woven by Will"
                     sparklesCount={8}
                     className="inline-block"
-                    textClassName="text-current"
-                    colors={{ first: "#38bdf8", second: "#0794d5ff" }}
+                    textClassName="text-brand"
+                    colors={{ first: "var(--color-accent)", second: "var(--color-brand)" }}
                   />
                 </h2>
 
@@ -189,7 +188,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="mt-4 h-[2px] w-full bg-blue-500 dark:bg-blue-500" />
+            <div className="mt-4 h-[2px] w-full bg-brand" />
           </div>
         </section>
       </Reveal>

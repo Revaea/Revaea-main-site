@@ -11,7 +11,13 @@ export interface BackgroundWithMaskProps {
     lineHeight?: string;
     baseAngle?: number;
   };
-  maskOpacity?: number;
+  /**
+   * Opacity for the solid background mask on top of the MagnetLines layer.
+   *
+   * - number: fixed opacity
+   * - string: CSS value (e.g. "var(--revaea-bg-mask-opacity)") so light/dark can differ
+   */
+  maskOpacity?: number | string;
   className?: string;
   enableBlur?: boolean;
 }
@@ -19,7 +25,7 @@ export interface BackgroundWithMaskProps {
 const BackgroundWithMask: React.FC<BackgroundWithMaskProps> = ({
   children,
   magnetLinesProps = {},
-  maskOpacity = 0.8,
+  maskOpacity = "var(--revaea-bg-mask-opacity, 0.85)",
   className = "",
   enableBlur = false,
 }) => {
@@ -44,7 +50,7 @@ const BackgroundWithMask: React.FC<BackgroundWithMaskProps> = ({
           lineWidth={lineWidth}
           lineHeight={lineHeight}
           baseAngle={baseAngle}
-          className="opacity-60 dark:opacity-50 transition-opacity duration-1000"
+          className="opacity-35 dark:opacity-55 transition-opacity duration-1000"
         />
       </div>
 

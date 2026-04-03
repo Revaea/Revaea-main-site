@@ -38,7 +38,7 @@ const numberOpacityVars = (value: number): gsap.TweenVars => ({
 
 export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   position = 'right',
-  colors = ['#B19EEF', '#5227FF'],
+  colors = ['var(--color-accent)', 'var(--color-brand)'],
   items = [],
   socialItems = [],
   displaySocials = true,
@@ -49,7 +49,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   menuButtonColor = '#fff',
   openMenuButtonColor = '#fff',
   changeMenuColorOnOpen = true,
-  accentColor = '#5227FF',
+  accentColor = 'var(--color-brand)',
   isFixed = false,
   onMenuOpen,
   onMenuClose,

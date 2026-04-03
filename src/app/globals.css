@@ -1,32 +1,58 @@
 @import "tailwindcss";
 
+/*
+  Tailwind v4: make `dark:` variants driven by the `.dark` class
+  (instead of the default `prefers-color-scheme` media query).
+*/
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
+  color-scheme: light;
   --background: #ffffff;
   --foreground: #171717;
+  /* Base palette (single source of truth) */
+  --brand: #0278c7;
+  --brand-foreground: #ffffff;
+  --accent: #3895f8;
+  --muted: #8e98ac;
+  --muted-foreground: #878f9f;
+  /* BackgroundWithMask tuning */
+  --revaea-bg-mask-opacity: 0.80;
+
   --font-primary-family: var(--font-comic-neue);
   --font-ui-family: var(--font-geist-sans);
   --font-mono-family: var(--font-geist-mono);
 }
 
+/* Dark mode palette */
+:root.dark {
+  color-scheme: dark;
+  --background: #0a0a0a;
+  --foreground: #ededed;
+
+  --brand: #07a9fa;
+  --brand-foreground: #ffffff;
+  --accent: #7dd3fc;
+  --muted: #94a3b8;
+  --muted-foreground: #64748b;
+
+  /* BackgroundWithMask tuning */
+  --revaea-bg-mask-opacity: 0.78;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-brand: #2563eb; /* primary */
-  --color-brand-foreground: #ffffff;
-  --color-accent: #22d3ee; /* secondary */
-  --color-muted: #6b7280;
-  --color-muted-foreground: #6b7280;
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  
   --font-sans: var(--font-primary-family, var(--font-mono-family));
   --font-serif: var(--font-primary-family, var(--font-mono-family));
   --font-ui: var(--font-ui-family);
   --font-mono: var(--font-mono-family);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
