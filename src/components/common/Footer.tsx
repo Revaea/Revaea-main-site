@@ -45,15 +45,21 @@ export default function Footer() {
           <div className="font-semibold mb-2">Navigation</div>
           <ul className="space-y-1">
             <li>
-              <a href="https://blog.igcrystal.icu/blog/" className="inline-flex items-center gap-1">
+              <a
+                href="https://blog.igcrystal.icu/blog/"
+                className="inline-flex items-center gap-1 transition-colors hover:text-brand"
+              >
                 <Rss className="h-4 w-4" aria-hidden="true" />
-                <span className="transition-colors hover:text-brand">Blog</span>
+                <span>Blog</span>
               </a>
             </li>
             <li>
-              <a href="https://hls.revaea.com" className="inline-flex items-center gap-1">
+              <a
+                href="https://hls.revaea.com"
+                className="inline-flex items-center gap-1 transition-colors hover:text-brand"
+              >
                 <Clapperboard className="h-4 w-4" aria-hidden="true" />
-                <span className="transition-colors hover:text-brand">HLS</span>
+                <span>HLS</span>
               </a>
             </li>
           </ul>
@@ -63,15 +69,21 @@ export default function Footer() {
           <div className="font-semibold mb-2">World</div>
           <ul className="space-y-1">
             <li>
-              <a href="https://lfl.i0c.cc" className="inline-flex items-center gap-1">
+              <a
+                href="https://lfl.i0c.cc"
+                className="inline-flex items-center gap-1 transition-colors hover:text-brand"
+              >
                 <Bird className="h-4 w-4" aria-hidden="true" />
-                <span className="transition-colors hover:text-brand">LandfillLand</span>
+                <span>LandfillLand</span>
               </a>
             </li>
             <li>
-              <a href="https://github.com/Neo-Life" className="inline-flex items-center gap-1">
+              <a
+                href="https://github.com/Neo-Life"
+                className="inline-flex items-center gap-1 transition-colors hover:text-brand"
+              >
                 <CircleStar className="h-4 w-4" aria-hidden="true" />
-                <span className="transition-colors hover:text-brand">NeoLife</span>
+                <span>NeoLife</span>
               </a>
             </li>
           </ul>
