@@ -15,10 +15,8 @@ import {
   Users,
   Wand2,
 } from "lucide-react";
-import Reveal from "@/components/ui/Reveal";
-import BlurText from "@/components/ui/BlurText";
+import { Reveal, RevealGlass, RevealBlurText } from "@/components/ui/reveal";
 import BackgroundWithMask from "@/components/ui/BackgroundWithMask";
-import GlassReveal from "@/components/ui/GlassReveal";
 import SparklesText from "@/components/ui/SparklesText";
 import HoverButton from "@/components/ui/HoverButton";
 import HoverCircleMask from "@/components/ui/HoverCircleMask";
@@ -46,15 +44,15 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-6 lg:gap-4 items-center">
             <div className="max-w-3xl md:max-w-2xl lg:text-right w-full lg:w-auto mt-6 lg:mt-0 lg:ml-auto lg:mr-16 lg:pr-4">
               <h1 className="font-sans text-4xl/tight sm:text-4xl/tight md:text-4xl/tight lg:text-6xl/tight font-semibold tracking-tight text-center lg:text-right">
-                <BlurText as="span" text="Revaea" animateBy="letters" />
-                <BlurText
+                <RevealBlurText as="span" text="Revaea" animateBy="letters" />
+                <RevealBlurText
                   as="span"
                   className="block text-brand"
                   text="Understanding, Inclusion, Kindness"
                   animateBy="words"
                 />
               </h1>
-              <BlurText
+              <RevealBlurText
                 as="p"
                 className="mt-4 md:mt-5 text-sm sm:text-base md:text-base lg:text-lg leading-6 sm:leading-7 md:leading-7 text-muted text-center lg:text-right"
                 text="When winds rise, petals scatter; when rain falls, rainbows appear. Meetings and partings are fleeting—yet always for rebirth."
@@ -62,7 +60,7 @@ export default function Home() {
                 delay={100}
               />
               <div className="mt-5 md:mt-6 flex items-center gap-4 sm:gap-6 md:gap-4 lg:gap-6">
-                <GlassReveal delayMs={100}>
+                <RevealGlass delayMs={100}>
                   <HoverButton
                     href="https://github.com/Revaea"
                     origin="cursor"
@@ -72,8 +70,8 @@ export default function Home() {
                   >
                     Reavea
                   </HoverButton>
-                </GlassReveal>
-                <GlassReveal delayMs={250}>
+                </RevealGlass>
+                <RevealGlass delayMs={250}>
                   <HoverButton
                     href="https://github.com/Neo-Revaea"
                     origin="cursor"
@@ -81,9 +79,9 @@ export default function Home() {
                     circleColor="currentColor"
                     circleOpacity={0.12}
                   >
-                    Neo-Revaea
+                    NeoRevaea
                   </HoverButton>
-                </GlassReveal>
+                </RevealGlass>
               </div>
             </div>
 
@@ -93,7 +91,7 @@ export default function Home() {
               </div>
 
               <div className="relative z-10 w-full">
-                <GlassReveal
+                <RevealGlass
                   className="relative z-10 revaea-breathe-on-hover bg-black/[.04] dark:bg-white/[.06]"
                   delayMs={200}
                   rounded="rounded-2xl lg:rounded-3xl"
@@ -114,7 +112,7 @@ export default function Home() {
                       priority
                     />
                   </HoverCircleMask>
-                </GlassReveal>
+                </RevealGlass>
 
                 <div className="mt-4 md:mt-4 pl-2 sm:pl-3 flex flex-wrap items-center gap-x-4 gap-y-3 md:gap-y-2 sm:gap-6 text-xs text-muted-foreground">
                   <div>
@@ -122,7 +120,7 @@ export default function Home() {
                       href="/igcrystal"
                       className="inline-flex items-center gap-1.5 text-brand hover:text-brand/90 underline underline-offset-4 decoration-brand/60 transition-colors group"
                     >
-                      <BlurText as="span" text="IGCrystal" animateBy="letters" stepDuration={0.25} />
+                      <RevealBlurText as="span" text="IGCrystal" animateBy="letters" stepDuration={0.25} />
                       <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </Link>
                   </div>
@@ -131,7 +129,7 @@ export default function Home() {
                       href="/bayhyn"
                       className="inline-flex items-center gap-1.5 text-brand hover:text-brand/90 underline underline-offset-4 decoration-brand/60 transition-colors group"
                     >
-                      <BlurText as="span" text="BayHyn" animateBy="letters" stepDuration={0.25} />
+                      <RevealBlurText as="span" text="BayHyn" animateBy="letters" stepDuration={0.25} />
                       <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </Link>
                   </div>
@@ -140,7 +138,7 @@ export default function Home() {
                       href="/xirayu"
                       className="inline-flex items-center gap-1.5 text-brand hover:text-brand/90 underline underline-offset-4 decoration-brand/60 transition-colors group"
                     >
-                      <BlurText as="span" text="Xirayu" animateBy="letters" stepDuration={0.25} />
+                      <RevealBlurText as="span" text="Xirayu" animateBy="letters" stepDuration={0.25} />
                       <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </Link>
                   </div>
@@ -149,7 +147,7 @@ export default function Home() {
                       href="/tianzelle"
                       className="inline-flex items-center gap-1.5 text-brand hover:text-brand/90 underline underline-offset-4 decoration-brand/60 transition-colors group"
                     >
-                      <BlurText as="span" text="Tianzelle" animateBy="letters" stepDuration={0.25} />
+                      <RevealBlurText as="span" text="Tianzelle" animateBy="letters" stepDuration={0.25} />
                       <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </Link>
                   </div>
@@ -158,7 +156,7 @@ export default function Home() {
                       href="https://github.com/Lucodia"
                       className="inline-flex items-center gap-1.5 text-brand hover:text-brand/90 underline underline-offset-4 decoration-brand/60 transition-colors group"
                     >
-                      <BlurText as="span" text="Lucodia" animateBy="letters" stepDuration={0.25} />
+                      <RevealBlurText as="span" text="Lucodia" animateBy="letters" stepDuration={0.25} />
                       <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </Link>
                   </div>

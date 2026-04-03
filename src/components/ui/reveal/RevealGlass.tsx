@@ -2,14 +2,19 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
-type GlassRevealProps = {
+type RevealGlassProps = {
   children: ReactNode;
   delayMs?: number;
   className?: string;
   rounded?: string; // tailwind rounded class, e.g., 'rounded-md', 'rounded-2xl'
 };
 
-export default function GlassReveal({ children, delayMs = 0, className = "", rounded = "rounded-md" }: GlassRevealProps) {
+export default function RevealGlass({
+  children,
+  delayMs = 0,
+  className = "",
+  rounded = "rounded-md",
+}: RevealGlassProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
 
@@ -47,9 +52,7 @@ export default function GlassReveal({ children, delayMs = 0, className = "", rou
     <div
       ref={ref}
       className={`transition-all duration-1000 ease-out will-change-transform ${rounded} overflow-hidden ${visibilityClass} ${className}`}
-      style={{
-        transformOrigin: 'center center',
-      }}
+      style={{ transformOrigin: "center center" }}
     >
       {children}
     </div>

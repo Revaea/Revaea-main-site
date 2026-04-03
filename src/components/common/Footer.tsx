@@ -1,18 +1,36 @@
 import Image from "next/image";
 import { Rss, Bird, CircleStar, Clapperboard } from "lucide-react";
+import { RevealImage } from "@/components/ui/reveal";
 
 export default function Footer() {
   return (
     <footer className="border-t border-black/5 dark:border-white/10 mt-20 relative z-40 overflow-hidden backdrop-blur-md bg-white/60 dark:bg-black/60">
-      <div
-        aria-hidden="true"
-        className="md:hidden absolute inset-0 z-0 pointer-events-none bg-[url('/img/footer/footer.webp')] bg-cover bg-right-top bg-no-repeat opacity-25 dark:opacity-15"
-      />
+      {/* Mobile: full width/height cover */}
+      <div aria-hidden="true" className="md:hidden absolute inset-0 z-0 pointer-events-none opacity-25 dark:opacity-15">
+        <RevealImage
+          src="/img/footer/footer.webp"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-right-top"
+          priority={false}
+        />
+      </div>
 
+      {/* Desktop: right side, full height */}
       <div
         aria-hidden="true"
-        className="hidden md:block absolute inset-y-0 right-0 z-0 w-[40vw] max-w-[520px] min-w-[280px] bg-[url('/img/footer/footer.webp')] bg-cover bg-right bg-no-repeat opacity-35 dark:opacity-20"
-      />
+        className="hidden md:block absolute inset-y-0 right-0 z-0 pointer-events-none w-[40vw] max-w-[520px] min-w-[280px] opacity-35 dark:opacity-20"
+      >
+        <RevealImage
+          src="/img/footer/footer.webp"
+          alt=""
+          fill
+          sizes="(min-width: 768px) 40vw"
+          className="object-cover object-right"
+          priority={false}
+        />
+      </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 grid gap-8 md:grid-cols-4 text-sm text-muted">
         <div>

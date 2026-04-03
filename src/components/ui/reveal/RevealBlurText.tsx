@@ -6,7 +6,7 @@ type AnimateBy = "words" | "letters";
 type Direction = "top" | "bottom";
 type AnimationSnapshot = Record<string, string | number>;
 
-export interface BlurTextProps {
+export interface RevealBlurTextProps {
   text?: string;
   delay?: number; // ms delay between segments
   className?: string;
@@ -44,6 +44,7 @@ function snapshotToInlineStyle(s: AnimationSnapshot): React.CSSProperties {
   }
   return style as React.CSSProperties;
 }
+
 function snapshotToKeyframe(s: AnimationSnapshot): Keyframe {
   const kf: Record<string, string | number> = {};
   for (const [k, v] of Object.entries(s)) {
@@ -63,7 +64,7 @@ function snapshotToKeyframe(s: AnimationSnapshot): Keyframe {
   return kf as Keyframe;
 }
 
-export default function BlurText({
+export default function RevealBlurText({
   text = "",
   delay = 200,
   className = "",
@@ -77,7 +78,7 @@ export default function BlurText({
   onAnimationComplete,
   stepDuration = 0.35,
   as = "p",
-}: BlurTextProps) {
+}: RevealBlurTextProps) {
   const completionFired = useRef(false);
   type RootEl = HTMLParagraphElement | HTMLSpanElement | HTMLDivElement | HTMLHeadingElement;
   const rootRef = useRef<RootEl | null>(null);
@@ -87,7 +88,6 @@ export default function BlurText({
   const [inView, setInView] = useState(false);
   const [animationKey, setAnimationKey] = useState(0);
 
-  // Compute segments
   const elements = useMemo(() => {
     if (animateBy === "words") return text.split(" ");
     // Match Vue behavior (simple split), not full grapheme split
@@ -127,15 +127,13 @@ export default function BlurText({
     return Array.from({ length: stepCount }, (_, i) => (stepCount === 1 ? 0 : i / (stepCount - 1)));
   }, [stepCount]);
 
-  // Build keyframes for WAAPI (array of { style..., offset })
   const keyframes = useMemo(() => {
     const steps = [fromSnapshot, ...toSnapshots];
-    // Offsets: if easing is function, approximate via offsets
+
     let offsets = times;
     let overallEasing: string | undefined = undefined;
     if (typeof easing === "function") {
       offsets = times.map((t) => clamp01(easing(t)));
-      // Ensure strictly increasing and endpoints
       offsets[0] = 0;
       offsets[offsets.length - 1] = 1;
       for (let i = 1; i < offsets.length; i++) {
@@ -154,7 +152,6 @@ export default function BlurText({
     return { frames: kfs, overallEasing } as const;
   }, [fromSnapshot, toSnapshots, times, easing]);
 
-  // Intersection Observer to start animation once in view
   useEffect(() => {
     const el = rootRef.current;
     if (!el) return;
@@ -173,29 +170,24 @@ export default function BlurText({
     return () => obs.disconnect();
   }, [threshold, rootMargin]);
 
-  // Re-trigger animations when these inputs change
   useEffect(() => {
     setAnimationKey((k) => k + 1);
     completionFired.current = false;
   }, [delay, stepDuration, animateBy, direction]);
 
-  // Run animations when inView or dependencies change
   useEffect(() => {
     if (!inView) return;
     const container = rootRef.current;
     if (!container) return;
 
-    const spans = Array.from(container.querySelectorAll("span[data-blur-text='1']"));
+    const spans = Array.from(container.querySelectorAll("span[data-reveal-blur-text='1']"));
 
     spans.forEach((span, i) => {
-      // cancel any existing animations
       (span.getAnimations?.() || []).forEach((a) => a.cancel());
 
       const anim = (span as HTMLElement).animate(keyframes.frames, {
         duration: Math.max(0, totalDurationSec * 1000),
         delay: i * delay,
-        // 'both' ensures first keyframe applies during delay (backwards fill),
-        // so items stay in the hidden/blurred state until their own animation starts.
         fill: "both",
         easing: keyframes.overallEasing ?? "linear",
       });
@@ -211,12 +203,19 @@ export default function BlurText({
     });
   }, [inView, animationKey, keyframes, delay, totalDurationSec, onAnimationComplete]);
 
-  const cls = useMemo(() => ["blur-text", className, "flex", "flex-wrap"].filter(Boolean).join(" "), [className]);
+  const cls = useMemo(
+    () => ["reveal-blur-text", className, "flex", "flex-wrap"].filter(Boolean).join(" "),
+    [className]
+  );
 
   const Container: ElementType = as;
 
+  // Always include initial snapshot inline style so SSR/hydration and pre-animation states are hidden.
+  // The animation (fill: both) will override these styles during and after playback.
+  const initialStyle = snapshotToInlineStyle(fromSnapshot);
+
   return (
-  <Container ref={setRootRef} className={cls}>
+    <Container ref={setRootRef} className={cls}>
       {elements.map((segment, index) => {
         const content =
           animateBy === "words"
@@ -224,12 +223,10 @@ export default function BlurText({
             : segment === " "
             ? "\u00A0"
             : segment;
-  // Always include initial snapshot inline style so SSR/hydration and pre-animation states are hidden.
-  // The animation (fill: both) will override these styles during and after playback.
-  const initialStyle = snapshotToInlineStyle(fromSnapshot);
+
         return (
           <span
-            data-blur-text="1"
+            data-reveal-blur-text="1"
             key={`${animationKey}-${index}`}
             style={{ display: "inline-block", willChange: "transform, filter, opacity", ...initialStyle }}
           >
