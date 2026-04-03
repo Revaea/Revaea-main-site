@@ -12,10 +12,14 @@ export interface BackgroundWithMaskProps {
     baseAngle?: number;
   };
   /**
-   * Opacity for the solid background mask on top of the MagnetLines layer.
+   * Explicit mask color. Useful if a page wants a custom overlay color.
+   * Defaults to the theme-aware `--revaea-bg-mask` variable.
+   */
+  maskColor?: string;
+  /**
+   * Optional extra opacity multiplier for the solid background mask.
    *
-   * - number: fixed opacity
-   * - string: CSS value (e.g. "var(--revaea-bg-mask-opacity)") so light/dark can differ
+   * Prefer `maskColor` with alpha for theme-aware defaults.
    */
   maskOpacity?: number | string;
   className?: string;
@@ -25,7 +29,8 @@ export interface BackgroundWithMaskProps {
 const BackgroundWithMask: React.FC<BackgroundWithMaskProps> = ({
   children,
   magnetLinesProps = {},
-  maskOpacity = "var(--revaea-bg-mask-opacity, 0.85)",
+  maskColor = "var(--revaea-bg-mask, var(--color-background))",
+  maskOpacity,
   className = "",
   enableBlur = false,
 }) => {
@@ -56,9 +61,10 @@ const BackgroundWithMask: React.FC<BackgroundWithMaskProps> = ({
 
       {/* Solid color mask */}
       <div
-        className="absolute inset-0 bg-background dark:bg-background"
+        className="absolute inset-0"
         style={{
-          opacity: maskOpacity,
+          backgroundColor: maskColor,
+          ...(maskOpacity === undefined ? {} : { opacity: maskOpacity }),
         }}
       />
 

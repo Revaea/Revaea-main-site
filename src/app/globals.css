@@ -8,58 +8,20 @@
 
 :root {
   color-scheme: light dark;
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: light-dark(#ffffff, #0a0a0a);
+  --foreground: light-dark(#171717, #ededed);
   /* Base palette (single source of truth) */
-  --brand: #0278c7;
+  --brand: light-dark(#0278c7, #0090d8);
   --brand-foreground: #ffffff;
-  --accent: #3895f8;
-  --muted: #8e98ac;
-  --muted-foreground: #878f9f;
+  --accent: light-dark(#3895f8, #6db9dd);
+  --muted: light-dark(#8e98ac, #94a3b8);
+  --muted-foreground: light-dark(#878f9f, #64748b);
   /* BackgroundWithMask tuning */
-  --revaea-bg-mask-opacity: 0.80;
+  --revaea-bg-mask: light-dark(rgb(255 255 255 / 80%), rgb(10 10 10 / 78%));
 
   --font-primary-family: var(--font-comic-neue);
   --font-ui-family: var(--font-geist-sans);
   --font-mono-family: var(--font-geist-mono);
-}
-
-/* Dark mode palette */
-:root.dark {
-  color-scheme: dark;
-  --background: #0a0a0a;
-  --foreground: #ededed;
-
-  --brand: #0090d8;
-  --brand-foreground: #ffffff;
-  --accent: #6db9dd;
-  --muted: #94a3b8;
-  --muted-foreground: #64748b;
-
-  /* BackgroundWithMask tuning */
-  --revaea-bg-mask-opacity: 0.78;
-}
-
-/*
-  System dark fallback (pre-hydration):
-  When Tailwind `dark:` is class-driven, the `.dark` class is added by JS.
-  Some browsers may paint once before that happens, causing a brief light flash.
-  This media-query ensures the *CSS variables* match the OS from the first paint.
-*/
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-    --background: #0a0a0a;
-    --foreground: #ededed;
-
-    --brand: #07a9fa;
-    --brand-foreground: #ffffff;
-    --accent: #7dd3fc;
-    --muted: #94a3b8;
-    --muted-foreground: #64748b;
-
-    --revaea-bg-mask-opacity: 0.78;
-  }
 }
 
 @theme inline {
