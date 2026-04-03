@@ -22,7 +22,7 @@ import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 
-export type WhirlpoolProps = {
+export type BackgroundWhirlpoolProps = {
   particleCount?: number;
   spread?: number;
   enablePointerTracking?: boolean;
@@ -43,7 +43,7 @@ type Instance = {
   vLimit: number;
 };
 
-export default function Whirlpool({
+export default function BackgroundWhirlpool({
   particleCount = 2000,
   spread = 200,
   enablePointerTracking = true,
@@ -53,7 +53,7 @@ export default function Whirlpool({
   blur = 0,
   children,
   onReady,
-}: WhirlpoolProps) {
+}: BackgroundWhirlpoolProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const onReadyRef = useRef<(() => void) | undefined>(onReady);
@@ -122,11 +122,11 @@ export default function Whirlpool({
 
     function updateViewBounds() {
       if (!camera) return;
-      const dist = camera.position.z; 
-      const vFOV = MathUtils.degToRad(camera.fov); 
-      const height = 2 * Math.tan(vFOV / 2) * dist; 
-      const width = height * camera.aspect; 
-      
+      const dist = camera.position.z;
+      const vFOV = MathUtils.degToRad(camera.fov);
+      const height = 2 * Math.tan(vFOV / 2) * dist;
+      const width = height * camera.aspect;
+
       viewBounds.y = height / 2;
       viewBounds.x = width / 2;
     }
@@ -144,7 +144,7 @@ export default function Whirlpool({
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.autoClear = false;
 
-      camera = new PerspectiveCamera(50, width / height, 0.1, 1000); 
+      camera = new PerspectiveCamera(50, width / height, 0.1, 1000);
       camera.position.set(0, 0, 200);
       camera.updateProjectionMatrix();
 
@@ -207,20 +207,17 @@ export default function Whirlpool({
       for (let i = 0; i < particleCount; i++) {
         const { position, scale, scaleZ, velocity, attraction, vLimit } = instances[i];
 
-        dummyV.copy(target)
-          .sub(position)
-          .normalize()
-          .multiplyScalar(attraction * attractionStrength);
+        dummyV.copy(target).sub(position).normalize().multiplyScalar(attraction * attractionStrength);
         velocity.add(dummyV).clampScalar(-vLimit, vLimit);
         position.add(velocity);
 
-        const padding = 5; 
+        const padding = 5;
         const limitX = viewBounds.x + padding;
         const limitY = viewBounds.y + padding;
 
         if (position.x > limitX) {
           position.x = limitX;
-          velocity.x *= -1; 
+          velocity.x *= -1;
         } else if (position.x < -limitX) {
           position.x = -limitX;
           velocity.x *= -1;
@@ -235,11 +232,11 @@ export default function Whirlpool({
         }
 
         if (position.z > 150) {
-            position.z = 150;
-            velocity.z *= -1;
+          position.z = 150;
+          velocity.z *= -1;
         } else if (position.z < -100) {
-            position.z = -100;
-            velocity.z *= -1;
+          position.z = -100;
+          velocity.z *= -1;
         }
 
         dummyO.position.copy(position);
@@ -289,7 +286,7 @@ export default function Whirlpool({
 
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      
+
       // Recompute bounds when the viewport size changes.
       updateViewBounds();
 
@@ -330,7 +327,7 @@ export default function Whirlpool({
       }
 
       renderer?.dispose();
-      
+
       scene = undefined;
       camera = undefined;
       imesh = undefined;
@@ -342,7 +339,9 @@ export default function Whirlpool({
   return (
     <div ref={containerRef} className={`relative h-full w-full${className ? ` ${className}` : ""}`}>
       <canvas ref={canvasRef} className="size-full" style={canvasStyle} />
-      {blur > 0 ? <div style={blurStyle} className="absolute inset-0 backdrop-blur-[--bubbles-blur]" /> : null}
+      {blur > 0 ? (
+        <div style={blurStyle} className="absolute inset-0 backdrop-blur-[--bubbles-blur]" />
+      ) : null}
       <div className="absolute inset-0">{children}</div>
     </div>
   );

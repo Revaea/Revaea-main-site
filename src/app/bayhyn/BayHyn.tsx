@@ -7,7 +7,9 @@ import { ArrowLeft } from "lucide-react";
 import StaggeredMenu from "@/components/ui/StaggeredMenu";
 import { MENU_ITEMS, SOCIAL_ITEMS } from "@/config/menu";
 
-const Whirlpool = dynamic(() => import("@/components/ui/Whirlpool"), { ssr: false });
+const BackgroundWhirlpool = dynamic(() => import("@/components/ui/background/BackgroundWhirlpool"), {
+  ssr: false,
+});
 
 type BayHynBackgroundContextValue = {
   setScrollRatio: (ratio01: number) => void;
@@ -83,7 +85,7 @@ export default function BayHynShell({ children }: { children: React.ReactNode })
           whirlpoolReady ? "opacity-100" : "opacity-0"
         }`}
       >
-        <Whirlpool 
+        <BackgroundWhirlpool 
             className="h-full w-full" 
             blur={0} 
             particleCount={100} 
@@ -99,7 +101,7 @@ export default function BayHynShell({ children }: { children: React.ReactNode })
         >
           <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-purple-950/30 via-fuchsia-950/10 to-slate-950/75" />
           <div className="absolute -inset-[18%] pointer-events-none will-change-transform bg-[radial-gradient(circle_at_28%_18%,theme(colors.fuchsia.300/0.14),transparent_55%),radial-gradient(circle_at_72%_78%,theme(colors.violet.300/0.12),transparent_50%)] animate-[revaea-nebula-drift_18s_ease-in-out_infinite] motion-reduce:animate-none" />
-        </Whirlpool>
+        </BackgroundWhirlpool>
       </div>
 
       <div className="relative z-10">
