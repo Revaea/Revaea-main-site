@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 
-const PrismaticBurst = dynamic(() => import("@/components/ui/PrismaticBurst"), { ssr: false });
+const BackgroundPrismaticBurst = dynamic(() => import("@/components/ui/background/BackgroundPrismaticBurst"), {
+  ssr: false,
+});
 
 export type TerminalSectionProps = {
   lines?: string[];
@@ -302,7 +304,7 @@ export default function TerminalSection({
 
       {/* Desktop and up: Prismatic Burst */}
       <div className="pointer-events-auto absolute inset-0 z-0 hidden md:block" aria-hidden>
-        <PrismaticBurst
+        <BackgroundPrismaticBurst
           intensity={1.6}
           speed={0.55}
           animationType="rotate3d"
