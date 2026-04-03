@@ -1,7 +1,7 @@
-import React from 'react';
-import MagnetLines from './MagnetLines';
+import React from "react";
+import BackgroundMagnetLines from "./BackgroundMagnetLines";
 
-interface BackgroundWithMaskProps {
+export interface BackgroundWithMaskProps {
   children?: React.ReactNode;
   magnetLinesProps?: {
     rows?: number;
@@ -20,23 +20,23 @@ const BackgroundWithMask: React.FC<BackgroundWithMaskProps> = ({
   children,
   magnetLinesProps = {},
   maskOpacity = 0.8,
-  className = '',
-  enableBlur = false
+  className = "",
+  enableBlur = false,
 }) => {
   const {
     rows = 12,
     columns = 12,
-    lineColor = '#e5e5e5',
-    lineWidth = '0.8vmin',
-    lineHeight = '4vmin',
-    baseAngle = -15
+    lineColor = "#e5e5e5",
+    lineWidth = "0.8vmin",
+    lineHeight = "4vmin",
+    baseAngle = -15,
   } = magnetLinesProps;
 
   return (
     <div className={`fixed inset-0 overflow-hidden z-0 ${className}`}>
       {/* MagnetLines background layer */}
-      <div className={`absolute inset-0 flex items-center justify-center ${enableBlur ? 'backdrop-blur-sm' : ''}`}>
-        <MagnetLines
+      <div className={`absolute inset-0 flex items-center justify-center ${enableBlur ? "backdrop-blur-sm" : ""}`}>
+        <BackgroundMagnetLines
           rows={rows}
           columns={columns}
           containerSize="120vmax"
@@ -47,21 +47,17 @@ const BackgroundWithMask: React.FC<BackgroundWithMaskProps> = ({
           className="opacity-60 dark:opacity-50 transition-opacity duration-1000"
         />
       </div>
-      
+
       {/* Solid color mask */}
-      <div 
-        className={`absolute inset-0 bg-background dark:bg-background`}
+      <div
+        className="absolute inset-0 bg-background dark:bg-background"
         style={{
-          opacity: maskOpacity
+          opacity: maskOpacity,
         }}
       />
-      
+
       {/* Content layer */}
-      {children && (
-        <div className="relative z-10 h-full">
-          {children}
-        </div>
-      )}
+      {children && <div className="relative z-10 h-full">{children}</div>}
     </div>
   );
 };

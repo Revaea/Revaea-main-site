@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
-export interface FlowingSphereConfig {
+export interface BackgroundFlowingSphereConfig {
   /** Glow intensity (0.0 - 1.0+) Default: 0.42 */
   glow?: number;
   /** Noise texture intensity (0.0 - 0.1) Default: 0.00 */
@@ -31,9 +31,9 @@ export interface FlowingSphereConfig {
   rotationRoll?: number;
 }
 
-export interface FlowingSphereBackgroundProps {
+export interface BackgroundFlowingSphereProps {
   /** Background configuration */
-  config?: FlowingSphereConfig;
+  config?: BackgroundFlowingSphereConfig;
   /** Container class name */
   className?: string;
   /** Container style */
@@ -44,13 +44,13 @@ export interface FlowingSphereBackgroundProps {
   onReady?: () => void;
 }
 
-export default function FlowingSphereBackground({ 
+export default function BackgroundFlowingSphere({
   config = {},
-  className = '',
+  className = "",
   style = {},
   saturationOverride,
   onReady,
-}: FlowingSphereBackgroundProps) {
+}: BackgroundFlowingSphereProps) {
   type Uniform<T> = { value: T };
   type FlowingSphereUniforms = {
     iResolution: Uniform<Float32Array>;
@@ -62,11 +62,11 @@ export default function FlowingSphereBackground({
   const containerRef = useRef<HTMLDivElement>(null);
   const cleanupRef = useRef<(() => void) | null>(null);
   const onReadyRef = useRef<(() => void) | undefined>(onReady);
-  
+
   const saturationOverrideRef = useRef<number | null>(null);
 
   useEffect(() => {
-    saturationOverrideRef.current = typeof saturationOverride === 'number' ? saturationOverride : null;
+    saturationOverrideRef.current = typeof saturationOverride === "number" ? saturationOverride : null;
   }, [saturationOverride]);
 
   useEffect(() => {
@@ -77,17 +77,17 @@ export default function FlowingSphereBackground({
     const container = containerRef.current;
     if (!container) return;
 
-    const finalConfig: Required<FlowingSphereConfig> = {
+    const finalConfig: Required<BackgroundFlowingSphereConfig> = {
       glow: config.glow ?? 0.42,
-      noise: config.noise ?? 0.00,
+      noise: config.noise ?? 0.0,
       bloom: config.bloom ?? 1.21,
       hueShift: config.hueShift ?? -0.03,
       satMin: config.satMin ?? 0.5,
       satMax: config.satMax ?? 2.5,
       satSpeed: config.satSpeed ?? 1.0,
-      radius: config.radius ?? 0.50,
-      scale: config.scale ?? 1.00,
-      offsetY: config.offsetY ?? 0.00,
+      radius: config.radius ?? 0.5,
+      scale: config.scale ?? 1.0,
+      offsetY: config.offsetY ?? 0.0,
       rotationYaw: config.rotationYaw ?? 0,
       rotationPitch: config.rotationPitch ?? 0.3,
       rotationRoll: config.rotationRoll ?? 0.2,
@@ -98,7 +98,7 @@ export default function FlowingSphereBackground({
 
     const initScene = async () => {
       try {
-        const { Renderer, Triangle, Program, Mesh } = await import('ogl');
+        const { Renderer, Triangle, Program, Mesh } = await import("ogl");
 
         if (isDestroyed) return;
 
@@ -108,7 +108,7 @@ export default function FlowingSphereBackground({
           dpr: Math.min(window.devicePixelRatio || 1, 2),
           alpha: false,
           antialias: true,
-          depth: false 
+          depth: false,
         });
 
         const gl = renderer.gl;
@@ -116,12 +116,12 @@ export default function FlowingSphereBackground({
 
         const canvas = gl.canvas as unknown as HTMLCanvasElement;
         container.appendChild(canvas);
-        canvas.style.width = '100%';
-        canvas.style.height = '100%';
-        canvas.style.display = 'block';
-        canvas.style.pointerEvents = 'none';
-        canvas.style.touchAction = 'none';
-        canvas.setAttribute('aria-hidden', 'true');
+        canvas.style.width = "100%";
+        canvas.style.height = "100%";
+        canvas.style.display = "block";
+        canvas.style.pointerEvents = "none";
+        canvas.style.touchAction = "none";
+        canvas.setAttribute("aria-hidden", "true");
 
         const vertex = /* glsl */ `
           attribute vec2 position;
@@ -179,10 +179,10 @@ export default function FlowingSphereBackground({
               vec3 col = o.rgb;
               float n = rand(gl_FragCoord.xy + vec2(iTime));
               col += (n - 0.5) * uNoise;
-              
+
               float L = dot(col, vec3(0.2126, 0.7152, 0.0722));
               col = clamp(mix(vec3(L), col, uSaturation), 0.0, 1.0);
-              
+
               if(abs(uHueShift) > 0.001){
                   col = clamp(hueRotation(uHueShift) * col, 0.0, 1.0);
               }
@@ -208,8 +208,8 @@ export default function FlowingSphereBackground({
             uSaturation: { value: finalConfig.satMin },
             uBloom: { value: finalConfig.bloom },
             uCenterShift: { value: finalConfig.offsetY },
-            uPxScale: { value: 1.0 }
-          }
+            uPxScale: { value: 1.0 },
+          },
         });
 
         const uniforms = program.uniforms as unknown as FlowingSphereUniforms;
@@ -217,9 +217,12 @@ export default function FlowingSphereBackground({
         const mesh = new Mesh(gl, { geometry, program });
 
         const setMat3FromEuler = (yaw: number, pitch: number, roll: number, out: Float32Array) => {
-          const cy = Math.cos(yaw), sy = Math.sin(yaw);
-          const cx = Math.cos(pitch), sx = Math.sin(pitch);
-          const cz = Math.cos(roll), sz = Math.sin(roll);
+          const cy = Math.cos(yaw),
+            sy = Math.sin(yaw);
+          const cx = Math.cos(pitch),
+            sx = Math.sin(pitch);
+          const cz = Math.cos(roll),
+            sz = Math.sin(roll);
           out[0] = cy * cz + sy * sx * sz;
           out[1] = cx * sz;
           out[2] = -sy * cz + cy * sx * sz;
@@ -232,12 +235,7 @@ export default function FlowingSphereBackground({
           return out;
         };
 
-        setMat3FromEuler(
-          finalConfig.rotationYaw,
-          finalConfig.rotationPitch,
-          finalConfig.rotationRoll,
-          rotBuf
-        );
+        setMat3FromEuler(finalConfig.rotationYaw, finalConfig.rotationPitch, finalConfig.rotationRoll, rotBuf);
 
         const resize = () => {
           if (isDestroyed) return;
@@ -248,7 +246,7 @@ export default function FlowingSphereBackground({
           uniforms.uPxScale.value = 1 / (h * 0.1 * finalConfig.scale);
         };
 
-        window.addEventListener('resize', resize, false);
+        window.addEventListener("resize", resize, false);
         resize();
 
         let startTime: number | null = null;
@@ -256,20 +254,20 @@ export default function FlowingSphereBackground({
 
         const update = (t: number) => {
           if (isDestroyed) return;
-          
+
           animationFrameId = requestAnimationFrame(update);
 
           if (startTime === null) startTime = t;
           const elapsed = (t - startTime) * 0.001;
 
-           uniforms.iTime.value = elapsed;
+          uniforms.iTime.value = elapsed;
 
           if (saturationOverrideRef.current !== null) {
-             uniforms.uSaturation.value = saturationOverrideRef.current;
+            uniforms.uSaturation.value = saturationOverrideRef.current;
           } else {
-             const sineWave = (Math.sin(elapsed * finalConfig.satSpeed) + 1.0) / 2.0;
-             const currentSat = finalConfig.satMin + (finalConfig.satMax - finalConfig.satMin) * sineWave;
-             uniforms.uSaturation.value = currentSat;
+            const sineWave = (Math.sin(elapsed * finalConfig.satSpeed) + 1.0) / 2.0;
+            const currentSat = finalConfig.satMin + (finalConfig.satMax - finalConfig.satMin) * sineWave;
+            uniforms.uSaturation.value = currentSat;
           }
 
           renderer.render({ scene: mesh });
@@ -291,14 +289,13 @@ export default function FlowingSphereBackground({
           if (animationFrameId) {
             cancelAnimationFrame(animationFrameId);
           }
-          window.removeEventListener('resize', resize);
+          window.removeEventListener("resize", resize);
           if (canvas.parentNode) {
             canvas.parentNode.removeChild(canvas);
           }
         };
-
       } catch (error) {
-        console.error('Failed to initialize FlowingSphereBackground:', error);
+        console.error("Failed to initialize BackgroundFlowingSphere:", error);
       }
     };
 

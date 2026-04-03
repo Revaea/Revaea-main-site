@@ -3,8 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import FlowingSphereBackground from "@/components/ui/FlowingSphere";
-import StarfieldWarp from "@/components/ui/StarfieldWarp";
+import { BackgroundFlowingSphere, BackgroundStarfieldWarp } from "@/components/ui/background";
 import StaggeredMenu from "@/components/ui/StaggeredMenu";
 import { MENU_ITEMS, SOCIAL_ITEMS } from "@/config/menu";
 
@@ -86,7 +85,7 @@ export default function XirayuShell({
         toggleStyle={{ fontFamily: "var(--font-mono-family)" }}
       />
 
-      <FlowingSphereBackground
+      <BackgroundFlowingSphere
         className={`pointer-events-none select-none fixed inset-0 transition-opacity duration-[1200ms] ease-out ${
           backgroundVisible ? "opacity-100" : "opacity-0"
         }`}
@@ -96,7 +95,7 @@ export default function XirayuShell({
         onReady={() => setSphereReady(true)}
       />
 
-      <StarfieldWarp
+      <BackgroundStarfieldWarp
         count={screenSize === "mobile" ? 140 : 220}
         color="#3c5c6f6a"
         className={`pointer-events-none select-none fixed inset-0 transition-opacity duration-[1200ms] ease-out ${

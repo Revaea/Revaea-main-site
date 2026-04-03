@@ -9,7 +9,7 @@ type Star = {
   speed: number;
 };
 
-export type StarfieldWarpProps = {
+export type BackgroundStarfieldWarpProps = {
   color?: string;
   count?: number;
   className?: string;
@@ -32,13 +32,13 @@ function hexToRgb(hex: string) {
   return { r, g, b };
 }
 
-export default function StarfieldWarp({
+export default function BackgroundStarfieldWarp({
   color = "#FFF",
   count = 200,
   className,
   style,
   onReady,
-}: StarfieldWarpProps) {
+}: BackgroundStarfieldWarpProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const onReadyRef = useRef<(() => void) | undefined>(onReady);
 
@@ -218,11 +218,5 @@ export default function StarfieldWarp({
     };
   }, [count, rgb.r, rgb.g, rgb.b]);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className={`${className ?? ""} h-full w-full block`}
-      style={style}
-    />
-  );
+  return <canvas ref={canvasRef} className={`${className ?? ""} h-full w-full block`} style={style} />;
 }

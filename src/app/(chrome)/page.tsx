@@ -16,7 +16,7 @@ import {
   Wand2,
 } from "lucide-react";
 import { Reveal, RevealGlass, RevealBlurText } from "@/components/ui/reveal";
-import BackgroundWithMask from "@/components/ui/BackgroundWithMask";
+import { BackgroundWithMask } from "@/components/ui/background";
 import SparklesText from "@/components/ui/SparklesText";
 import HoverButton from "@/components/ui/HoverButton";
 import HoverCircleMask from "@/components/ui/HoverCircleMask";

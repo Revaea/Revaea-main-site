@@ -7,8 +7,8 @@ import { ArrowLeft } from "lucide-react";
 import StaggeredMenu from "@/components/ui/StaggeredMenu";
 import { MENU_ITEMS, SOCIAL_ITEMS } from "@/config/menu";
 
-const ForestHouse = dynamic(() => import("@/components/ui/ForestHouse"), { ssr: false });
-const FlockingBackground = dynamic(() => import("@/components/ui/FlockingBackground"), { ssr: false });
+const BackgroundForestHouse = dynamic(() => import("@/components/ui/background/BackgroundForestHouse"), { ssr: false });
+const BackgroundFlocking = dynamic(() => import("@/components/ui/background/BackgroundFlocking"), { ssr: false });
 
 export default function TianzelleShell({
   children,
@@ -137,7 +137,7 @@ export default function TianzelleShell({
       <div className="fixed inset-0 z-0 bg-rose-100 dark:bg-rose-950" />
 
       {/* Subtle flocking layer (bottom-most animated background) */}
-      <FlockingBackground
+      <BackgroundFlocking
         className="opacity-50"
         color="#ff154f"
         opacity={0.45}
@@ -182,7 +182,7 @@ export default function TianzelleShell({
       />
 
       {/* Bias the fitted camera to keep the house mostly "facing left" */}
-      <ForestHouse
+      <BackgroundForestHouse
         transparentBackground
         mode="followMouse"
         followStrength={0.5}

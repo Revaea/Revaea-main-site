@@ -11,7 +11,7 @@ const DEFAULT_CAMERA_TARGET: [number, number, number] = [0, 2, 0];
 
 type FitOffsetMode = "radius" | "screen" | "px";
 
-export type ForestHouseProps = {
+export type BackgroundForestHouseProps = {
   /** Default: "/models/forest_house.glb" */
   modelUrl?: string;
   className?: string;
@@ -96,13 +96,13 @@ export type ForestHouseProps = {
    * via WebGL scissor/viewport (no extra DOM wrapper needed).
    */
   renderRegion?: {
-      anchor?:
-        | "bottomRight"
-        | "bottomLeft"
-        | "topRight"
-        | "topLeft"
-        | "bottomCenter"
-        | "center";
+    anchor?:
+      | "bottomRight"
+      | "bottomLeft"
+      | "topRight"
+      | "topLeft"
+      | "bottomCenter"
+      | "center";
     widthVw?: number;
     heightVh?: number;
     maxWidthPx?: number;
@@ -147,7 +147,7 @@ function computeHalfViewportWorldSizeAtDistance(camera: THREE.PerspectiveCamera,
   return { halfW, halfH };
 }
 
-function resolveFitOffsetMode(mode: ForestHouseProps["fitOffset"] extends infer T
+function resolveFitOffsetMode(mode: BackgroundForestHouseProps["fitOffset"] extends infer T
   ? T extends { mode?: infer M }
     ? M
     : unknown
@@ -183,7 +183,7 @@ function computeFitOffsetScales(args: {
   return { scaleX: radius, scaleY: radius };
 }
 
-export default function ForestHouse({
+export default function BackgroundForestHouse({
   modelUrl = "/models/forest_house.glb",
   className,
   children,
@@ -204,12 +204,12 @@ export default function ForestHouse({
   fitAzimuthOffset = 0,
   fitOffset,
   renderRegion,
-}: ForestHouseProps): React.JSX.Element {
+}: BackgroundForestHouseProps): React.JSX.Element {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [hasLoaded, setHasLoaded] = useState(false);
 
-  const effectiveMode: NonNullable<ForestHouseProps["mode"]> =
+  const effectiveMode: NonNullable<BackgroundForestHouseProps["mode"]> =
     mode ?? (interactive ? "drag" : "static");
   const pointerEventsClass = effectiveMode === "drag" ? "pointer-events-auto" : "pointer-events-none";
 
@@ -435,7 +435,7 @@ export default function ForestHouse({
       const padding = Math.max(0.85, rawPadding);
       if (padding !== rawPadding) {
         console.warn(
-          `[ForestHouse] fitPadding (${rawPadding}) is too small and may clip; clamped to ${padding}.`
+          `[BackgroundForestHouse] fitPadding (${rawPadding}) is too small and may clip; clamped to ${padding}.`
         );
       }
 

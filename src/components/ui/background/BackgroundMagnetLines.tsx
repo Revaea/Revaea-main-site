@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useRef, useEffect, useState, CSSProperties } from 'react';
+import React, { useEffect, useRef, useState, type CSSProperties } from "react";
 
-interface MagnetLinesProps {
+export interface BackgroundMagnetLinesProps {
   rows?: number;
   columns?: number;
   containerSize?: string;
@@ -14,21 +14,21 @@ interface MagnetLinesProps {
   style?: CSSProperties;
 }
 
-const MagnetLines: React.FC<MagnetLinesProps> = ({
+export default function BackgroundMagnetLines({
   rows = 9,
   columns = 9,
-  containerSize = '80vmin',
-  lineColor = '#94a3b8', 
-  lineWidth = '1vmin',
-  lineHeight = '6vmin',
+  containerSize = "80vmin",
+  lineColor = "#94a3b8",
+  lineWidth = "1vmin",
+  lineHeight = "6vmin",
   baseAngle = -10,
-  className = '',
-  style = {}
-}) => {
+  className = "",
+  style = {},
+}: BackgroundMagnetLinesProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [isMobile, setIsMobile] = useState(true); 
+  const [isMobile, setIsMobile] = useState(true);
   const [mounted, setMounted] = useState(false);
-  
+
   useEffect(() => {
     const checkIfMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -38,25 +38,25 @@ const MagnetLines: React.FC<MagnetLinesProps> = ({
       setMounted(true);
       checkIfMobile();
     }, 0);
-    
-    window.addEventListener('resize', checkIfMobile);
-    
+
+    window.addEventListener("resize", checkIfMobile);
+
     return () => {
       clearTimeout(timerId);
-      window.removeEventListener('resize', checkIfMobile);
+      window.removeEventListener("resize", checkIfMobile);
     };
   }, []);
-  
+
   useEffect(() => {
     if (isMobile || !mounted) return;
-    
+
     const container = containerRef.current;
     if (!container) return;
 
-    const items = container.querySelectorAll<HTMLSpanElement>('span');
+    const items = container.querySelectorAll<HTMLSpanElement>("span");
 
     const onPointerMove = (pointer: { x: number; y: number }) => {
-      items.forEach(item => {
+      items.forEach((item) => {
         const rect = item.getBoundingClientRect();
         const centerX = rect.x + rect.width / 2;
         const centerY = rect.y + rect.height / 2;
@@ -66,7 +66,7 @@ const MagnetLines: React.FC<MagnetLinesProps> = ({
         const c = Math.sqrt(a * a + b * b) || 1;
         const r = ((Math.acos(b / c) * 180) / Math.PI) * (pointer.y > centerY ? 1 : -1);
 
-        item.style.setProperty('--rotate', `${r}deg`);
+        item.style.setProperty("--rotate", `${r}deg`);
       });
     };
 
@@ -74,7 +74,7 @@ const MagnetLines: React.FC<MagnetLinesProps> = ({
       onPointerMove({ x: e.x, y: e.y });
     };
 
-    window.addEventListener('pointermove', handlePointerMove);
+    window.addEventListener("pointermove", handlePointerMove);
 
     if (items.length) {
       const middleIndex = Math.floor(items.length / 2);
@@ -83,7 +83,7 @@ const MagnetLines: React.FC<MagnetLinesProps> = ({
     }
 
     return () => {
-      window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener("pointermove", handlePointerMove);
     };
   }, [isMobile, mounted]);
 
@@ -96,9 +96,9 @@ const MagnetLines: React.FC<MagnetLinesProps> = ({
         backgroundColor: lineColor,
         width: lineWidth,
         height: lineHeight,
-        transform: 'rotate(var(--rotate))',
-        willChange: 'transform',
-        ...({ '--rotate': `${baseAngle}deg` } as CSSProperties)
+        transform: "rotate(var(--rotate))",
+        willChange: "transform",
+        ...({ "--rotate": `${baseAngle}deg` } as CSSProperties),
       }}
     />
   ));
@@ -116,12 +116,10 @@ const MagnetLines: React.FC<MagnetLinesProps> = ({
         gridTemplateRows: `repeat(${rows}, 1fr)`,
         width: containerSize,
         height: containerSize,
-        ...style
+        ...style,
       }}
     >
       {spans}
     </div>
   );
-};
-
-export default MagnetLines;
+}

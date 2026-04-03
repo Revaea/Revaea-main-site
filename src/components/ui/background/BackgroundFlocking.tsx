@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { GPUComputationRenderer } from "three/addons/misc/GPUComputationRenderer.js";
 
-export type FlockingBackgroundProps = {
+export type BackgroundFlockingProps = {
   className?: string;
 
   /**
@@ -60,7 +60,7 @@ function hash12(p: string) {
   return (h >>> 0) / 4294967295;
 }
 
-export default function FlockingBackground({
+export default function BackgroundFlocking({
   className,
   forwardAxis = "z",
   simSize = 32,
@@ -75,7 +75,7 @@ export default function FlockingBackground({
   freedomFactor = 0.75,
   speedLimit = 9,
   preyRadius = 150,
-}: FlockingBackgroundProps) {
+}: BackgroundFlockingProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -366,7 +366,7 @@ export default function FlockingBackground({
       wingsSpan, 0, 0,
       0, 0, -15,
     ];
-    
+
     // 🐾 麦咪修复：提前在 CPU 里把骨架缩小 0.2 倍！
     for (let i = 0; i < vertsPerAgent; i++) {
       basePositions[i * 3 + 0] = local[i * 3 + 0] * 0.2;
@@ -574,14 +574,9 @@ export default function FlockingBackground({
   return (
     <div
       ref={containerRef}
-      className={
-        [
-          "fixed inset-0 z-0 pointer-events-none overflow-hidden",
-          className,
-        ]
-          .filter(Boolean)
-          .join(" ")
-      }
+      className={["fixed inset-0 z-0 pointer-events-none overflow-hidden", className]
+        .filter(Boolean)
+        .join(" ")}
       aria-hidden="true"
     >
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
