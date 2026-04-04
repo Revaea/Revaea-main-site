@@ -9,7 +9,7 @@ export default function ChromeLayout({
   return (
     <>
       <Navbar />
-      <div className="contents">{children}</div>
+      <div className="min-h-dvh md:pt-24">{children}</div>
       <Footer />
     </>
   );

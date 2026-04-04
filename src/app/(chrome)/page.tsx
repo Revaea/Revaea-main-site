@@ -91,7 +91,7 @@ export default function Home() {
 
               <div className="relative z-10 w-full">
                 <RevealGlass
-                  className="relative z-10 revaea-breathe-on-hover bg-black/[.04] dark:bg-white/[.06]"
+                  className="relative z-10 revaea-breathe-on-hover bg-black/[.04] dark:bg-white/[.06] border-4 !border-[color:var(--color-brand)]"
                   delayMs={200}
                   rounded="rounded-2xl lg:rounded-3xl"
                 >
