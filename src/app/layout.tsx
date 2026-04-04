@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Comic_Neue, Geist, Geist_Mono } from "next/font/google";
-import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -115,19 +114,6 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
-      <head>
-        <Script
-          id="revaea-system-theme-init"
-          strategy="beforeInteractive"
-        >{`(function(){
-  try {
-    var root = document.documentElement;
-    var mql = window.matchMedia('(prefers-color-scheme: dark)');
-    if (mql && mql.matches) root.classList.add('dark');
-    else root.classList.remove('dark');
-  } catch (_) {}
-})();`}</Script>
-      </head>
       <body 
         className="antialiased min-h-dvh bg-background text-foreground"
         style={{ overscrollBehavior: 'none' }}
