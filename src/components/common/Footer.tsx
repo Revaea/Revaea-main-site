@@ -4,31 +4,19 @@ import { RevealImage } from "@/components/ui/reveal";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-black/5 dark:border-white/10 mt-20 relative z-40 overflow-hidden backdrop-blur-md bg-white/60 dark:bg-black/60 select-none">
-      {/* Mobile: full width/height cover */}
-      <div aria-hidden="true" className="md:hidden absolute inset-0 z-0 pointer-events-none opacity-25 dark:opacity-15">
-        <RevealImage
-          src="/img/footer/footer.webp"
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover object-right-top"
-          priority={false}
-        />
-      </div>
-
-      {/* Desktop: right side, full height */}
+    <footer className="mt-20 relative z-40 overflow-hidden select-none backdrop-blur-md bg-background/60 border-t border-[color:color-mix(in_oklab,var(--color-brand)_28%,transparent)] shadow-[0_-14px_32px_color-mix(in_oklab,var(--color-brand)_15%,transparent)]">
+      {/* Background image: one instance for both mobile + desktop (avoid double loads) */}
       <div
         aria-hidden="true"
-        className="hidden md:block absolute inset-y-0 right-0 z-0 pointer-events-none w-[40vw] max-w-[520px] min-w-[280px] opacity-35 dark:opacity-20"
+        className="absolute inset-0 md:inset-y-0 md:right-0 md:left-auto z-0 pointer-events-none opacity-20 md:opacity-28 md:w-[40vw] md:max-w-[520px] md:min-w-[280px]"
       >
         <RevealImage
           src="/img/footer/footer.webp"
           alt=""
           fill
-          sizes="(min-width: 768px) 40vw"
-          className="object-cover object-right"
-          priority={false}
+          preload
+          sizes="(min-width: 768px) 40vw, 100vw"
+          className="object-cover object-right-top md:object-right"
         />
       </div>
 
