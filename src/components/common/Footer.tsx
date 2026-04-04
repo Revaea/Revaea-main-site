@@ -4,7 +4,7 @@ import { RevealImage } from "@/components/ui/reveal";
 
 export default function Footer() {
   return (
-    <footer className="mt-20 relative z-40 overflow-hidden select-none backdrop-blur-md bg-background/60 border-t border-[color:color-mix(in_oklab,var(--color-brand)_28%,transparent)] shadow-[0_-14px_32px_color-mix(in_oklab,var(--color-brand)_5%,transparent)]">
+    <footer className="mt-20 relative z-40 overflow-hidden select-none backdrop-blur-md bg-background/60 border-t border-[color:color-mix(in_oklab,var(--foreground)_12%,transparent)] shadow-[0_-14px_32px_color-mix(in_oklab,var(--foreground)_4%,transparent)]">
       {/* Background image: one instance for both mobile + desktop (avoid double loads) */}
       <div
         aria-hidden="true"

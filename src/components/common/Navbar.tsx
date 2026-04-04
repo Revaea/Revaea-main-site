@@ -51,7 +51,7 @@ export default function Navbar() {
   return (
     <>
       {/* Mobile: standard top navbar (no dock style) */}
-      <header className="md:hidden sticky top-0 z-50 w-full border-b border-[color:color-mix(in_oklab,var(--color-brand)_34%,transparent)] backdrop-blur supports-[backdrop-filter]:bg-background/70 shadow-[0_8px_20px_color-mix(in_oklab,var(--color-brand)_8%,transparent)]">
+      <header className="md:hidden sticky top-0 z-50 w-full border-b border-[color:color-mix(in_oklab,var(--foreground)_12%,transparent)] backdrop-blur supports-[backdrop-filter]:bg-background/70 shadow-[0_8px_20px_color-mix(in_oklab,var(--foreground)_6%,transparent)]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-[68px] flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 font-semibold" aria-label="Home">
             <Image src="/favicon.ico" alt="Revaea logo" width={24} height={24} preload />
@@ -82,8 +82,8 @@ export default function Navbar() {
               "transition-[box-shadow,border-color] duration-300 ease-out motion-reduce:transition-none " +
               "bg-background/70 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 " +
               (isAtTop
-                ? "border border-x-transparent border-t-transparent border-b border-b-[color:color-mix(in_oklab,var(--color-brand)_30%,transparent)] dark:border-b-[color:color-mix(in_oklab,var(--color-brand)_40%,transparent)] shadow-[0_8px_20px_color-mix(in_oklab,var(--color-brand)_8%,transparent)]"
-                : "border border-[color:color-mix(in_oklab,var(--color-brand)_30%,transparent)] dark:border-[color:color-mix(in_oklab,var(--color-brand)_40%,transparent)] shadow-[0_20px_60px_color-mix(in_oklab,var(--color-brand)_18%,transparent)] dark:shadow-[0_18px_60px_rgba(0,0,0,0.65),0_0_42px_color-mix(in_oklab,var(--color-brand)_60%,transparent)]")
+                ? "border border-x-transparent border-t-transparent border-b border-b-[color:color-mix(in_oklab,var(--foreground)_12%,transparent)] shadow-[0_8px_20px_color-mix(in_oklab,var(--foreground)_6%,transparent)]"
+                : "border border-[color:color-mix(in_oklab,var(--foreground)_16%,transparent)] shadow-[0_20px_60px_color-mix(in_oklab,var(--foreground)_12%,transparent)]")
             }
           >
             <div
