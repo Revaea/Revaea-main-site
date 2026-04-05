@@ -26,29 +26,65 @@ export default function BackgroundMagnetLines({
   style = {},
 }: BackgroundMagnetLinesProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [isMobile, setIsMobile] = useState(true);
-  const [mounted, setMounted] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState<boolean | null>(null);
+  const [containerBox, setContainerBox] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+    const mql = window.matchMedia("(max-width: 1023.98px)");
+
+    const apply = () => {
+      setIsSmallScreen(mql.matches);
     };
 
-    const timerId = setTimeout(() => {
-      setMounted(true);
-      checkIfMobile();
-    }, 0);
+    apply();
 
-    window.addEventListener("resize", checkIfMobile);
+    if (typeof mql.addEventListener === "function") {
+      mql.addEventListener("change", apply);
+      return () => mql.removeEventListener("change", apply);
+    }
 
-    return () => {
-      clearTimeout(timerId);
-      window.removeEventListener("resize", checkIfMobile);
+    const legacyMql = mql as unknown as {
+      addListener?: (listener: () => void) => void;
+      removeListener?: (listener: () => void) => void;
     };
+
+    const add = legacyMql.addListener;
+    const remove = legacyMql.removeListener;
+
+    if (typeof add === "function" && typeof remove === "function") {
+      add(apply);
+      return () => remove(apply);
+    }
+
+    return;
   }, []);
 
   useEffect(() => {
-    if (isMobile || !mounted) return;
+    if (isSmallScreen === true) return;
+
+    const el = containerRef.current;
+    if (!el) return;
+
+    const update = () => {
+      const rect = el.getBoundingClientRect();
+      setContainerBox({ width: rect.width, height: rect.height });
+    };
+
+    update();
+
+    const ro = new ResizeObserver(() => {
+      update();
+    });
+
+    ro.observe(el);
+
+    return () => {
+      ro.disconnect();
+    };
+  }, [isSmallScreen]);
+
+  useEffect(() => {
+    if (isSmallScreen !== false) return;
 
     const container = containerRef.current;
     if (!container) return;
@@ -85,9 +121,30 @@ export default function BackgroundMagnetLines({
     return () => {
       window.removeEventListener("pointermove", handlePointerMove);
     };
-  }, [isMobile, mounted]);
+  }, [isSmallScreen, containerBox.width, containerBox.height]);
 
-  const total = rows * columns;
+  const safeWidth = Math.max(containerBox.width, 1);
+  const safeHeight = Math.max(containerBox.height, 1);
+  const minSide = Math.min(safeWidth, safeHeight);
+  const minDivisions = 4;
+  const maxDivisions = Math.max(minDivisions, Math.min(rows, columns));
+  const targetCellPx = 140;
+  const baseDivisions = Math.min(
+    maxDivisions,
+    Math.max(minDivisions, Math.round(minSide / targetCellPx)),
+  );
+
+  const ratio = safeWidth / safeHeight;
+  const effectiveColumns = Math.min(
+    Math.max(minDivisions, columns),
+    Math.max(minDivisions, Math.round(baseDivisions * ratio)),
+  );
+  const effectiveRows = Math.min(
+    Math.max(minDivisions, rows),
+    Math.max(minDivisions, Math.round(baseDivisions / ratio)),
+  );
+
+  const total = effectiveRows * effectiveColumns;
   const spans = Array.from({ length: total }, (_, i) => (
     <span
       key={i}
@@ -103,17 +160,17 @@ export default function BackgroundMagnetLines({
     />
   ));
 
-  if (isMobile && mounted) {
+  if (isSmallScreen === true) {
     return null;
   }
 
   return (
     <div
       ref={containerRef}
-      className={`grid place-items-center ${className}`}
+      className={`hidden lg:grid place-items-center ${className}`}
       style={{
-        gridTemplateColumns: `repeat(${columns}, 1fr)`,
-        gridTemplateRows: `repeat(${rows}, 1fr)`,
+        gridTemplateColumns: `repeat(${effectiveColumns}, minmax(0, 1fr))`,
+        gridTemplateRows: `repeat(${effectiveRows}, minmax(0, 1fr))`,
         width: containerSize,
         height: containerSize,
         ...style,
