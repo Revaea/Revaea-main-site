@@ -2,9 +2,8 @@ import type { StaggeredMenuItem, StaggeredMenuSocialItem } from "@/components/ui
 
 export const MENU_ITEMS: StaggeredMenuItem[] = [
   { label: "Home", ariaLabel: "Go to home page", link: "/" },
-  { label: "IGCrystal", ariaLabel: "Open IGCrystal page", link: "/igcrystal" },
-  { label: "About", ariaLabel: "Learn about me", link: "https://github.com/Revaea" },
   { label: "Blog", ariaLabel: "View my blog", link: "https://blog.igcrystal.icu/blog/" },
+  { label: "HLS", ariaLabel: "Browse HLS content", link: "https://hls.revaea.com" },
 ];
 
 export const SOCIAL_ITEMS: StaggeredMenuSocialItem[] = [
